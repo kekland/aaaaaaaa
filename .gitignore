@@ -1,0 +1,6 @@
+# FVM Version Cache
+.fvm/
+lib/keys.dart
+**/.build
+**/.dart_tool
+**/*.xcframework
