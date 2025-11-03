@@ -1,12 +1,12 @@
-name: FlMbglBindings
+name: FlMlnBindings
 language: c
 
 output: 
-  bindings: 'lib/gen/flmbgl_bindings.dart'
+  bindings: 'lib/gen/flmln_bindings.dart'
 
 headers:
   entry-points:
-    - src/src/flmbgl.h
+    - src/src/flmln.h
 
 functions:
   include:

@@ -1,4 +1,4 @@
-import 'package:flmbgl/flmbgl.dart';
+import 'package:flmln/flmln.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'aaaaaaaa',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(body: FlMbglWidget()),
+      home: Scaffold(body: FlMlnWindget()),
     );
   }
 }

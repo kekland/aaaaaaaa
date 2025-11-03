@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flmbgl:
+  flmln:
     path: ../
 
 dev_dependencies:

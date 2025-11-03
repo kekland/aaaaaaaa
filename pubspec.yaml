@@ -1,4 +1,4 @@
-name: flmbgl
+name: flmln
 publish_to: none
 version: 0.0.0
 
@@ -21,8 +21,8 @@ flutter:
   plugin:
     platforms:
       ios:
-        pluginClass: FlMbglPluginIOS
+        pluginClass: FlMlnPluginIOS
         ffiPlugin: true
       macos:
-        pluginClass: FlMbglPluginMacOS
+        pluginClass: FlMlnPluginMacOS
         ffiPlugin: true

@@ -1,54 +1,43 @@
 load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
 load("@rules_apple//apple:apple.bzl", "apple_xcframework")
+load("@rules_android//rules:rules.bzl", "android_library")
 
 # --- Common ---
 
-FLMBGL_SRCS = glob(["src/**/*.cpp"])
-FLMBGL_HDRS = glob(["src/**/*.h", "src/**/*.hpp"])
-FLMBGL_PUBLIC_HDRS = glob(["src/**/*.h"])
-FLMBGL_FLAGS = ['-fobjc-arc']
-
-cc_library(
-    name = "flmbgl_srcs",
-    deps = [
-        "//platform/default:mbgl-default",
-        "//:mbgl-core",
-    ],
-    srcs = FLMBGL_SRCS,
-    hdrs = FLMBGL_HDRS,
-    # TODO: separate flags per platform
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + FLMBGL_FLAGS + ["-DFLMBGL_MACOS=1", "-DFLMBGL_MTL=1"],
-    visibility = ["//visibility:private"],
-)
-
-# --- Android ---
-
-# ... TODO
+FLMLN_SRCS = glob(["src/**/*.cpp"])
+FLMLN_HDRS = glob(["src/**/*.h", "src/**/*.hpp"])
+FLMLN_PUBLIC_HDRS = glob(["src/**/*.h"])
+FLMLN_FLAGS = ["-fobjc-arc"]
+FLMLN_LINKOPTS = [
+    "-L/opt/homebrew/opt/icu4c/lib",
+]
 
 # --- iOS ---
 
 objc_library(
-    name = "flmbgl_ios",
+    name = "flmln_ios",
     deps = [
         "//platform/default:mbgl-default",
         "//platform:ios-sdk",
-        ":flmbgl_srcs",
+        "//:mbgl-core"
     ],
-    hdrs = FLMBGL_HDRS,
-    linkopts = [
-        "-L/opt/homebrew/opt/icu4c/lib",
-        "-undefined", "dynamic_lookup",
-        "-force_load", "$(location :flmbgl_srcs)",
+    srcs = FLMLN_SRCS,
+    hdrs = FLMLN_HDRS,
+    copts = CPP_FLAGS + MAPLIBRE_FLAGS + FLMLN_FLAGS,
+    linkopts = FLMLN_LINKOPTS,
+    defines = [
+        "FLMLN_IOS=1",
+        "FLMLN_MTL=1"
     ],
     visibility = ["//visibility:public"],
 )
 
 apple_xcframework(
-    name = "flmbgl_ios_xcframework",
-    deps = [":flmbgl_ios"],
-    bundle_id = "com.kekland.flmbgl",
-    infoplists = ["src/Info.plist"],
-    public_hdrs = FLMBGL_PUBLIC_HDRS,
+    name = "flmln_ios_xcframework",
+    deps = [":flmln_ios"],
+    bundle_id = "com.kekland.flmln",
+    infoplists = ["darwin/Info.plist"],
+    public_hdrs = FLMLN_PUBLIC_HDRS,
     minimum_os_versions = {"ios": "12.0"},
     ios = {
         "simulator": ["x86_64", "arm64"],
@@ -60,31 +49,63 @@ apple_xcframework(
 # --- macOS ---
 
 objc_library(
-    name = "flmbgl_macos",
+    name = "flmln_macos",
     deps = [
         "//platform/default:mbgl-default",
         "//platform:macos-objcpp",
-        ":flmbgl_srcs",
+        "//:mbgl-core"
     ],
-    hdrs = FLMBGL_PUBLIC_HDRS,
-    linkopts = [
-        "-L/opt/homebrew/opt/icu4c/lib",
-        "-undefined", "dynamic_lookup",
-        "-force_load", "$(location :flmbgl_srcs)",
+    srcs = FLMLN_SRCS,
+    hdrs = FLMLN_HDRS,
+    copts = CPP_FLAGS + MAPLIBRE_FLAGS + FLMLN_FLAGS,
+    linkopts = FLMLN_LINKOPTS,
+    defines = [
+        "FLMLN_MACOS=1",
+        "FLMLN_MTL=1"
     ],
     visibility = ["//visibility:public"],
 )
 
 apple_xcframework(
-    name = "flmbgl_macos_xcframework",
-    deps = [":flmbgl_macos"],
-    bundle_id = "com.kekland.flmbgl",
-    infoplists = ["src/Info.plist"],
-    public_hdrs = FLMBGL_PUBLIC_HDRS,
+    name = "flmln_macos_xcframework",
+    deps = [":flmln_macos"],
+    bundle_id = "com.kekland.flmln",
+    infoplists = ["darwin/Info.plist"],
+    public_hdrs = FLMLN_PUBLIC_HDRS,
     minimum_os_versions = {"macos": "10.15"},
     macos = ["x86_64", "arm64"],
     visibility = ["//visibility:public"],
 )
+
+# --- Android ---
+
+cc_library(
+    name = "flmln_android_native",
+    deps = [
+        "//platform/default:mbgl-default",
+        "//:mbgl-core",
+    ],
+    srcs = FLMLN_SRCS,
+    hdrs = FLMLN_HDRS,
+    copts = CPP_FLAGS + MAPLIBRE_FLAGS + FLMLN_FLAGS,
+    linkopts = FLMLN_LINKOPTS + ['-lEGL'],
+    defines = [
+        "FLMLN_ANDROID=1",
+        "FLMLN_OPENGL=1"
+    ],
+    visibility = ["//visibility:public"],
+)
+
+android_library(
+    name = "flmln_android",
+    srcs = glob(["android/**/*.java"]),
+    deps = [":flmln_android_native"],
+    manifest = "android/AndroidManifest.xml",
+    custom_package = "com.kekland.flmln",
+    visibility = ["//visibility:public"]
+)
+
+# ... TODO
 
 # Linux
 
