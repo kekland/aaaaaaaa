@@ -19,13 +19,6 @@ extern "C" int64_t FlutterTextureRegistryProxy_registerTexture(texture_registry_
 extern "C" void FlutterTextureRegistryProxy_textureFrameAvailable(texture_registry_t registry, int64_t textureId);
 extern "C" void FlutterTextureRegistryProxy_unregisterTexture(texture_registry_t registry, int64_t textureId);
 
-// FlMbglFlutterTexture.swift
-extern "C" flmbgl_flutter_texture_t FlMbglFlutterTexture_create();
-extern "C" void FlMbglFlutterTexture_destroy(flmbgl_flutter_texture_t texture);
-extern "C" void FlMbglFlutterTexture_createBuffer(flmbgl_flutter_texture_t texture, uint32_t width, uint32_t height,
-                                                  uint32_t depth);
-extern "C" void FlMbglFlutterTexture_setBufferData(flmbgl_flutter_texture_t texture, const void* data, size_t length);
-
 // FlMbglMetalFlutterTexture.swift
 extern "C" flmbgl_metal_flutter_texture_t FlMbglMetalFlutterTexture_create();
 extern "C" void FlMbglMetalFlutterTexture_destroy(flmbgl_metal_flutter_texture_t texture);
@@ -33,7 +26,7 @@ extern "C" void FlMbglMetalFlutterTexture_updateBuffer(flmbgl_metal_flutter_text
                                                        MTL::Texture* mtlTexture);
 
 namespace flmbgl {
-namespace macos {
+namespace darwin {
 
 class FlutterTextureInterface : public flmbgl::FlutterTextureInterface {
  public:
