@@ -1,12 +1,13 @@
 #include "flmln.h"
 
+#include <cstdint>
 #include <mbgl/map/map.hpp>
 #include <mbgl/style/style.hpp>
 #include <mbgl/util/run_loop.hpp>
 
 #include "flmln/map_observer.hpp"
-#include "flmln/renderer_frontend.hpp"
 #include "flmln/platform.hpp"
+#include "flmln/renderer_frontend.hpp"
 
 int test_flmln() { return 42; }
 
@@ -114,7 +115,7 @@ void flmln_renderer_frontend_destroy(flmln_renderer_frontend_t _rendererFrontend
 
 void flmln_renderer_frontend_render(flmln_renderer_frontend_t _rendererFrontend) {
   auto* rendererFrontend = reinterpret_cast<flmln::RendererFrontend*>(_rendererFrontend);
-  mbgl::util::RunLoop::Get()->waitForEmpty();
+  mbgl::util::RunLoop::Get()->runOnce();
   rendererFrontend->renderFrame();
 }
 
@@ -127,6 +128,11 @@ void flmln_renderer_frontend_set_size_and_pixel_ratio(flmln_renderer_frontend_t 
 int64_t flmln_renderer_frontend_get_texture_id(flmln_renderer_frontend_t _rendererFrontend) {
   auto* rendererFrontend = reinterpret_cast<flmln::RendererFrontend*>(_rendererFrontend);
   return rendererFrontend->getTextureId();
+}
+
+void flmln_renderer_frontend_set_invalidate_callback(flmln_renderer_frontend_t _rendererFrontend, void (*callback)()) {
+  auto* rendererFrontend = reinterpret_cast<flmln::RendererFrontend*>(_rendererFrontend);
+  rendererFrontend->setInvalidateCallback([callback]() { callback(); });
 }
 
 // ---------------------------------
@@ -198,6 +204,4 @@ void mbgl_map_set_size(mbgl_map_t _map, uint32_t width, uint32_t height) {
 // utils
 // ---------------------------------
 
-void flmln_utils_run_loop_once() {
-  mbgl::util::RunLoop::Get()->runOnce();
-}
+void flmln_utils_run_loop_once() { mbgl::util::RunLoop::Get()->runOnce(); }

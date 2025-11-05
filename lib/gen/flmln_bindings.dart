@@ -310,6 +310,25 @@ class FlMlnBindings {
   late final _flmln_renderer_frontend_get_texture_id = _flmln_renderer_frontend_get_texture_idPtr
       .asFunction<int Function(flmln_renderer_frontend_t)>();
 
+  void flmln_renderer_frontend_set_invalidate_callback(
+    flmln_renderer_frontend_t _rendererFrontend,
+    ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> invalidateCallback,
+  ) {
+    return _flmln_renderer_frontend_set_invalidate_callback(
+      _rendererFrontend,
+      invalidateCallback,
+    );
+  }
+
+  late final _flmln_renderer_frontend_set_invalidate_callbackPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(flmln_renderer_frontend_t, ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)
+        >
+      >('flmln_renderer_frontend_set_invalidate_callback');
+  late final _flmln_renderer_frontend_set_invalidate_callback = _flmln_renderer_frontend_set_invalidate_callbackPtr
+      .asFunction<void Function(flmln_renderer_frontend_t, ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
+
   mbgl_camera_options_t mbgl_camera_options_create() {
     return _mbgl_camera_options_create();
   }

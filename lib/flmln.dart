@@ -24,8 +24,9 @@ class FlMlnWindget extends StatefulWidget {
   State<FlMlnWindget> createState() => FlMlnWindgetState();
 }
 
-class FlMlnWindgetState extends State<FlMlnWindget> with SingleTickerProviderStateMixin {
-  // late final _ticker = Ticker(_onTick)..start();
+typedef VoidCallback = Void Function();
+
+class FlMlnWindgetState extends State<FlMlnWindget> {
   var enabled = false;
 
   late gen.mbgl_tile_server_options_t tileServerOptions;
@@ -34,6 +35,8 @@ class FlMlnWindgetState extends State<FlMlnWindget> with SingleTickerProviderSta
   late gen.mbgl_map_options_t mapOptions;
   late gen.mbgl_resource_options_t resourceOptions;
   late gen.mbgl_map_t map;
+
+  final repaint = ChangeNotifier();
 
   @override
   void initState() {
@@ -60,13 +63,21 @@ class FlMlnWindgetState extends State<FlMlnWindget> with SingleTickerProviderSta
 
     bindings.mbgl_map_style_load_url(map, styleUrl.toNativeUtf8().cast());
 
+    final onTick = NativeCallable<VoidCallback>.listener(_onTick);
+    bindings.flmln_renderer_frontend_set_invalidate_callback(rendererFrontend, onTick.nativeFunction);
+
     WidgetsBinding.instance.addPersistentFrameCallback((_) {
       bindings.flmln_utils_run_loop_once();
     });
   }
 
-  void _onTick(_) {
-    setState(() {});
+  void _onTick() {
+    // print('tick');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        repaint.notifyListeners();
+      }
+    });
   }
 
   @override
@@ -79,6 +90,7 @@ class FlMlnWindgetState extends State<FlMlnWindget> with SingleTickerProviderSta
               pixelRatio: MediaQuery.devicePixelRatioOf(context),
               rendererFrontend: rendererFrontend,
               map: map,
+              repaint: repaint,
             ),
             child: SizedBox.expand(),
           ),
@@ -149,6 +161,7 @@ class _MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // print('paint');
     bindings.mbgl_map_set_size(map, size.width.toInt(), size.height.toInt());
     bindings.flmln_renderer_frontend_set_size_and_pixel_ratio(
       rendererFrontend,

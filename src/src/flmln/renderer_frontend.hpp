@@ -43,6 +43,7 @@ class RendererFrontend : public mbgl::RendererFrontend {
       auto updateParameters_ = updateParameters;
       renderer->render(updateParameters_);
       textureInterface->update(*backend);
+      renderScheduled = false;
     }
   }
 
@@ -53,6 +54,11 @@ class RendererFrontend : public mbgl::RendererFrontend {
 
   void update(std::shared_ptr<mbgl::UpdateParameters> updateParameters_) override {
     updateParameters = updateParameters_;
+    if (invalidateCallback) {
+      if (renderScheduled) return;
+      renderScheduled = true;
+      invalidateCallback();
+    }
   }
 
   const mbgl::TaggedScheduler& getThreadPool() const override { return backend->getRendererBackend()->getThreadPool(); }
@@ -64,6 +70,8 @@ class RendererFrontend : public mbgl::RendererFrontend {
 
   int64_t getTextureId() const { return textureInterface->getTextureId(); }
 
+  void setInvalidateCallback(std::function<void()> callback) { invalidateCallback = std::move(callback); }
+
  private:
   mbgl::Size size;
   float pixelRatio;
@@ -71,5 +79,7 @@ class RendererFrontend : public mbgl::RendererFrontend {
   std::unique_ptr<flmln::RendererBackend> backend;
   std::unique_ptr<mbgl::Renderer> renderer;
   std::shared_ptr<mbgl::UpdateParameters> updateParameters;
+  std::function<void()> invalidateCallback;
+  bool renderScheduled = false;
 };
 }  // namespace flmln
