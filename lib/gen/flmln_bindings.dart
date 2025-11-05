@@ -494,6 +494,15 @@ class FlMlnBindings {
     'mbgl_map_set_size',
   );
   late final _mbgl_map_set_size = _mbgl_map_set_sizePtr.asFunction<void Function(mbgl_map_t, int, int)>();
+
+  void flmln_utils_run_loop_once() {
+    return _flmln_utils_run_loop_once();
+  }
+
+  late final _flmln_utils_run_loop_oncePtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'flmln_utils_run_loop_once',
+  );
+  late final _flmln_utils_run_loop_once = _flmln_utils_run_loop_oncePtr.asFunction<void Function()>();
 }
 
 typedef __int8_t = ffi.SignedChar;

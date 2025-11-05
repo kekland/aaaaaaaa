@@ -59,6 +59,10 @@ class FlMlnWindgetState extends State<FlMlnWindget> with SingleTickerProviderSta
     );
 
     bindings.mbgl_map_style_load_url(map, styleUrl.toNativeUtf8().cast());
+
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
+      bindings.flmln_utils_run_loop_once();
+    });
   }
 
   void _onTick(_) {

@@ -114,7 +114,7 @@ void flmln_renderer_frontend_destroy(flmln_renderer_frontend_t _rendererFrontend
 
 void flmln_renderer_frontend_render(flmln_renderer_frontend_t _rendererFrontend) {
   auto* rendererFrontend = reinterpret_cast<flmln::RendererFrontend*>(_rendererFrontend);
-  mbgl::util::RunLoop::Get()->runOnce();
+  mbgl::util::RunLoop::Get()->waitForEmpty();
   rendererFrontend->renderFrame();
 }
 
@@ -192,4 +192,12 @@ void mbgl_map_jump_to(mbgl_map_t _map, mbgl_camera_options_t _cameraOptions) {
 void mbgl_map_set_size(mbgl_map_t _map, uint32_t width, uint32_t height) {
   auto* map = reinterpret_cast<mbgl::Map*>(_map);
   map->setSize({width, height});
+}
+
+// ---------------------------------
+// utils
+// ---------------------------------
+
+void flmln_utils_run_loop_once() {
+  mbgl::util::RunLoop::Get()->runOnce();
 }

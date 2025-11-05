@@ -6,6 +6,7 @@
 
 #include "../../flutter_texture_interface.hpp"
 #include "../../mtl/renderer_backend.hpp"
+#include "../../renderer_backend.hpp"
 #include "ffi.hpp"
 
 namespace flmln {

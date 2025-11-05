@@ -1,5 +1,3 @@
-#pragma once
-
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdint.h>

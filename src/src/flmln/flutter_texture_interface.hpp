@@ -2,9 +2,9 @@
 
 #include <cstdint>
 
-#include "renderer_backend.hpp"
-
 namespace flmln {
+class RendererBackend;
+
 class FlutterTextureInterface {
  public:
   FlutterTextureInterface() = default;

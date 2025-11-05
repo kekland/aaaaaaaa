@@ -99,3 +99,9 @@ EXTERNC FLMLN_EXPORT void mbgl_map_destroy(mbgl_map_t map);
 EXTERNC FLMLN_EXPORT void mbgl_map_style_load_url(mbgl_map_t _map, const char* url);
 EXTERNC FLMLN_EXPORT void mbgl_map_jump_to(mbgl_map_t _map, mbgl_camera_options_t _cameraOptions);
 EXTERNC FLMLN_EXPORT void mbgl_map_set_size(mbgl_map_t _map, uint32_t width, uint32_t height);
+
+// ---------------------------------
+// utils
+// ---------------------------------
+
+EXTERNC FLMLN_EXPORT void flmln_utils_run_loop_once();
