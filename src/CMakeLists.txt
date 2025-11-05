@@ -66,21 +66,27 @@ if (PLATFORM_IOS OR PLATFORM_MACOS)
     src/flmln/platform/darwin/ffi.cpp
     src/flmln/platform/darwin/ffi.hpp
   )
+
+  list(APPEND FLMLN_SOURCES
+    src/flmln/mtl/renderer_backend.hpp
+    src/flmln/mtl/renderer_backend.cpp
+  )
 elseif (PLATFORM_ANDROID)
   list(APPEND FLMLN_SOURCES
     src/flmln/platform/android/flutter_texture_interface.cpp
     src/flmln/platform/android/flutter_texture_interface.hpp
+    src/flmln/platform/android/flutter_texture.hpp
     src/flmln/platform/android/platform.cpp
   )
-endif()
 
-# Graphics backend-specific source files
-if (MLN_WITH_METAL)
-  list(APPEND FLMLN_SOURCES src/flmln/mtl/renderer_backend.hpp src/flmln/mtl/renderer_backend.cpp)
-elseif (MLN_WITH_OPENGL)
-  list(APPEND FLMLN_SOURCES src/flmln/gl/renderer_backend.hpp src/flmln/gl/renderer_backend.cpp)
-elseif (MLN_WITH_VULKAN)
-  list(APPEND FLMLN_SOURCES src/flmln/vulkan/renderer_backend.hpp src/flmln/vulkan/renderer_backend.cpp)
+  if (MLN_WITH_OPENGL)
+    list(APPEND FLMLN_SOURCES
+      src/flmln/platform/android/renderer_backend.hpp
+      src/flmln/platform/android/renderer_backend.cpp
+      src/flmln/platform/android/window_renderable_resource.hpp
+      src/flmln/platform/android/window_renderable_resource.cpp
+    )
+  endif()
 endif()
 
 # Define the shared library

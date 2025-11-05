@@ -10,25 +10,13 @@ import org.maplibre.android.MapLibre
 
 import android.util.Log
 
-class FlMlnPlugin : FlutterPlugin, MethodCallHandler {
-    private lateinit var channel : MethodChannel
-
+class FlMlnPlugin : FlutterPlugin {
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         Thread.currentThread().contextClassLoader = this::class.java.classLoader
         NativeBridge.nativeInitialize(flutterPluginBinding.applicationContext)
 
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flmln")
-        channel.setMethodCallHandler(this)
-
         MapLibre.init(flutterPluginBinding.applicationContext)
-    }
-
-    override fun onMethodCall(call: MethodCall, result: Result) {
-      if (call.method == "getPlatformVersion") {
-        result.success("Android ${android.os.Build.VERSION.RELEASE}")
-      } else {
-        result.notImplemented()
-      }
+        FlMlnPluginGlobals.setFlutterTextureRegistryProxy(FlutterTextureRegistryProxy(flutterPluginBinding.textureRegistry))
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {

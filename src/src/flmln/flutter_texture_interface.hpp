@@ -10,7 +10,7 @@ class FlutterTextureInterface {
   FlutterTextureInterface() = default;
   virtual ~FlutterTextureInterface() = default;
 
-  static std::unique_ptr<FlutterTextureInterface> Create();
+  static std::shared_ptr<FlutterTextureInterface> Create();
 
   // Returns the associated FlutterTexture id.
   virtual int64_t getTextureId() const = 0;

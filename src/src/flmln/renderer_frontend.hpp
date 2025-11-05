@@ -13,9 +13,9 @@ namespace flmln {
 class RendererFrontend : public mbgl::RendererFrontend {
  public:
   RendererFrontend(const std::optional<std::string>& localFontFamily) : size({0, 0}), pixelRatio(0.0f) {
-    backend = flmln::RendererBackend::create(mbgl::gfx::ContextMode::Unique);
-    renderer = std::make_unique<mbgl::Renderer>(*getBackend(), 2.0f, localFontFamily);
     textureInterface = flmln::FlutterTextureInterface::Create();
+    backend = flmln::RendererBackend::create(textureInterface, mbgl::gfx::ContextMode::Unique);
+    renderer = std::make_unique<mbgl::Renderer>(*getBackend(), 2.0f, localFontFamily);
   }
 
   // Return the RendererBackend for this frontend.
@@ -42,8 +42,6 @@ class RendererFrontend : public mbgl::RendererFrontend {
 
       auto updateParameters_ = updateParameters;
       renderer->render(updateParameters_);
-
-      auto texture = backend->getTexture();
       textureInterface->update(*backend);
     }
   }
@@ -69,8 +67,8 @@ class RendererFrontend : public mbgl::RendererFrontend {
  private:
   mbgl::Size size;
   float pixelRatio;
+  std::shared_ptr<flmln::FlutterTextureInterface> textureInterface;
   std::unique_ptr<flmln::RendererBackend> backend;
-  std::unique_ptr<flmln::FlutterTextureInterface> textureInterface;
   std::unique_ptr<mbgl::Renderer> renderer;
   std::shared_ptr<mbgl::UpdateParameters> updateParameters;
 };
