@@ -1,6 +1,6 @@
 #include "flmln.h"
 
-#include <cstdint>
+#include <stdint.h>
 #include <mbgl/map/map.hpp>
 #include <mbgl/style/style.hpp>
 #include <mbgl/util/run_loop.hpp>

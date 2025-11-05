@@ -21,7 +21,7 @@ plugin_root = pathlib.Path(__file__).parent.parent
 maplibre_root = plugin_root / 'third-party/maplibre-native'
 maplibre_flutter_root = maplibre_root / 'platform/flutter'
 
-build_type = 'Debug'
+build_type = 'RelWithDebInfo'
 
 # only for verbose builds
 verbose = False
