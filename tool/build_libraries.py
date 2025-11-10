@@ -178,7 +178,7 @@ def build_macos_xcframework(output_path):
 #
 # Returns: path to built library
 def build_android_for_abi(abi):
-  with tqdm(total=1, desc=f'build_android_for_abi({abi})', unit='step', colour='blue') as pbar:
+  with tqdm(total=2, desc=f'build_android_for_abi({abi})', unit='step', colour='blue') as pbar:
     android_ndk_home = os.environ.get('ANDROID_NDK_HOME')
     ndk_toolchain = f"{android_ndk_home}/build/cmake/android.toolchain.cmake"
   
@@ -192,6 +192,7 @@ def build_android_for_abi(abi):
         'ANDROID_PLATFORM': '23',
       }
     )
+    pbar.update(1)
   
     execute_cmake_build(build_dir)
     return maplibre_root / build_dir / f'libflmln.so'

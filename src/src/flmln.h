@@ -23,6 +23,14 @@ typedef void* mbgl_camera_options_t;
 typedef void* mbgl_style_t;
 typedef void* mbgl_style_layer_t;
 typedef void* mbgl_style_background_layer_t;
+typedef void* mbgl_style_expression_t;
+typedef void* mbgl_style_expression_image_t;
+typedef void* mbgl_style_expression_formatted_t;
+typedef void* mbgl_style_property_value_t;
+typedef void* mbgl_color_t;
+typedef void* mbgl_padding_t;
+typedef void* mbgl_variable_anchor_offset_collection_t;
+typedef void* mbgl_property_value_t;
 
 // ---------------------------------
 // mbgl_map_options_t
@@ -114,6 +122,58 @@ EXTERNC FLMLN_EXPORT mbgl_style_t mbgl_map_get_style(mbgl_map_t _map);
 EXTERNC FLMLN_EXPORT mbgl_style_layer_t mbgl_style_get_layer(mbgl_style_t _style, const char* layerId);
 EXTERNC FLMLN_EXPORT void mbgl_style_background_layer_set_background_color(mbgl_style_layer_t _layer,
                                                                            const char* color);
+
+// ---------------------------------
+// mbgl_style_expression_t
+// ---------------------------------
+
+// ---------------------------------
+// mbgl_style_layer_t
+// ---------------------------------
+
+enum MbglStyleLayerType {
+  MbglStyleLayerType_Fill = 0,
+  MbglStyleLayerType_Line = 1,
+  MbglStyleLayerType_Symbol = 2,
+  MbglStyleLayerType_Circle = 3,
+  MbglStyleLayerType_Heatmap = 4,
+  MbglStyleLayerType_FillExtrusion = 5,
+  MbglStyleLayerType_Raster = 6,
+  MbglStyleLayerType_Hillshade = 7,
+  MbglStyleLayerType_Background = 8,
+  MbglStyleLayerType_Unknown = 9,
+};
+
+EXTERNC FLMLN_EXPORT void mbgl_style_layer_destroy(mbgl_style_layer_t _layer);
+
+EXTERNC FLMLN_EXPORT const char* mbgl_style_layer_get_id(mbgl_style_layer_t _layer);
+EXTERNC FLMLN_EXPORT enum MbglStyleLayerType mbgl_style_layer_get_type(mbgl_style_layer_t _layer);
+
+EXTERNC FLMLN_EXPORT const char* mbgl_style_layer_get_source(mbgl_style_layer_t _layer);
+EXTERNC FLMLN_EXPORT void mbgl_style_layer_set_source(mbgl_style_layer_t _layer, const char* sourceId);
+
+EXTERNC FLMLN_EXPORT const char* mbgl_style_layer_get_source_layer(mbgl_style_layer_t _layer);
+EXTERNC FLMLN_EXPORT void mbgl_style_layer_set_source_layer(mbgl_style_layer_t _layer, const char* sourceLayerId);
+
+EXTERNC FLMLN_EXPORT float mbgl_style_layer_get_min_zoom(mbgl_style_layer_t _layer);
+EXTERNC FLMLN_EXPORT void mbgl_style_layer_set_min_zoom(mbgl_style_layer_t _layer, float minZoom);
+
+EXTERNC FLMLN_EXPORT float mbgl_style_layer_get_max_zoom(mbgl_style_layer_t _layer);
+EXTERNC FLMLN_EXPORT void mbgl_style_layer_set_max_zoom(mbgl_style_layer_t _layer, float maxZoom);
+
+// ---------------------------------
+// mbgl_color_t
+// ---------------------------------
+
+EXTERNC FLMLN_EXPORT mbgl_color_t mbgl_color_create_from_rgba(float r, float g, float b, float a);
+EXTERNC FLMLN_EXPORT void mbgl_color_destroy(mbgl_color_t _color);
+
+// --------------------------------
+// mbgl_padding_t
+// --------------------------------
+
+EXTERNC FLMLN_EXPORT mbgl_padding_t mbgl_padding_create(float top, float left, float bottom, float right);
+EXTERNC FLMLN_EXPORT void mbgl_padding_destroy(mbgl_padding_t _padding);
 
 // ---------------------------------
 // utils

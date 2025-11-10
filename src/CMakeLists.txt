@@ -50,6 +50,8 @@ add_subdirectory(../.. ../build-maplibre-native EXCLUDE_FROM_ALL)
 set(FLMLN_SOURCES
   src/flmln.cpp
   src/flmln.h
+  src/flmln_style_gen.cpp
+  src/flmln_style_gen.h
   src/flmln/flutter_texture_interface.hpp
   src/flmln/map_observer.hpp
   src/flmln/platform.hpp

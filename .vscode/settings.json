@@ -95,6 +95,7 @@
     "variant": "cpp",
     "vector": "cpp",
     "algorithm": "cpp",
-    "__availability": "cpp"
+    "__availability": "cpp",
+    "__config": "c"
   }
 }

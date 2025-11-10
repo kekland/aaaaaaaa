@@ -1,15 +1,23 @@
 #include "flmln.h"
 
+#include <array>
 #include <stdint.h>
+
 #include <mbgl/map/map.hpp>
+#include <mbgl/style/layer.hpp>
+#include <mbgl/style/layers/background_layer.hpp>
+#include <mbgl/style/layers/line_layer.hpp>
+#include <mbgl/style/layers/symbol_layer.hpp>
 #include <mbgl/style/style.hpp>
+#include <mbgl/style/expression/expression.hpp>
+#include <mbgl/style/expression/coalesce.hpp>
+#include <mbgl/style/expression/dsl.hpp>
+#include <mbgl/style/expression/comparison.hpp>
 #include <mbgl/util/run_loop.hpp>
 
 #include "flmln/map_observer.hpp"
 #include "flmln/platform.hpp"
 #include "flmln/renderer_frontend.hpp"
-#include <mbgl/style/layer.hpp>
-#include <mbgl/style/layers/background_layer.hpp>
 
 int test_flmln() { return 42; }
 
@@ -221,6 +229,114 @@ mbgl_style_layer_t mbgl_style_get_layer(mbgl_style_t _style, const char* layerId
 void mbgl_style_background_layer_set_background_color(mbgl_style_layer_t _layer, const char* color) {
   auto* layer = reinterpret_cast<mbgl::style::BackgroundLayer*>(_layer);
   layer->setBackgroundColor(mbgl::style::PropertyValue<mbgl::Color>(mbgl::Color::parse(color).value()));
+
+  auto newLayer = new mbgl::style::BackgroundLayer("temp");
+  auto xd = new mbgl::style::SymbolLayer("temp2", "source");
+}
+
+// ---------------------------------
+// mbgl_style_layer_t
+// ---------------------------------
+
+void mbgl_style_layer_destroy(mbgl_style_layer_t _layer) { delete reinterpret_cast<mbgl::style::Layer*>(_layer); }
+
+const char* mbgl_style_layer_get_id(mbgl_style_layer_t _layer) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  auto id = layer->getID();
+
+  auto* test = reinterpret_cast<mbgl::style::LineLayer*>(_layer);
+  test->getLineColor().isUndefined();
+  return id.c_str();
+}
+
+std::map<std::string, MbglStyleLayerType> layerTypeMap = {
+    {"fill", MbglStyleLayerType_Fill},
+    {"line", MbglStyleLayerType_Line},
+    {"symbol", MbglStyleLayerType_Symbol},
+    {"circle", MbglStyleLayerType_Circle},
+    {"heatmap", MbglStyleLayerType_Heatmap},
+    {"fill-extrusion", MbglStyleLayerType_FillExtrusion},
+    {"raster", MbglStyleLayerType_Raster},
+    {"hillshade", MbglStyleLayerType_Hillshade},
+    {"background", MbglStyleLayerType_Background},
+};
+
+MbglStyleLayerType mbgl_style_layer_get_type(mbgl_style_layer_t _layer) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  auto typeInfo = layer->getTypeInfo();
+
+  auto it = layerTypeMap.find(typeInfo->type);
+  if (it != layerTypeMap.end()) return it->second;
+  return MbglStyleLayerType_Unknown;
+}
+
+const char* mbgl_style_layer_get_source(mbgl_style_layer_t _layer) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  auto sourceId = layer->getSourceID();
+  return strdup(sourceId.c_str());
+}
+
+void mbgl_style_layer_set_source(mbgl_style_layer_t _layer, const char* sourceId) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  layer->setSourceID(std::string(sourceId));
+  layer->getMinZoom();
+}
+
+const char* mbgl_style_layer_get_source_layer(mbgl_style_layer_t _layer) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  auto sourceLayerId = layer->getSourceLayer();
+  return strdup(sourceLayerId.c_str());
+}
+
+void mbgl_style_layer_set_source_layer(mbgl_style_layer_t _layer, const char* sourceLayerId) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  layer->setSourceLayer(std::string(sourceLayerId));
+}
+
+float mbgl_style_layer_get_min_zoom(mbgl_style_layer_t _layer) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  return layer->getMinZoom();
+}
+
+void mbgl_style_layer_set_min_zoom(mbgl_style_layer_t _layer, float minZoom) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  layer->setMinZoom(minZoom);
+}
+
+float mbgl_style_layer_get_max_zoom(mbgl_style_layer_t _layer) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  return layer->getMaxZoom();
+}
+
+void mbgl_style_layer_set_max_zoom(mbgl_style_layer_t _layer, float maxZoom) {
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  layer->setMaxZoom(maxZoom);
+}
+
+// ---------------------------------
+// mbgl_color_t
+// ---------------------------------
+
+mbgl_color_t mbgl_color_create_from_rgba(float r, float g, float b, float a) {
+  auto* color = new mbgl::Color(r, g, b, a);
+  return reinterpret_cast<mbgl_color_t>(color);
+}
+
+void mbgl_color_destroy(mbgl_color_t _color) {
+  delete reinterpret_cast<mbgl::Color*>(_color);
+}
+
+// ---------------------------------
+// mbgl_padding_t
+// ---------------------------------
+
+mbgl_padding_t mbgl_padding_create(float top, float right, float bottom, float left) {
+  auto* padding = new mbgl::Padding{top, right, bottom, left};
+  return reinterpret_cast<mbgl_padding_t>(padding);
+}
+
+void mbgl_padding_destroy(mbgl_padding_t _padding) {
+  delete reinterpret_cast<mbgl::Padding*>(_padding);
 }
 
 // ---------------------------------

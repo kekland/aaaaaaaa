@@ -1,0 +1,67 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:path/path.dart' as p;
+
+final mbglCoreUnsupportedFields = <String>{
+  'text-overlap',
+  'icon-overlap',
+};
+
+final mbglCoreEnumUnsupportedValues = <String, List<String>>{
+  'text-rotation-alignment': ['viewport-glyph'],
+  'icon-rotation-alignment': ['viewport-glyph'],
+};
+
+final scriptDir = p.dirname(Platform.script.toFilePath());
+final projectRoot = p.normalize(p.join(scriptDir, '..'));
+final refSpecJsonFile = File(p.join(projectRoot, 'tool', 'reference', 'v8.json'));
+final spec = jsonDecode(refSpecJsonFile.readAsStringSync());
+
+final outputDartFile = File(p.join(projectRoot, 'lib', 'gen', 'style.gen.dart'));
+final outputCHeaderFile = File(p.join(projectRoot, 'src', 'src', 'flmln_style_gen.h'));
+final outputCSourceFile = File(p.join(projectRoot, 'src', 'src', 'flmln_style_gen.cpp'));
+
+const dartPreamble = [
+  '// GENERATED CODE - DO NOT MODIFY BY HAND',
+  '// Generated via tool/generate_style.dart',
+  '',
+  'part of "package:flmln/src/style/layer.dart";',
+  '',
+];
+
+const cHeaderPreamble = [
+  '// GENERATED CODE - DO NOT MODIFY BY HAND',
+  '// Generated via tool/generate_style.dart',
+  '',
+  '#pragma once',
+  '',
+  '#include "flmln.h"',
+  '#include "stdbool.h"',
+  '#include "stddef.h"',
+  '',
+  '#define const_char const char*',
+  '',
+];
+
+const cSourcePreamble = [
+  '// GENERATED CODE - DO NOT MODIFY BY HAND',
+  '// Generated via tool/generate_style.dart',
+  '',
+  '#include "flmln_style_gen.h"',
+  '',
+  '#include <mbgl/style/layer.hpp>',
+  '#include <mbgl/style/types.hpp>',
+  '#include <mbgl/style/layers/fill_layer.hpp>',
+  '#include <mbgl/style/layers/fill_extrusion_layer.hpp>',
+  '#include <mbgl/style/layers/line_layer.hpp>',
+  '#include <mbgl/style/layers/circle_layer.hpp>',
+  '#include <mbgl/style/layers/symbol_layer.hpp>',
+  '#include <mbgl/style/layers/raster_layer.hpp>',
+  '#include <mbgl/style/layers/heatmap_layer.hpp>',
+  '#include <mbgl/style/layers/background_layer.hpp>',
+  '#include <mbgl/style/layers/hillshade_layer.hpp>',
+  '',
+  'using namespace mbgl;',
+  '',
+];

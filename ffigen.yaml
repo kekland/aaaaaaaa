@@ -4,9 +4,13 @@ language: c
 output: 
   bindings: 'lib/gen/flmln_bindings.dart'
 
+ffi-native:
+  asset-id: 'flmln_bindings'
+
 headers:
   entry-points:
     - src/src/flmln.h
+    - src/src/flmln_style_gen.h
 
 functions:
   include:
