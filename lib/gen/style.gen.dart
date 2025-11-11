@@ -4,7 +4,34 @@
 part of "package:flmln/src/style/layer.dart";
 
 class FillLayer extends Layer {
-  FillLayer.fromNative({required super.ptr}) : super.fromNative();
+  FillLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  FillLayer({
+    required String id,
+    required String sourceId,
+    PropertyValue<double>? fillSortKey,
+    Visibility? visibility,
+    PropertyValue<bool>? fillAntialias,
+    PropertyValue<double>? fillOpacity,
+    PropertyValue<ui.Color>? fillColor,
+    PropertyValue<ui.Color>? fillOutlineColor,
+    PropertyValue<(double, double)>? fillTranslate,
+    PropertyValue<FillTranslateAnchor>? fillTranslateAnchor,
+    PropertyValue<ResolvedImage>? fillPattern,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_fill_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (fillSortKey != null) this.fillSortKey = fillSortKey;
+    if (visibility != null) this.visibility = visibility;
+    if (fillAntialias != null) this.fillAntialias = fillAntialias;
+    if (fillOpacity != null) this.fillOpacity = fillOpacity;
+    if (fillColor != null) this.fillColor = fillColor;
+    if (fillOutlineColor != null) this.fillOutlineColor = fillOutlineColor;
+    if (fillTranslate != null) this.fillTranslate = fillTranslate;
+    if (fillTranslateAnchor != null) this.fillTranslateAnchor = fillTranslateAnchor;
+    if (fillPattern != null) this.fillPattern = fillPattern;
+  }
 
   /// Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
   PropertyValue<double> get fillSortKey => PropertyValue<double>.fromNative(mbgl_style_fill_layer_fill_sort_key_get(ptr));
@@ -31,8 +58,8 @@ class FillLayer extends Layer {
   set fillOutlineColor(PropertyValue<ui.Color> value) => mbgl_style_fill_layer_fill_outline_color_set(ptr, value.ptr);
 
   /// The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
-  PropertyValue<List<double>> get fillTranslate => PropertyValue<List<double>>.fromNative(mbgl_style_fill_layer_fill_translate_get(ptr));
-  set fillTranslate(PropertyValue<List<double>> value) => mbgl_style_fill_layer_fill_translate_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get fillTranslate => PropertyValue<(double, double)>.fromNative(mbgl_style_fill_layer_fill_translate_get(ptr));
+  set fillTranslate(PropertyValue<(double, double)> value) => mbgl_style_fill_layer_fill_translate_set(ptr, value.ptr);
 
   /// Controls the frame of reference for `fill-translate`.
   PropertyValue<FillTranslateAnchor> get fillTranslateAnchor => PropertyValue<FillTranslateAnchor>.fromNative(mbgl_style_fill_layer_fill_translate_anchor_get(ptr));
@@ -44,7 +71,50 @@ class FillLayer extends Layer {
 }
 
 class LineLayer extends Layer {
-  LineLayer.fromNative({required super.ptr}) : super.fromNative();
+  LineLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  LineLayer({
+    required String id,
+    required String sourceId,
+    PropertyValue<LineCap>? lineCap,
+    PropertyValue<LineJoin>? lineJoin,
+    PropertyValue<double>? lineMiterLimit,
+    PropertyValue<double>? lineRoundLimit,
+    PropertyValue<double>? lineSortKey,
+    Visibility? visibility,
+    PropertyValue<double>? lineOpacity,
+    PropertyValue<ui.Color>? lineColor,
+    PropertyValue<(double, double)>? lineTranslate,
+    PropertyValue<LineTranslateAnchor>? lineTranslateAnchor,
+    PropertyValue<double>? lineWidth,
+    PropertyValue<double>? lineGapWidth,
+    PropertyValue<double>? lineOffset,
+    PropertyValue<double>? lineBlur,
+    PropertyValue<List<double>>? lineDasharray,
+    PropertyValue<ResolvedImage>? linePattern,
+    PropertyValue<ui.Color>? lineGradient,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_line_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (lineCap != null) this.lineCap = lineCap;
+    if (lineJoin != null) this.lineJoin = lineJoin;
+    if (lineMiterLimit != null) this.lineMiterLimit = lineMiterLimit;
+    if (lineRoundLimit != null) this.lineRoundLimit = lineRoundLimit;
+    if (lineSortKey != null) this.lineSortKey = lineSortKey;
+    if (visibility != null) this.visibility = visibility;
+    if (lineOpacity != null) this.lineOpacity = lineOpacity;
+    if (lineColor != null) this.lineColor = lineColor;
+    if (lineTranslate != null) this.lineTranslate = lineTranslate;
+    if (lineTranslateAnchor != null) this.lineTranslateAnchor = lineTranslateAnchor;
+    if (lineWidth != null) this.lineWidth = lineWidth;
+    if (lineGapWidth != null) this.lineGapWidth = lineGapWidth;
+    if (lineOffset != null) this.lineOffset = lineOffset;
+    if (lineBlur != null) this.lineBlur = lineBlur;
+    if (lineDasharray != null) this.lineDasharray = lineDasharray;
+    if (linePattern != null) this.linePattern = linePattern;
+    if (lineGradient != null) this.lineGradient = lineGradient;
+  }
 
   /// The display of line endings.
   PropertyValue<LineCap> get lineCap => PropertyValue<LineCap>.fromNative(mbgl_style_line_layer_line_cap_get(ptr));
@@ -79,8 +149,8 @@ class LineLayer extends Layer {
   set lineColor(PropertyValue<ui.Color> value) => mbgl_style_line_layer_line_color_set(ptr, value.ptr);
 
   /// The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
-  PropertyValue<List<double>> get lineTranslate => PropertyValue<List<double>>.fromNative(mbgl_style_line_layer_line_translate_get(ptr));
-  set lineTranslate(PropertyValue<List<double>> value) => mbgl_style_line_layer_line_translate_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get lineTranslate => PropertyValue<(double, double)>.fromNative(mbgl_style_line_layer_line_translate_get(ptr));
+  set lineTranslate(PropertyValue<(double, double)> value) => mbgl_style_line_layer_line_translate_set(ptr, value.ptr);
 
   /// Controls the frame of reference for `line-translate`.
   PropertyValue<LineTranslateAnchor> get lineTranslateAnchor => PropertyValue<LineTranslateAnchor>.fromNative(mbgl_style_line_layer_line_translate_anchor_get(ptr));
@@ -116,7 +186,130 @@ class LineLayer extends Layer {
 }
 
 class SymbolLayer extends Layer {
-  SymbolLayer.fromNative({required super.ptr}) : super.fromNative();
+  SymbolLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  SymbolLayer({
+    required String id,
+    required String sourceId,
+    PropertyValue<SymbolPlacement>? symbolPlacement,
+    PropertyValue<double>? symbolSpacing,
+    PropertyValue<bool>? symbolAvoidEdges,
+    PropertyValue<double>? symbolSortKey,
+    PropertyValue<SymbolZOrder>? symbolZOrder,
+    PropertyValue<bool>? iconAllowOverlap,
+    PropertyValue<bool>? iconIgnorePlacement,
+    PropertyValue<bool>? iconOptional,
+    PropertyValue<IconRotationAlignment>? iconRotationAlignment,
+    PropertyValue<double>? iconSize,
+    PropertyValue<IconTextFit>? iconTextFit,
+    PropertyValue<(double, double, double, double)>? iconTextFitPadding,
+    PropertyValue<ResolvedImage>? iconImage,
+    PropertyValue<double>? iconRotate,
+    PropertyValue<ui.EdgeInsets>? iconPadding,
+    PropertyValue<bool>? iconKeepUpright,
+    PropertyValue<(double, double)>? iconOffset,
+    PropertyValue<IconAnchor>? iconAnchor,
+    PropertyValue<IconPitchAlignment>? iconPitchAlignment,
+    PropertyValue<TextPitchAlignment>? textPitchAlignment,
+    PropertyValue<TextRotationAlignment>? textRotationAlignment,
+    PropertyValue<Formatted>? textField,
+    PropertyValue<List<String>>? textFont,
+    PropertyValue<double>? textSize,
+    PropertyValue<double>? textMaxWidth,
+    PropertyValue<double>? textLineHeight,
+    PropertyValue<double>? textLetterSpacing,
+    PropertyValue<TextJustify>? textJustify,
+    PropertyValue<double>? textRadialOffset,
+    PropertyValue<List<TextVariableAnchor>>? textVariableAnchor,
+    PropertyValue<VariableAnchorOffsetCollection>? textVariableAnchorOffset,
+    PropertyValue<TextAnchor>? textAnchor,
+    PropertyValue<double>? textMaxAngle,
+    PropertyValue<List<TextWritingMode>>? textWritingMode,
+    PropertyValue<double>? textRotate,
+    PropertyValue<double>? textPadding,
+    PropertyValue<bool>? textKeepUpright,
+    PropertyValue<TextTransform>? textTransform,
+    PropertyValue<(double, double)>? textOffset,
+    PropertyValue<bool>? textAllowOverlap,
+    PropertyValue<bool>? textIgnorePlacement,
+    PropertyValue<bool>? textOptional,
+    Visibility? visibility,
+    PropertyValue<double>? iconOpacity,
+    PropertyValue<ui.Color>? iconColor,
+    PropertyValue<ui.Color>? iconHaloColor,
+    PropertyValue<double>? iconHaloWidth,
+    PropertyValue<double>? iconHaloBlur,
+    PropertyValue<(double, double)>? iconTranslate,
+    PropertyValue<IconTranslateAnchor>? iconTranslateAnchor,
+    PropertyValue<double>? textOpacity,
+    PropertyValue<ui.Color>? textColor,
+    PropertyValue<ui.Color>? textHaloColor,
+    PropertyValue<double>? textHaloWidth,
+    PropertyValue<double>? textHaloBlur,
+    PropertyValue<(double, double)>? textTranslate,
+    PropertyValue<TextTranslateAnchor>? textTranslateAnchor,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_symbol_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (symbolPlacement != null) this.symbolPlacement = symbolPlacement;
+    if (symbolSpacing != null) this.symbolSpacing = symbolSpacing;
+    if (symbolAvoidEdges != null) this.symbolAvoidEdges = symbolAvoidEdges;
+    if (symbolSortKey != null) this.symbolSortKey = symbolSortKey;
+    if (symbolZOrder != null) this.symbolZOrder = symbolZOrder;
+    if (iconAllowOverlap != null) this.iconAllowOverlap = iconAllowOverlap;
+    if (iconIgnorePlacement != null) this.iconIgnorePlacement = iconIgnorePlacement;
+    if (iconOptional != null) this.iconOptional = iconOptional;
+    if (iconRotationAlignment != null) this.iconRotationAlignment = iconRotationAlignment;
+    if (iconSize != null) this.iconSize = iconSize;
+    if (iconTextFit != null) this.iconTextFit = iconTextFit;
+    if (iconTextFitPadding != null) this.iconTextFitPadding = iconTextFitPadding;
+    if (iconImage != null) this.iconImage = iconImage;
+    if (iconRotate != null) this.iconRotate = iconRotate;
+    if (iconPadding != null) this.iconPadding = iconPadding;
+    if (iconKeepUpright != null) this.iconKeepUpright = iconKeepUpright;
+    if (iconOffset != null) this.iconOffset = iconOffset;
+    if (iconAnchor != null) this.iconAnchor = iconAnchor;
+    if (iconPitchAlignment != null) this.iconPitchAlignment = iconPitchAlignment;
+    if (textPitchAlignment != null) this.textPitchAlignment = textPitchAlignment;
+    if (textRotationAlignment != null) this.textRotationAlignment = textRotationAlignment;
+    if (textField != null) this.textField = textField;
+    if (textFont != null) this.textFont = textFont;
+    if (textSize != null) this.textSize = textSize;
+    if (textMaxWidth != null) this.textMaxWidth = textMaxWidth;
+    if (textLineHeight != null) this.textLineHeight = textLineHeight;
+    if (textLetterSpacing != null) this.textLetterSpacing = textLetterSpacing;
+    if (textJustify != null) this.textJustify = textJustify;
+    if (textRadialOffset != null) this.textRadialOffset = textRadialOffset;
+    if (textVariableAnchor != null) this.textVariableAnchor = textVariableAnchor;
+    if (textVariableAnchorOffset != null) this.textVariableAnchorOffset = textVariableAnchorOffset;
+    if (textAnchor != null) this.textAnchor = textAnchor;
+    if (textMaxAngle != null) this.textMaxAngle = textMaxAngle;
+    if (textWritingMode != null) this.textWritingMode = textWritingMode;
+    if (textRotate != null) this.textRotate = textRotate;
+    if (textPadding != null) this.textPadding = textPadding;
+    if (textKeepUpright != null) this.textKeepUpright = textKeepUpright;
+    if (textTransform != null) this.textTransform = textTransform;
+    if (textOffset != null) this.textOffset = textOffset;
+    if (textAllowOverlap != null) this.textAllowOverlap = textAllowOverlap;
+    if (textIgnorePlacement != null) this.textIgnorePlacement = textIgnorePlacement;
+    if (textOptional != null) this.textOptional = textOptional;
+    if (visibility != null) this.visibility = visibility;
+    if (iconOpacity != null) this.iconOpacity = iconOpacity;
+    if (iconColor != null) this.iconColor = iconColor;
+    if (iconHaloColor != null) this.iconHaloColor = iconHaloColor;
+    if (iconHaloWidth != null) this.iconHaloWidth = iconHaloWidth;
+    if (iconHaloBlur != null) this.iconHaloBlur = iconHaloBlur;
+    if (iconTranslate != null) this.iconTranslate = iconTranslate;
+    if (iconTranslateAnchor != null) this.iconTranslateAnchor = iconTranslateAnchor;
+    if (textOpacity != null) this.textOpacity = textOpacity;
+    if (textColor != null) this.textColor = textColor;
+    if (textHaloColor != null) this.textHaloColor = textHaloColor;
+    if (textHaloWidth != null) this.textHaloWidth = textHaloWidth;
+    if (textHaloBlur != null) this.textHaloBlur = textHaloBlur;
+    if (textTranslate != null) this.textTranslate = textTranslate;
+    if (textTranslateAnchor != null) this.textTranslateAnchor = textTranslateAnchor;
+  }
 
   /// Label placement relative to its geometry.
   PropertyValue<SymbolPlacement> get symbolPlacement => PropertyValue<SymbolPlacement>.fromNative(mbgl_style_symbol_layer_symbol_placement_get(ptr));
@@ -163,8 +356,8 @@ class SymbolLayer extends Layer {
   set iconTextFit(PropertyValue<IconTextFit> value) => mbgl_style_symbol_layer_icon_text_fit_set(ptr, value.ptr);
 
   /// Size of the additional area added to dimensions determined by `icon-text-fit`, in clockwise order: top, right, bottom, left.
-  PropertyValue<List<double>> get iconTextFitPadding => PropertyValue<List<double>>.fromNative(mbgl_style_symbol_layer_icon_text_fit_padding_get(ptr));
-  set iconTextFitPadding(PropertyValue<List<double>> value) => mbgl_style_symbol_layer_icon_text_fit_padding_set(ptr, value.ptr);
+  PropertyValue<(double, double, double, double)> get iconTextFitPadding => PropertyValue<(double, double, double, double)>.fromNative(mbgl_style_symbol_layer_icon_text_fit_padding_get(ptr));
+  set iconTextFitPadding(PropertyValue<(double, double, double, double)> value) => mbgl_style_symbol_layer_icon_text_fit_padding_set(ptr, value.ptr);
 
   /// Name of image in sprite to use for drawing an image background.
   PropertyValue<ResolvedImage> get iconImage => PropertyValue<ResolvedImage>.fromNative(mbgl_style_symbol_layer_icon_image_get(ptr));
@@ -183,8 +376,8 @@ class SymbolLayer extends Layer {
   set iconKeepUpright(PropertyValue<bool> value) => mbgl_style_symbol_layer_icon_keep_upright_set(ptr, value.ptr);
 
   /// Offset distance of icon from its anchor. Positive values indicate right and down, while negative values indicate left and up. Each component is multiplied by the value of `icon-size` to obtain the final offset in pixels. When combined with `icon-rotate` the offset will be as if the rotated direction was up.
-  PropertyValue<List<double>> get iconOffset => PropertyValue<List<double>>.fromNative(mbgl_style_symbol_layer_icon_offset_get(ptr));
-  set iconOffset(PropertyValue<List<double>> value) => mbgl_style_symbol_layer_icon_offset_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get iconOffset => PropertyValue<(double, double)>.fromNative(mbgl_style_symbol_layer_icon_offset_get(ptr));
+  set iconOffset(PropertyValue<(double, double)> value) => mbgl_style_symbol_layer_icon_offset_set(ptr, value.ptr);
 
   /// Part of the icon placed closest to the anchor.
   PropertyValue<IconAnchor> get iconAnchor => PropertyValue<IconAnchor>.fromNative(mbgl_style_symbol_layer_icon_anchor_get(ptr));
@@ -285,8 +478,8 @@ class SymbolLayer extends Layer {
   set textTransform(PropertyValue<TextTransform> value) => mbgl_style_symbol_layer_text_transform_set(ptr, value.ptr);
 
   /// Offset distance of text from its anchor. Positive values indicate right and down, while negative values indicate left and up. If used with text-variable-anchor, input values will be taken as absolute values. Offsets along the x- and y-axis will be applied automatically based on the anchor position.
-  PropertyValue<List<double>> get textOffset => PropertyValue<List<double>>.fromNative(mbgl_style_symbol_layer_text_offset_get(ptr));
-  set textOffset(PropertyValue<List<double>> value) => mbgl_style_symbol_layer_text_offset_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get textOffset => PropertyValue<(double, double)>.fromNative(mbgl_style_symbol_layer_text_offset_get(ptr));
+  set textOffset(PropertyValue<(double, double)> value) => mbgl_style_symbol_layer_text_offset_set(ptr, value.ptr);
 
   /// If true, the text will be visible even if it collides with other previously drawn symbols.
   PropertyValue<bool> get textAllowOverlap => PropertyValue<bool>.fromNative(mbgl_style_symbol_layer_text_allow_overlap_get(ptr));
@@ -327,8 +520,8 @@ class SymbolLayer extends Layer {
   set iconHaloBlur(PropertyValue<double> value) => mbgl_style_symbol_layer_icon_halo_blur_set(ptr, value.ptr);
 
   /// Distance that the icon's anchor is moved from its original placement. Positive values indicate right and down, while negative values indicate left and up.
-  PropertyValue<List<double>> get iconTranslate => PropertyValue<List<double>>.fromNative(mbgl_style_symbol_layer_icon_translate_get(ptr));
-  set iconTranslate(PropertyValue<List<double>> value) => mbgl_style_symbol_layer_icon_translate_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get iconTranslate => PropertyValue<(double, double)>.fromNative(mbgl_style_symbol_layer_icon_translate_get(ptr));
+  set iconTranslate(PropertyValue<(double, double)> value) => mbgl_style_symbol_layer_icon_translate_set(ptr, value.ptr);
 
   /// Controls the frame of reference for `icon-translate`.
   PropertyValue<IconTranslateAnchor> get iconTranslateAnchor => PropertyValue<IconTranslateAnchor>.fromNative(mbgl_style_symbol_layer_icon_translate_anchor_get(ptr));
@@ -355,8 +548,8 @@ class SymbolLayer extends Layer {
   set textHaloBlur(PropertyValue<double> value) => mbgl_style_symbol_layer_text_halo_blur_set(ptr, value.ptr);
 
   /// Distance that the text's anchor is moved from its original placement. Positive values indicate right and down, while negative values indicate left and up.
-  PropertyValue<List<double>> get textTranslate => PropertyValue<List<double>>.fromNative(mbgl_style_symbol_layer_text_translate_get(ptr));
-  set textTranslate(PropertyValue<List<double>> value) => mbgl_style_symbol_layer_text_translate_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get textTranslate => PropertyValue<(double, double)>.fromNative(mbgl_style_symbol_layer_text_translate_get(ptr));
+  set textTranslate(PropertyValue<(double, double)> value) => mbgl_style_symbol_layer_text_translate_set(ptr, value.ptr);
 
   /// Controls the frame of reference for `text-translate`.
   PropertyValue<TextTranslateAnchor> get textTranslateAnchor => PropertyValue<TextTranslateAnchor>.fromNative(mbgl_style_symbol_layer_text_translate_anchor_get(ptr));
@@ -364,7 +557,42 @@ class SymbolLayer extends Layer {
 }
 
 class CircleLayer extends Layer {
-  CircleLayer.fromNative({required super.ptr}) : super.fromNative();
+  CircleLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  CircleLayer({
+    required String id,
+    required String sourceId,
+    PropertyValue<double>? circleSortKey,
+    Visibility? visibility,
+    PropertyValue<double>? circleRadius,
+    PropertyValue<ui.Color>? circleColor,
+    PropertyValue<double>? circleBlur,
+    PropertyValue<double>? circleOpacity,
+    PropertyValue<(double, double)>? circleTranslate,
+    PropertyValue<CircleTranslateAnchor>? circleTranslateAnchor,
+    PropertyValue<CirclePitchScale>? circlePitchScale,
+    PropertyValue<CirclePitchAlignment>? circlePitchAlignment,
+    PropertyValue<double>? circleStrokeWidth,
+    PropertyValue<ui.Color>? circleStrokeColor,
+    PropertyValue<double>? circleStrokeOpacity,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_circle_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (circleSortKey != null) this.circleSortKey = circleSortKey;
+    if (visibility != null) this.visibility = visibility;
+    if (circleRadius != null) this.circleRadius = circleRadius;
+    if (circleColor != null) this.circleColor = circleColor;
+    if (circleBlur != null) this.circleBlur = circleBlur;
+    if (circleOpacity != null) this.circleOpacity = circleOpacity;
+    if (circleTranslate != null) this.circleTranslate = circleTranslate;
+    if (circleTranslateAnchor != null) this.circleTranslateAnchor = circleTranslateAnchor;
+    if (circlePitchScale != null) this.circlePitchScale = circlePitchScale;
+    if (circlePitchAlignment != null) this.circlePitchAlignment = circlePitchAlignment;
+    if (circleStrokeWidth != null) this.circleStrokeWidth = circleStrokeWidth;
+    if (circleStrokeColor != null) this.circleStrokeColor = circleStrokeColor;
+    if (circleStrokeOpacity != null) this.circleStrokeOpacity = circleStrokeOpacity;
+  }
 
   /// Sorts features in ascending order based on this value. Features with a higher sort key will appear above features with a lower sort key.
   PropertyValue<double> get circleSortKey => PropertyValue<double>.fromNative(mbgl_style_circle_layer_circle_sort_key_get(ptr));
@@ -391,8 +619,8 @@ class CircleLayer extends Layer {
   set circleOpacity(PropertyValue<double> value) => mbgl_style_circle_layer_circle_opacity_set(ptr, value.ptr);
 
   /// The geometry's offset. Values are [x, y] where negatives indicate left and up, respectively.
-  PropertyValue<List<double>> get circleTranslate => PropertyValue<List<double>>.fromNative(mbgl_style_circle_layer_circle_translate_get(ptr));
-  set circleTranslate(PropertyValue<List<double>> value) => mbgl_style_circle_layer_circle_translate_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get circleTranslate => PropertyValue<(double, double)>.fromNative(mbgl_style_circle_layer_circle_translate_get(ptr));
+  set circleTranslate(PropertyValue<(double, double)> value) => mbgl_style_circle_layer_circle_translate_set(ptr, value.ptr);
 
   /// Controls the frame of reference for `circle-translate`.
   PropertyValue<CircleTranslateAnchor> get circleTranslateAnchor => PropertyValue<CircleTranslateAnchor>.fromNative(mbgl_style_circle_layer_circle_translate_anchor_get(ptr));
@@ -420,7 +648,28 @@ class CircleLayer extends Layer {
 }
 
 class HeatmapLayer extends Layer {
-  HeatmapLayer.fromNative({required super.ptr}) : super.fromNative();
+  HeatmapLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  HeatmapLayer({
+    required String id,
+    required String sourceId,
+    Visibility? visibility,
+    PropertyValue<double>? heatmapRadius,
+    PropertyValue<double>? heatmapWeight,
+    PropertyValue<double>? heatmapIntensity,
+    PropertyValue<ui.Color>? heatmapColor,
+    PropertyValue<double>? heatmapOpacity,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_heatmap_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (visibility != null) this.visibility = visibility;
+    if (heatmapRadius != null) this.heatmapRadius = heatmapRadius;
+    if (heatmapWeight != null) this.heatmapWeight = heatmapWeight;
+    if (heatmapIntensity != null) this.heatmapIntensity = heatmapIntensity;
+    if (heatmapColor != null) this.heatmapColor = heatmapColor;
+    if (heatmapOpacity != null) this.heatmapOpacity = heatmapOpacity;
+  }
 
   /// Whether this layer is displayed.
   Visibility get visibility => Visibility._fromNative(mbgl_style_heatmap_layer_visibility_get(ptr));
@@ -448,7 +697,34 @@ class HeatmapLayer extends Layer {
 }
 
 class FillExtrusionLayer extends Layer {
-  FillExtrusionLayer.fromNative({required super.ptr}) : super.fromNative();
+  FillExtrusionLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  FillExtrusionLayer({
+    required String id,
+    required String sourceId,
+    Visibility? visibility,
+    PropertyValue<double>? fillExtrusionOpacity,
+    PropertyValue<ui.Color>? fillExtrusionColor,
+    PropertyValue<(double, double)>? fillExtrusionTranslate,
+    PropertyValue<FillExtrusionTranslateAnchor>? fillExtrusionTranslateAnchor,
+    PropertyValue<ResolvedImage>? fillExtrusionPattern,
+    PropertyValue<double>? fillExtrusionHeight,
+    PropertyValue<double>? fillExtrusionBase,
+    PropertyValue<bool>? fillExtrusionVerticalGradient,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_fill_extrusion_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (visibility != null) this.visibility = visibility;
+    if (fillExtrusionOpacity != null) this.fillExtrusionOpacity = fillExtrusionOpacity;
+    if (fillExtrusionColor != null) this.fillExtrusionColor = fillExtrusionColor;
+    if (fillExtrusionTranslate != null) this.fillExtrusionTranslate = fillExtrusionTranslate;
+    if (fillExtrusionTranslateAnchor != null) this.fillExtrusionTranslateAnchor = fillExtrusionTranslateAnchor;
+    if (fillExtrusionPattern != null) this.fillExtrusionPattern = fillExtrusionPattern;
+    if (fillExtrusionHeight != null) this.fillExtrusionHeight = fillExtrusionHeight;
+    if (fillExtrusionBase != null) this.fillExtrusionBase = fillExtrusionBase;
+    if (fillExtrusionVerticalGradient != null) this.fillExtrusionVerticalGradient = fillExtrusionVerticalGradient;
+  }
 
   /// Whether this layer is displayed.
   Visibility get visibility => Visibility._fromNative(mbgl_style_fill_extrusion_layer_visibility_get(ptr));
@@ -463,8 +739,8 @@ class FillExtrusionLayer extends Layer {
   set fillExtrusionColor(PropertyValue<ui.Color> value) => mbgl_style_fill_extrusion_layer_fill_extrusion_color_set(ptr, value.ptr);
 
   /// The geometry's offset. Values are [x, y] where negatives indicate left and up (on the flat plane), respectively.
-  PropertyValue<List<double>> get fillExtrusionTranslate => PropertyValue<List<double>>.fromNative(mbgl_style_fill_extrusion_layer_fill_extrusion_translate_get(ptr));
-  set fillExtrusionTranslate(PropertyValue<List<double>> value) => mbgl_style_fill_extrusion_layer_fill_extrusion_translate_set(ptr, value.ptr);
+  PropertyValue<(double, double)> get fillExtrusionTranslate => PropertyValue<(double, double)>.fromNative(mbgl_style_fill_extrusion_layer_fill_extrusion_translate_get(ptr));
+  set fillExtrusionTranslate(PropertyValue<(double, double)> value) => mbgl_style_fill_extrusion_layer_fill_extrusion_translate_set(ptr, value.ptr);
 
   /// Controls the frame of reference for `fill-extrusion-translate`.
   PropertyValue<FillExtrusionTranslateAnchor> get fillExtrusionTranslateAnchor => PropertyValue<FillExtrusionTranslateAnchor>.fromNative(mbgl_style_fill_extrusion_layer_fill_extrusion_translate_anchor_get(ptr));
@@ -488,7 +764,34 @@ class FillExtrusionLayer extends Layer {
 }
 
 class RasterLayer extends Layer {
-  RasterLayer.fromNative({required super.ptr}) : super.fromNative();
+  RasterLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  RasterLayer({
+    required String id,
+    required String sourceId,
+    Visibility? visibility,
+    PropertyValue<double>? rasterOpacity,
+    PropertyValue<double>? rasterHueRotate,
+    PropertyValue<double>? rasterBrightnessMin,
+    PropertyValue<double>? rasterBrightnessMax,
+    PropertyValue<double>? rasterSaturation,
+    PropertyValue<double>? rasterContrast,
+    PropertyValue<RasterResampling>? rasterResampling,
+    PropertyValue<double>? rasterFadeDuration,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_raster_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (visibility != null) this.visibility = visibility;
+    if (rasterOpacity != null) this.rasterOpacity = rasterOpacity;
+    if (rasterHueRotate != null) this.rasterHueRotate = rasterHueRotate;
+    if (rasterBrightnessMin != null) this.rasterBrightnessMin = rasterBrightnessMin;
+    if (rasterBrightnessMax != null) this.rasterBrightnessMax = rasterBrightnessMax;
+    if (rasterSaturation != null) this.rasterSaturation = rasterSaturation;
+    if (rasterContrast != null) this.rasterContrast = rasterContrast;
+    if (rasterResampling != null) this.rasterResampling = rasterResampling;
+    if (rasterFadeDuration != null) this.rasterFadeDuration = rasterFadeDuration;
+  }
 
   /// Whether this layer is displayed.
   Visibility get visibility => Visibility._fromNative(mbgl_style_raster_layer_visibility_get(ptr));
@@ -528,7 +831,30 @@ class RasterLayer extends Layer {
 }
 
 class HillshadeLayer extends Layer {
-  HillshadeLayer.fromNative({required super.ptr}) : super.fromNative();
+  HillshadeLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  HillshadeLayer({
+    required String id,
+    required String sourceId,
+    Visibility? visibility,
+    PropertyValue<double>? hillshadeIlluminationDirection,
+    PropertyValue<HillshadeIlluminationAnchor>? hillshadeIlluminationAnchor,
+    PropertyValue<double>? hillshadeExaggeration,
+    PropertyValue<ui.Color>? hillshadeShadowColor,
+    PropertyValue<ui.Color>? hillshadeHighlightColor,
+    PropertyValue<ui.Color>? hillshadeAccentColor,
+    super.minZoom,
+    super.maxZoom,
+    super.sourceLayer,
+  }): super(ptr: mbgl_style_hillshade_layer_create(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {
+    if (visibility != null) this.visibility = visibility;
+    if (hillshadeIlluminationDirection != null) this.hillshadeIlluminationDirection = hillshadeIlluminationDirection;
+    if (hillshadeIlluminationAnchor != null) this.hillshadeIlluminationAnchor = hillshadeIlluminationAnchor;
+    if (hillshadeExaggeration != null) this.hillshadeExaggeration = hillshadeExaggeration;
+    if (hillshadeShadowColor != null) this.hillshadeShadowColor = hillshadeShadowColor;
+    if (hillshadeHighlightColor != null) this.hillshadeHighlightColor = hillshadeHighlightColor;
+    if (hillshadeAccentColor != null) this.hillshadeAccentColor = hillshadeAccentColor;
+  }
 
   /// Whether this layer is displayed.
   Visibility get visibility => Visibility._fromNative(mbgl_style_hillshade_layer_visibility_get(ptr));
@@ -560,7 +886,22 @@ class HillshadeLayer extends Layer {
 }
 
 class BackgroundLayer extends Layer {
-  BackgroundLayer.fromNative({required super.ptr}) : super.fromNative();
+  BackgroundLayer.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();
+
+  BackgroundLayer({
+    required String id,
+    Visibility? visibility,
+    PropertyValue<ui.Color>? backgroundColor,
+    PropertyValue<ResolvedImage>? backgroundPattern,
+    PropertyValue<double>? backgroundOpacity,
+    super.minZoom,
+    super.maxZoom,
+  }): super(ptr: mbgl_style_background_layer_create(id.toNativeUtf8().cast())) {
+    if (visibility != null) this.visibility = visibility;
+    if (backgroundColor != null) this.backgroundColor = backgroundColor;
+    if (backgroundPattern != null) this.backgroundPattern = backgroundPattern;
+    if (backgroundOpacity != null) this.backgroundOpacity = backgroundOpacity;
+  }
 
   /// Whether this layer is displayed.
   Visibility get visibility => Visibility._fromNative(mbgl_style_background_layer_visibility_get(ptr));
@@ -1242,44 +1583,333 @@ enum HillshadeIlluminationAnchor {
 }
 
 
-mbgl_property_value_t propertyValueCreate<T>(T value) => switch (value) {
-  (SymbolZOrder v) => mbgl_style_property_value_mbgl_style_symbol_z_order_create_constant(v._toNative()),
-  (bool v) => mbgl_style_property_value_bool_create_constant(v),
-  (ui.Color v) => mbgl_style_property_value_mbgl_color_create_constant(v.toMbglColor()),
-  (RasterResampling v) => mbgl_style_property_value_mbgl_style_raster_resampling_create_constant(v._toNative()),
-  (FillTranslateAnchor v) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_create_constant(v._toNative()),
-  (ResolvedImage v) => mbgl_style_property_value_mbgl_style_expression_image_create_constant(nullptr),
-  (LineCap v) => mbgl_style_property_value_mbgl_style_line_cap_create_constant(v._toNative()),
-  (LineJoin v) => mbgl_style_property_value_mbgl_style_line_join_create_constant(v._toNative()),
-  (LineTranslateAnchor v) => mbgl_style_property_value_mbgl_style_line_translate_anchor_create_constant(v._toNative()),
-  (FillExtrusionTranslateAnchor v) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_create_constant(v._toNative()),
-  (ui.Color v) => mbgl_style_property_value_mbgl_color_create_constant(v.toMbglColor()),
-  (SymbolPlacement v) => mbgl_style_property_value_mbgl_style_symbol_placement_create_constant(v._toNative()),
-  (double v) => mbgl_style_property_value_float_create_constant(v),
-  (IconRotationAlignment v) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_create_constant(v._toNative()),
-  (IconTextFit v) => mbgl_style_property_value_mbgl_style_icon_text_fit_create_constant(v._toNative()),
-  (CirclePitchAlignment v) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_create_constant(v._toNative()),
-  (ui.EdgeInsets v) => mbgl_style_property_value_mbgl_padding_create_constant(v.toMbglPadding()),
-  (IconAnchor v) => mbgl_style_property_value_mbgl_style_icon_anchor_create_constant(v._toNative()),
-  (IconPitchAlignment v) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_create_constant(v._toNative()),
-  (TextPitchAlignment v) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_create_constant(v._toNative()),
-  (TextRotationAlignment v) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_create_constant(v._toNative()),
-  (Formatted v) => mbgl_style_property_value_mbgl_style_expression_formatted_create_constant(nullptr),
-  (CirclePitchScale v) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_create_constant(v._toNative()),
-  (TextJustify v) => mbgl_style_property_value_mbgl_style_text_justify_create_constant(v._toNative()),
-  (HillshadeIlluminationAnchor v) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_create_constant(v._toNative()),
-  (VariableAnchorOffsetCollection v) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_create_constant(nullptr),
-  (TextAnchor v) => mbgl_style_property_value_mbgl_style_text_anchor_create_constant(v._toNative()),
-  (CircleTranslateAnchor v) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_create_constant(v._toNative()),
-  (TextTransform v) => mbgl_style_property_value_mbgl_style_text_transform_create_constant(v._toNative()),
-  (TextTranslateAnchor v) => mbgl_style_property_value_mbgl_style_text_translate_anchor_create_constant(v._toNative()),
-  (IconTranslateAnchor v) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_create_constant(v._toNative()),
-  (List<double> v) when value.length == 2 => mbgl_style_property_value_std_array_float_2_create_constant(mbgl_style_std_array_float_2_create(v[0], v[1])),
-  (List<double> v) when value.length == 4 => mbgl_style_property_value_std_array_float_4_create_constant(mbgl_style_std_array_float_4_create(v[0], v[1], v[2], v[3])),
-  (List<TextWritingMode> v) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_create_constant(mbgl_style_std_vector_mbgl_style_text_writing_mode_create(v.length, v.toNativeList((e) => e._toNative()))),
-  (List<String> v) => mbgl_style_property_value_std_vector_const_char_create_constant(mbgl_style_std_vector_const_char_create(v.length, v.toNativeList())),
-  (List<double> v) => mbgl_style_property_value_std_vector_float_create_constant(mbgl_style_std_vector_float_create(v.length, v.toNativeList())),
-  (List<TextVariableAnchor> v) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_create_constant(mbgl_style_std_vector_mbgl_style_text_variable_anchor_create(v.length, v.toNativeList((e) => e._toNative()))),
-  _ => throw UnimplementedError("Unsupported property value type: $T"),
-};
+class PropertyValueFfi {
+  static mbgl_property_value_t create<T>(T value) => switch (value) {
+    (SymbolZOrder v) => mbgl_style_property_value_mbgl_style_symbol_z_order_create_constant(v._toNative()),
+    (bool v) => mbgl_style_property_value_bool_create_constant(v),
+    (ui.Color v) => mbgl_style_property_value_mbgl_color_create_constant(v.toMbglColor()),
+    (RasterResampling v) => mbgl_style_property_value_mbgl_style_raster_resampling_create_constant(v._toNative()),
+    (FillTranslateAnchor v) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_create_constant(v._toNative()),
+    (ResolvedImage v) => mbgl_style_property_value_mbgl_style_expression_image_create_constant(nullptr),
+    (LineCap v) => mbgl_style_property_value_mbgl_style_line_cap_create_constant(v._toNative()),
+    (LineJoin v) => mbgl_style_property_value_mbgl_style_line_join_create_constant(v._toNative()),
+    (LineTranslateAnchor v) => mbgl_style_property_value_mbgl_style_line_translate_anchor_create_constant(v._toNative()),
+    (FillExtrusionTranslateAnchor v) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_create_constant(v._toNative()),
+    (ui.Color v) => mbgl_style_property_value_mbgl_color_create_constant(v.toMbglColor()),
+    (SymbolPlacement v) => mbgl_style_property_value_mbgl_style_symbol_placement_create_constant(v._toNative()),
+    (double v) => mbgl_style_property_value_float_create_constant(v),
+    (IconRotationAlignment v) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_create_constant(v._toNative()),
+    (IconTextFit v) => mbgl_style_property_value_mbgl_style_icon_text_fit_create_constant(v._toNative()),
+    (CirclePitchAlignment v) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_create_constant(v._toNative()),
+    (ui.EdgeInsets v) => mbgl_style_property_value_mbgl_padding_create_constant(v.toMbglPadding()),
+    (IconAnchor v) => mbgl_style_property_value_mbgl_style_icon_anchor_create_constant(v._toNative()),
+    (IconPitchAlignment v) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_create_constant(v._toNative()),
+    (TextPitchAlignment v) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_create_constant(v._toNative()),
+    (TextRotationAlignment v) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_create_constant(v._toNative()),
+    (Formatted v) => mbgl_style_property_value_mbgl_style_expression_formatted_create_constant(nullptr),
+    (CirclePitchScale v) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_create_constant(v._toNative()),
+    (TextJustify v) => mbgl_style_property_value_mbgl_style_text_justify_create_constant(v._toNative()),
+    (HillshadeIlluminationAnchor v) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_create_constant(v._toNative()),
+    (VariableAnchorOffsetCollection v) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_create_constant(nullptr),
+    (TextAnchor v) => mbgl_style_property_value_mbgl_style_text_anchor_create_constant(v._toNative()),
+    (CircleTranslateAnchor v) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_create_constant(v._toNative()),
+    (TextTransform v) => mbgl_style_property_value_mbgl_style_text_transform_create_constant(v._toNative()),
+    (TextTranslateAnchor v) => mbgl_style_property_value_mbgl_style_text_translate_anchor_create_constant(v._toNative()),
+    (IconTranslateAnchor v) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_create_constant(v._toNative()),
+    ((double, double) v) => mbgl_style_property_value_std_array_float_2_create_constant(std_array_float_2_create(v.$1, v.$2)),
+    ((double, double, double, double) v) => mbgl_style_property_value_std_array_float_4_create_constant(std_array_float_4_create(v.$1, v.$2, v.$3, v.$4)),
+    (List<TextWritingMode> v) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_create_constant(std_vector_mbgl_style_text_writing_mode_create(v.length, v.toNativeList((e) => e._toNative()))),
+    (List<String> v) => mbgl_style_property_value_std_vector_const_char_create_constant(std_vector_const_char_create(v.length, v.toNativeList())),
+    (List<double> v) => mbgl_style_property_value_std_vector_float_create_constant(std_vector_float_create(v.length, v.toNativeList())),
+    (List<TextVariableAnchor> v) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_create_constant(std_vector_mbgl_style_text_variable_anchor_create(v.length, v.toNativeList((e) => e._toNative()))),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
 
+  static void destroy<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => mbgl_style_property_value_mbgl_style_symbol_z_order_destroy(ptr),
+    const (bool) => mbgl_style_property_value_bool_destroy(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_destroy(ptr),
+    const (RasterResampling) => mbgl_style_property_value_mbgl_style_raster_resampling_destroy(ptr),
+    const (FillTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_destroy(ptr),
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_destroy(ptr),
+    const (LineCap) => mbgl_style_property_value_mbgl_style_line_cap_destroy(ptr),
+    const (LineJoin) => mbgl_style_property_value_mbgl_style_line_join_destroy(ptr),
+    const (LineTranslateAnchor) => mbgl_style_property_value_mbgl_style_line_translate_anchor_destroy(ptr),
+    const (FillExtrusionTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_destroy(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_destroy(ptr),
+    const (SymbolPlacement) => mbgl_style_property_value_mbgl_style_symbol_placement_destroy(ptr),
+    const (double) => mbgl_style_property_value_float_destroy(ptr),
+    const (IconRotationAlignment) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_destroy(ptr),
+    const (IconTextFit) => mbgl_style_property_value_mbgl_style_icon_text_fit_destroy(ptr),
+    const (CirclePitchAlignment) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_destroy(ptr),
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_destroy(ptr),
+    const (IconAnchor) => mbgl_style_property_value_mbgl_style_icon_anchor_destroy(ptr),
+    const (IconPitchAlignment) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_destroy(ptr),
+    const (TextPitchAlignment) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_destroy(ptr),
+    const (TextRotationAlignment) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_destroy(ptr),
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_destroy(ptr),
+    const (CirclePitchScale) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_destroy(ptr),
+    const (TextJustify) => mbgl_style_property_value_mbgl_style_text_justify_destroy(ptr),
+    const (HillshadeIlluminationAnchor) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_destroy(ptr),
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_destroy(ptr),
+    const (TextAnchor) => mbgl_style_property_value_mbgl_style_text_anchor_destroy(ptr),
+    const (CircleTranslateAnchor) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_destroy(ptr),
+    const (TextTransform) => mbgl_style_property_value_mbgl_style_text_transform_destroy(ptr),
+    const (TextTranslateAnchor) => mbgl_style_property_value_mbgl_style_text_translate_anchor_destroy(ptr),
+    const (IconTranslateAnchor) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_destroy(ptr),
+    const ((double, double)) => mbgl_style_property_value_std_array_float_2_destroy(ptr),
+    const ((double, double, double, double)) => mbgl_style_property_value_std_array_float_4_destroy(ptr),
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_destroy(ptr),
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_destroy(ptr),
+    const (List<double>) => mbgl_style_property_value_std_vector_float_destroy(ptr),
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_destroy(ptr),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+  static bool isConstant<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => mbgl_style_property_value_mbgl_style_symbol_z_order_is_constant(ptr),
+    const (bool) => mbgl_style_property_value_bool_is_constant(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_constant(ptr),
+    const (RasterResampling) => mbgl_style_property_value_mbgl_style_raster_resampling_is_constant(ptr),
+    const (FillTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_constant(ptr),
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_is_constant(ptr),
+    const (LineCap) => mbgl_style_property_value_mbgl_style_line_cap_is_constant(ptr),
+    const (LineJoin) => mbgl_style_property_value_mbgl_style_line_join_is_constant(ptr),
+    const (LineTranslateAnchor) => mbgl_style_property_value_mbgl_style_line_translate_anchor_is_constant(ptr),
+    const (FillExtrusionTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_constant(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_constant(ptr),
+    const (SymbolPlacement) => mbgl_style_property_value_mbgl_style_symbol_placement_is_constant(ptr),
+    const (double) => mbgl_style_property_value_float_is_constant(ptr),
+    const (IconRotationAlignment) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_constant(ptr),
+    const (IconTextFit) => mbgl_style_property_value_mbgl_style_icon_text_fit_is_constant(ptr),
+    const (CirclePitchAlignment) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_constant(ptr),
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_is_constant(ptr),
+    const (IconAnchor) => mbgl_style_property_value_mbgl_style_icon_anchor_is_constant(ptr),
+    const (IconPitchAlignment) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_constant(ptr),
+    const (TextPitchAlignment) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_constant(ptr),
+    const (TextRotationAlignment) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_constant(ptr),
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_is_constant(ptr),
+    const (CirclePitchScale) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_constant(ptr),
+    const (TextJustify) => mbgl_style_property_value_mbgl_style_text_justify_is_constant(ptr),
+    const (HillshadeIlluminationAnchor) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_constant(ptr),
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_constant(ptr),
+    const (TextAnchor) => mbgl_style_property_value_mbgl_style_text_anchor_is_constant(ptr),
+    const (CircleTranslateAnchor) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_constant(ptr),
+    const (TextTransform) => mbgl_style_property_value_mbgl_style_text_transform_is_constant(ptr),
+    const (TextTranslateAnchor) => mbgl_style_property_value_mbgl_style_text_translate_anchor_is_constant(ptr),
+    const (IconTranslateAnchor) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_constant(ptr),
+    const ((double, double)) => mbgl_style_property_value_std_array_float_2_is_constant(ptr),
+    const ((double, double, double, double)) => mbgl_style_property_value_std_array_float_4_is_constant(ptr),
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_constant(ptr),
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_is_constant(ptr),
+    const (List<double>) => mbgl_style_property_value_std_vector_float_is_constant(ptr),
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_constant(ptr),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+  static bool isDataDriven<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => mbgl_style_property_value_mbgl_style_symbol_z_order_is_data_driven(ptr),
+    const (bool) => mbgl_style_property_value_bool_is_data_driven(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_data_driven(ptr),
+    const (RasterResampling) => mbgl_style_property_value_mbgl_style_raster_resampling_is_data_driven(ptr),
+    const (FillTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_data_driven(ptr),
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_is_data_driven(ptr),
+    const (LineCap) => mbgl_style_property_value_mbgl_style_line_cap_is_data_driven(ptr),
+    const (LineJoin) => mbgl_style_property_value_mbgl_style_line_join_is_data_driven(ptr),
+    const (LineTranslateAnchor) => mbgl_style_property_value_mbgl_style_line_translate_anchor_is_data_driven(ptr),
+    const (FillExtrusionTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_data_driven(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_data_driven(ptr),
+    const (SymbolPlacement) => mbgl_style_property_value_mbgl_style_symbol_placement_is_data_driven(ptr),
+    const (double) => mbgl_style_property_value_float_is_data_driven(ptr),
+    const (IconRotationAlignment) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_data_driven(ptr),
+    const (IconTextFit) => mbgl_style_property_value_mbgl_style_icon_text_fit_is_data_driven(ptr),
+    const (CirclePitchAlignment) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_data_driven(ptr),
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_is_data_driven(ptr),
+    const (IconAnchor) => mbgl_style_property_value_mbgl_style_icon_anchor_is_data_driven(ptr),
+    const (IconPitchAlignment) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_data_driven(ptr),
+    const (TextPitchAlignment) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_data_driven(ptr),
+    const (TextRotationAlignment) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_data_driven(ptr),
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_is_data_driven(ptr),
+    const (CirclePitchScale) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_data_driven(ptr),
+    const (TextJustify) => mbgl_style_property_value_mbgl_style_text_justify_is_data_driven(ptr),
+    const (HillshadeIlluminationAnchor) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_data_driven(ptr),
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_data_driven(ptr),
+    const (TextAnchor) => mbgl_style_property_value_mbgl_style_text_anchor_is_data_driven(ptr),
+    const (CircleTranslateAnchor) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_data_driven(ptr),
+    const (TextTransform) => mbgl_style_property_value_mbgl_style_text_transform_is_data_driven(ptr),
+    const (TextTranslateAnchor) => mbgl_style_property_value_mbgl_style_text_translate_anchor_is_data_driven(ptr),
+    const (IconTranslateAnchor) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_data_driven(ptr),
+    const ((double, double)) => mbgl_style_property_value_std_array_float_2_is_data_driven(ptr),
+    const ((double, double, double, double)) => mbgl_style_property_value_std_array_float_4_is_data_driven(ptr),
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_data_driven(ptr),
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_is_data_driven(ptr),
+    const (List<double>) => mbgl_style_property_value_std_vector_float_is_data_driven(ptr),
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_data_driven(ptr),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+  static bool isExpression<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => mbgl_style_property_value_mbgl_style_symbol_z_order_is_expression(ptr),
+    const (bool) => mbgl_style_property_value_bool_is_expression(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_expression(ptr),
+    const (RasterResampling) => mbgl_style_property_value_mbgl_style_raster_resampling_is_expression(ptr),
+    const (FillTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_expression(ptr),
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_is_expression(ptr),
+    const (LineCap) => mbgl_style_property_value_mbgl_style_line_cap_is_expression(ptr),
+    const (LineJoin) => mbgl_style_property_value_mbgl_style_line_join_is_expression(ptr),
+    const (LineTranslateAnchor) => mbgl_style_property_value_mbgl_style_line_translate_anchor_is_expression(ptr),
+    const (FillExtrusionTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_expression(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_expression(ptr),
+    const (SymbolPlacement) => mbgl_style_property_value_mbgl_style_symbol_placement_is_expression(ptr),
+    const (double) => mbgl_style_property_value_float_is_expression(ptr),
+    const (IconRotationAlignment) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_expression(ptr),
+    const (IconTextFit) => mbgl_style_property_value_mbgl_style_icon_text_fit_is_expression(ptr),
+    const (CirclePitchAlignment) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_expression(ptr),
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_is_expression(ptr),
+    const (IconAnchor) => mbgl_style_property_value_mbgl_style_icon_anchor_is_expression(ptr),
+    const (IconPitchAlignment) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_expression(ptr),
+    const (TextPitchAlignment) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_expression(ptr),
+    const (TextRotationAlignment) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_expression(ptr),
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_is_expression(ptr),
+    const (CirclePitchScale) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_expression(ptr),
+    const (TextJustify) => mbgl_style_property_value_mbgl_style_text_justify_is_expression(ptr),
+    const (HillshadeIlluminationAnchor) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_expression(ptr),
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_expression(ptr),
+    const (TextAnchor) => mbgl_style_property_value_mbgl_style_text_anchor_is_expression(ptr),
+    const (CircleTranslateAnchor) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_expression(ptr),
+    const (TextTransform) => mbgl_style_property_value_mbgl_style_text_transform_is_expression(ptr),
+    const (TextTranslateAnchor) => mbgl_style_property_value_mbgl_style_text_translate_anchor_is_expression(ptr),
+    const (IconTranslateAnchor) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_expression(ptr),
+    const ((double, double)) => mbgl_style_property_value_std_array_float_2_is_expression(ptr),
+    const ((double, double, double, double)) => mbgl_style_property_value_std_array_float_4_is_expression(ptr),
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_expression(ptr),
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_is_expression(ptr),
+    const (List<double>) => mbgl_style_property_value_std_vector_float_is_expression(ptr),
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_expression(ptr),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+  static bool isUndefined<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => mbgl_style_property_value_mbgl_style_symbol_z_order_is_undefined(ptr),
+    const (bool) => mbgl_style_property_value_bool_is_undefined(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_undefined(ptr),
+    const (RasterResampling) => mbgl_style_property_value_mbgl_style_raster_resampling_is_undefined(ptr),
+    const (FillTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_undefined(ptr),
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_is_undefined(ptr),
+    const (LineCap) => mbgl_style_property_value_mbgl_style_line_cap_is_undefined(ptr),
+    const (LineJoin) => mbgl_style_property_value_mbgl_style_line_join_is_undefined(ptr),
+    const (LineTranslateAnchor) => mbgl_style_property_value_mbgl_style_line_translate_anchor_is_undefined(ptr),
+    const (FillExtrusionTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_undefined(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_undefined(ptr),
+    const (SymbolPlacement) => mbgl_style_property_value_mbgl_style_symbol_placement_is_undefined(ptr),
+    const (double) => mbgl_style_property_value_float_is_undefined(ptr),
+    const (IconRotationAlignment) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_undefined(ptr),
+    const (IconTextFit) => mbgl_style_property_value_mbgl_style_icon_text_fit_is_undefined(ptr),
+    const (CirclePitchAlignment) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_undefined(ptr),
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_is_undefined(ptr),
+    const (IconAnchor) => mbgl_style_property_value_mbgl_style_icon_anchor_is_undefined(ptr),
+    const (IconPitchAlignment) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_undefined(ptr),
+    const (TextPitchAlignment) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_undefined(ptr),
+    const (TextRotationAlignment) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_undefined(ptr),
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_is_undefined(ptr),
+    const (CirclePitchScale) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_undefined(ptr),
+    const (TextJustify) => mbgl_style_property_value_mbgl_style_text_justify_is_undefined(ptr),
+    const (HillshadeIlluminationAnchor) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_undefined(ptr),
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_undefined(ptr),
+    const (TextAnchor) => mbgl_style_property_value_mbgl_style_text_anchor_is_undefined(ptr),
+    const (CircleTranslateAnchor) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_undefined(ptr),
+    const (TextTransform) => mbgl_style_property_value_mbgl_style_text_transform_is_undefined(ptr),
+    const (TextTranslateAnchor) => mbgl_style_property_value_mbgl_style_text_translate_anchor_is_undefined(ptr),
+    const (IconTranslateAnchor) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_undefined(ptr),
+    const ((double, double)) => mbgl_style_property_value_std_array_float_2_is_undefined(ptr),
+    const ((double, double, double, double)) => mbgl_style_property_value_std_array_float_4_is_undefined(ptr),
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_undefined(ptr),
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_is_undefined(ptr),
+    const (List<double>) => mbgl_style_property_value_std_vector_float_is_undefined(ptr),
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_undefined(ptr),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+  static bool isZoomConstant<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => mbgl_style_property_value_mbgl_style_symbol_z_order_is_zoom_constant(ptr),
+    const (bool) => mbgl_style_property_value_bool_is_zoom_constant(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_zoom_constant(ptr),
+    const (RasterResampling) => mbgl_style_property_value_mbgl_style_raster_resampling_is_zoom_constant(ptr),
+    const (FillTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_zoom_constant(ptr),
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_is_zoom_constant(ptr),
+    const (LineCap) => mbgl_style_property_value_mbgl_style_line_cap_is_zoom_constant(ptr),
+    const (LineJoin) => mbgl_style_property_value_mbgl_style_line_join_is_zoom_constant(ptr),
+    const (LineTranslateAnchor) => mbgl_style_property_value_mbgl_style_line_translate_anchor_is_zoom_constant(ptr),
+    const (FillExtrusionTranslateAnchor) => mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_zoom_constant(ptr),
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_is_zoom_constant(ptr),
+    const (SymbolPlacement) => mbgl_style_property_value_mbgl_style_symbol_placement_is_zoom_constant(ptr),
+    const (double) => mbgl_style_property_value_float_is_zoom_constant(ptr),
+    const (IconRotationAlignment) => mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_zoom_constant(ptr),
+    const (IconTextFit) => mbgl_style_property_value_mbgl_style_icon_text_fit_is_zoom_constant(ptr),
+    const (CirclePitchAlignment) => mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_zoom_constant(ptr),
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_is_zoom_constant(ptr),
+    const (IconAnchor) => mbgl_style_property_value_mbgl_style_icon_anchor_is_zoom_constant(ptr),
+    const (IconPitchAlignment) => mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_zoom_constant(ptr),
+    const (TextPitchAlignment) => mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_zoom_constant(ptr),
+    const (TextRotationAlignment) => mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_zoom_constant(ptr),
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_is_zoom_constant(ptr),
+    const (CirclePitchScale) => mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_zoom_constant(ptr),
+    const (TextJustify) => mbgl_style_property_value_mbgl_style_text_justify_is_zoom_constant(ptr),
+    const (HillshadeIlluminationAnchor) => mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_zoom_constant(ptr),
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_zoom_constant(ptr),
+    const (TextAnchor) => mbgl_style_property_value_mbgl_style_text_anchor_is_zoom_constant(ptr),
+    const (CircleTranslateAnchor) => mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_zoom_constant(ptr),
+    const (TextTransform) => mbgl_style_property_value_mbgl_style_text_transform_is_zoom_constant(ptr),
+    const (TextTranslateAnchor) => mbgl_style_property_value_mbgl_style_text_translate_anchor_is_zoom_constant(ptr),
+    const (IconTranslateAnchor) => mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_zoom_constant(ptr),
+    const ((double, double)) => mbgl_style_property_value_std_array_float_2_is_zoom_constant(ptr),
+    const ((double, double, double, double)) => mbgl_style_property_value_std_array_float_4_is_zoom_constant(ptr),
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_zoom_constant(ptr),
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_is_zoom_constant(ptr),
+    const (List<double>) => mbgl_style_property_value_std_vector_float_is_zoom_constant(ptr),
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_zoom_constant(ptr),
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+  static T asConstant<T>(mbgl_property_value_t ptr) => switch(T) {
+    const (SymbolZOrder) => SymbolZOrder._fromNative(mbgl_style_property_value_mbgl_style_symbol_z_order_as_constant(ptr)) as T,
+    const (bool) => mbgl_style_property_value_bool_as_constant(ptr) as T,
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_as_constant(ptr).toDartColor() as T,
+    const (RasterResampling) => RasterResampling._fromNative(mbgl_style_property_value_mbgl_style_raster_resampling_as_constant(ptr)) as T,
+    const (FillTranslateAnchor) => FillTranslateAnchor._fromNative(mbgl_style_property_value_mbgl_style_fill_translate_anchor_as_constant(ptr)) as T,
+    const (ResolvedImage) => mbgl_style_property_value_mbgl_style_expression_image_as_constant(ptr) as T,
+    const (LineCap) => LineCap._fromNative(mbgl_style_property_value_mbgl_style_line_cap_as_constant(ptr)) as T,
+    const (LineJoin) => LineJoin._fromNative(mbgl_style_property_value_mbgl_style_line_join_as_constant(ptr)) as T,
+    const (LineTranslateAnchor) => LineTranslateAnchor._fromNative(mbgl_style_property_value_mbgl_style_line_translate_anchor_as_constant(ptr)) as T,
+    const (FillExtrusionTranslateAnchor) => FillExtrusionTranslateAnchor._fromNative(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_as_constant(ptr)) as T,
+    const (ui.Color) => mbgl_style_property_value_mbgl_color_as_constant(ptr).toDartColor() as T,
+    const (SymbolPlacement) => SymbolPlacement._fromNative(mbgl_style_property_value_mbgl_style_symbol_placement_as_constant(ptr)) as T,
+    const (double) => mbgl_style_property_value_float_as_constant(ptr) as T,
+    const (IconRotationAlignment) => IconRotationAlignment._fromNative(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_as_constant(ptr)) as T,
+    const (IconTextFit) => IconTextFit._fromNative(mbgl_style_property_value_mbgl_style_icon_text_fit_as_constant(ptr)) as T,
+    const (CirclePitchAlignment) => CirclePitchAlignment._fromNative(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_as_constant(ptr)) as T,
+    const (ui.EdgeInsets) => mbgl_style_property_value_mbgl_padding_as_constant(ptr).toDartPadding() as T,
+    const (IconAnchor) => IconAnchor._fromNative(mbgl_style_property_value_mbgl_style_icon_anchor_as_constant(ptr)) as T,
+    const (IconPitchAlignment) => IconPitchAlignment._fromNative(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_as_constant(ptr)) as T,
+    const (TextPitchAlignment) => TextPitchAlignment._fromNative(mbgl_style_property_value_mbgl_style_text_pitch_alignment_as_constant(ptr)) as T,
+    const (TextRotationAlignment) => TextRotationAlignment._fromNative(mbgl_style_property_value_mbgl_style_text_rotation_alignment_as_constant(ptr)) as T,
+    const (Formatted) => mbgl_style_property_value_mbgl_style_expression_formatted_as_constant(ptr) as T,
+    const (CirclePitchScale) => CirclePitchScale._fromNative(mbgl_style_property_value_mbgl_style_circle_pitch_scale_as_constant(ptr)) as T,
+    const (TextJustify) => TextJustify._fromNative(mbgl_style_property_value_mbgl_style_text_justify_as_constant(ptr)) as T,
+    const (HillshadeIlluminationAnchor) => HillshadeIlluminationAnchor._fromNative(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_as_constant(ptr)) as T,
+    const (VariableAnchorOffsetCollection) => mbgl_style_property_value_mbgl_variable_anchor_offset_collection_as_constant(ptr) as T,
+    const (TextAnchor) => TextAnchor._fromNative(mbgl_style_property_value_mbgl_style_text_anchor_as_constant(ptr)) as T,
+    const (CircleTranslateAnchor) => CircleTranslateAnchor._fromNative(mbgl_style_property_value_mbgl_style_circle_translate_anchor_as_constant(ptr)) as T,
+    const (TextTransform) => TextTransform._fromNative(mbgl_style_property_value_mbgl_style_text_transform_as_constant(ptr)) as T,
+    const (TextTranslateAnchor) => TextTranslateAnchor._fromNative(mbgl_style_property_value_mbgl_style_text_translate_anchor_as_constant(ptr)) as T,
+    const (IconTranslateAnchor) => IconTranslateAnchor._fromNative(mbgl_style_property_value_mbgl_style_icon_translate_anchor_as_constant(ptr)) as T,
+    const ((double, double)) => (std_array_float_2_get_at(mbgl_style_property_value_std_array_float_2_as_constant(ptr), 0), std_array_float_2_get_at(mbgl_style_property_value_std_array_float_2_as_constant(ptr), 1)) as T,
+    const ((double, double, double, double)) => (std_array_float_4_get_at(mbgl_style_property_value_std_array_float_4_as_constant(ptr), 0), std_array_float_4_get_at(mbgl_style_property_value_std_array_float_4_as_constant(ptr), 1), std_array_float_4_get_at(mbgl_style_property_value_std_array_float_4_as_constant(ptr), 2), std_array_float_4_get_at(mbgl_style_property_value_std_array_float_4_as_constant(ptr), 3)) as T,
+    const (List<TextWritingMode>) => mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_as_constant(ptr).toDartList(std_vector_mbgl_style_text_writing_mode_length, std_vector_mbgl_style_text_writing_mode_get_at, (n) => TextWritingMode._fromNative(n)) as T,
+    const (List<String>) => mbgl_style_property_value_std_vector_const_char_as_constant(ptr).toDartList(std_vector_const_char_length, std_vector_const_char_get_at, (n) => n) as T,
+    const (List<double>) => mbgl_style_property_value_std_vector_float_as_constant(ptr).toDartList(std_vector_float_length, std_vector_float_get_at, (n) => n) as T,
+    const (List<TextVariableAnchor>) => mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_as_constant(ptr).toDartList(std_vector_mbgl_style_text_variable_anchor_length, std_vector_mbgl_style_text_variable_anchor_get_at, (n) => TextVariableAnchor._fromNative(n)) as T,
+    _ => throw UnimplementedError("Unsupported property value type: $T"),
+  };
+
+}

@@ -86,9 +86,13 @@ class CGenerator {
     final src = <String>[];
 
     hdr.add('typedef void* ${field.cTypeName};');
-    final createDef = '${field.cTypeName} ${field.cCreateName}';
+    final createDef = '${field.cTypeName} ${field.cArrayCreateName}';
+    late final String cast;
 
+    // Create
     if (field.length != null) {
+      cast = 'reinterpret_cast<std::array<${field.innerType.mbglTypeName}, ${field.length}>*>(ptr_)';
+
       final args = List.generate(field.length!, (i) => '${field.innerType.cTypeNameForHeader} v$i').join(', ');
       hdr.add('$hdrFnPrefix $createDef($args);');
       src.add('$srcFnPrefix $createDef($args) {');
@@ -99,6 +103,8 @@ class CGenerator {
       src.add('  return static_cast<${field.cTypeName}>(arr);');
       src.add('}');
     } else {
+      cast = 'reinterpret_cast<std::vector<${field.innerType.mbglTypeName}>*>(ptr_)';
+
       hdr.add('$hdrFnPrefix $createDef(size_t length_, ${field.innerType.cTypeNameForHeader}* values_);');
       src.add('$srcFnPrefix $createDef(size_t length_, ${field.innerType.cTypeNameForHeader}* values_) {');
       src.add('  auto arr = new std::vector<${field.innerType.mbglTypeName}>();');
@@ -109,8 +115,29 @@ class CGenerator {
       src.add('  return static_cast<${field.cTypeName}>(arr);');
       src.add('}');
     }
-    
-    hdr.add('$hdrFnPrefix void ${field.cDestroyName}(${field.cTypeName} ptr_);');
+
+    // Destroy
+    hdr.add('$hdrFnPrefix void ${field.cArrayDestroyName}(${field.cTypeName} ptr_);');
+    src.add('$srcFnPrefix void ${field.cArrayDestroyName}(${field.cTypeName} ptr_) {');
+    src.add('  auto v = $cast;');
+    src.add('  delete v;');
+    src.add('}');
+
+    // Length
+    hdr.add('$hdrFnPrefix size_t ${field.cArrayLengthName}(${field.cTypeName} ptr_);');
+    src.add('$srcFnPrefix size_t ${field.cArrayLengthName}(${field.cTypeName} ptr_) {');
+    src.add('  auto v = $cast;');
+    src.add('  return v->size();');
+    src.add('}');
+
+    // Get at
+    final getAtDef =
+        '${field.innerType.cTypeNameForHeader} ${field.cArrayGetAtName}(${field.cTypeName} ptr_, size_t index_)';
+    hdr.add('$hdrFnPrefix $getAtDef;');
+    src.add('$srcFnPrefix $getAtDef {');
+    src.add('  auto v = $cast;');
+    src.add('  return ${field.innerType.castMbglToC('(*v)[index_]')};');
+    src.add('}');
 
     return (hdr, src);
   }
@@ -124,6 +151,7 @@ class CGenerator {
     for (final field in propertyValues) {
       if (field.propertyType == 'color-ramp') continue; // TODO
 
+      // Create/delete
       if (field is SpecFieldArray) {
         final arrayCodes = _generateArrayMethods(field);
         hdr.addAll(arrayCodes.$1);
@@ -132,13 +160,14 @@ class CGenerator {
         src.add('');
       }
 
+      final cToMbglCast = 'reinterpret_cast<${field.mbglPropertyValueType}*>(ptr_)';
+
       final constantCreateDef =
-          '${field.cPropertyValueType} ${field.cPropertyValueCreateConstantName}(${field.cTypeNameForHeader} value_)';
-      final destroyDef = 'void ${field.cPropertyValueDestroyName}(${field.cPropertyValueType} ptr_)';
+          '${field.cPropertyValueType} ${field.cPropertyValueCreateConstantFnName}(${field.cTypeNameForHeader} value_)';
+      final destroyDef = 'void ${field.cPropertyValueDestroyFnName}(${field.cPropertyValueType} ptr_)';
 
       hdr.add('$hdrFnPrefix $constantCreateDef;');
       hdr.add('$hdrFnPrefix $destroyDef;');
-      hdr.add('');
 
       src.add('$srcFnPrefix $constantCreateDef {');
       src.add('  auto value = new ${field.mbglPropertyValueType}(${field.castCToMbgl('value_')});');
@@ -146,10 +175,44 @@ class CGenerator {
       src.add('}');
       src.add('');
       src.add('$srcFnPrefix $destroyDef {');
-      src.add('  auto value = reinterpret_cast<${field.mbglPropertyValueType}*>(ptr_);');
+      src.add('  auto value = $cToMbglCast;');
       src.add('  delete value;');
       src.add('}');
       src.add('');
+
+      // isConstant, isDataDriven, isExpression, isUndefined, isZoomConstant
+      final checks = ['isConstant', 'isDataDriven', 'isExpression', 'isUndefined', 'isZoomConstant'];
+      final checkFnNames = [
+        field.cPropertyValueIsConstantFnName,
+        field.cPropertyValueIsDataDrivenFnName,
+        field.cPropertyValueIsExpressionFnName,
+        field.cPropertyValueIsUndefinedFnName,
+        field.cPropertyValueIsZoomConstantFnName,
+      ];
+      for (var i = 0; i < checks.length; i++) {
+        final check = checks[i];
+        final fnName = checkFnNames[i];
+
+        final def = 'bool $fnName(${field.cPropertyValueType} ptr_)';
+        hdr.add('$hdrFnPrefix $def;');
+        src.add('$srcFnPrefix $def {');
+        src.add('  auto value = $cToMbglCast;');
+        src.add('  return value->$check();');
+        src.add('}');
+        src.add('');
+      }
+
+      // asConstant
+      final asConstantDef =
+          '${field.cTypeNameForHeader} ${field.cPropertyValueAsConstantFnName}(${field.cPropertyValueType} ptr_)';
+      hdr.add('$hdrFnPrefix $asConstantDef;');
+      src.add('$srcFnPrefix $asConstantDef {');
+      src.add('  auto value = $cToMbglCast;');
+      src.add('  return ${field.castMbglToC('value->asConstant()')};');
+      src.add('}');
+      src.add('');
+
+      hdr.add('');
     }
 
     return (hdr, src);
@@ -161,6 +224,32 @@ class CGenerator {
 
     hdr.add('typedef void* ${layer.cName};');
     hdr.add('');
+
+    // Create/destroy
+    // Background doesn't need sourceId
+    if (layer.type != 'background') {
+      hdr.add('$hdrFnPrefix ${layer.cName} ${layer.cCreateFnName}(char* layerId_, char* sourceId_);');
+      src.add('$srcFnPrefix ${layer.cName} ${layer.cCreateFnName}(char* layerId_, char* sourceId_) {');
+      src.add('  auto layer = new ${layer.mbglClassName}(std::string(layerId_), std::string(sourceId_));');
+      src.add('  return reinterpret_cast<${layer.cName}>(layer);');
+      src.add('}');
+      src.add('');
+    }
+    else {
+      hdr.add('$hdrFnPrefix ${layer.cName} ${layer.cCreateFnName}(char* layerId_);');
+      src.add('$srcFnPrefix ${layer.cName} ${layer.cCreateFnName}(char* layerId_) {');
+      src.add('  auto layer = new ${layer.mbglClassName}(std::string(layerId_));');
+      src.add('  return reinterpret_cast<${layer.cName}>(layer);');
+      src.add('}');
+      src.add('');
+    }
+
+    hdr.add('$hdrFnPrefix void ${layer.cDestroyFnName}(${layer.cName} layer_);');
+    src.add('$srcFnPrefix void ${layer.cDestroyFnName}(${layer.cName} layer_) {');
+    src.add('  auto layer = ${layer.castCToMbgl('layer_')};');
+    src.add('  delete layer;');
+    src.add('}');
+    src.add('');
 
     for (final field in layer.fields.values) {
       final getterSignature = '${field.cPropertyValueTypeForHeader} ${field.cGetterName}(${layer.cName} layer_)';

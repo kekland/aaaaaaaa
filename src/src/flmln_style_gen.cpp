@@ -511,6 +511,36 @@ EXTERNC void mbgl_style_property_value_float_destroy(mbgl_style_property_value_f
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_float_is_constant(mbgl_style_property_value_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<float>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_float_is_data_driven(mbgl_style_property_value_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<float>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_float_is_expression(mbgl_style_property_value_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<float>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_float_is_undefined(mbgl_style_property_value_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<float>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_float_is_zoom_constant(mbgl_style_property_value_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<float>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC float mbgl_style_property_value_float_as_constant(mbgl_style_property_value_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<float>*>(ptr_);
+  return value->asConstant();
+}
+
 EXTERNC mbgl_style_property_value_bool_t mbgl_style_property_value_bool_create_constant(bool value_) {
   auto value = new style::PropertyValue<bool>(value_);
   return reinterpret_cast<mbgl_style_property_value_bool_t*>(value);
@@ -519,6 +549,36 @@ EXTERNC mbgl_style_property_value_bool_t mbgl_style_property_value_bool_create_c
 EXTERNC void mbgl_style_property_value_bool_destroy(mbgl_style_property_value_bool_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_bool_is_constant(mbgl_style_property_value_bool_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_bool_is_data_driven(mbgl_style_property_value_bool_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_bool_is_expression(mbgl_style_property_value_bool_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_bool_is_undefined(mbgl_style_property_value_bool_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_bool_is_zoom_constant(mbgl_style_property_value_bool_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_bool_as_constant(mbgl_style_property_value_bool_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<bool>*>(ptr_);
+  return value->asConstant();
 }
 
 EXTERNC mbgl_style_property_value_mbgl_color_t mbgl_style_property_value_mbgl_color_create_constant(mbgl_color_t value_) {
@@ -531,11 +591,53 @@ EXTERNC void mbgl_style_property_value_mbgl_color_destroy(mbgl_style_property_va
   delete value;
 }
 
-EXTERNC std_array_float_2_t mbgl_style_std_array_float_2_create(float v0, float v1) {
+EXTERNC bool mbgl_style_property_value_mbgl_color_is_constant(mbgl_style_property_value_mbgl_color_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Color>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_color_is_data_driven(mbgl_style_property_value_mbgl_color_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Color>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_color_is_expression(mbgl_style_property_value_mbgl_color_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Color>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_color_is_undefined(mbgl_style_property_value_mbgl_color_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Color>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_color_is_zoom_constant(mbgl_style_property_value_mbgl_color_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Color>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC mbgl_color_t mbgl_style_property_value_mbgl_color_as_constant(mbgl_style_property_value_mbgl_color_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Color>*>(ptr_);
+  return reinterpret_cast<mbgl_color_t>(const_cast<Color*>(&value->asConstant()));
+}
+
+EXTERNC std_array_float_2_t std_array_float_2_create(float v0, float v1) {
   auto arr = new std::array<float, 2>();
   (*arr)[0] = v0;
   (*arr)[1] = v1;
   return static_cast<std_array_float_2_t>(arr);
+}
+EXTERNC void std_array_float_2_destroy(std_array_float_2_t ptr_) {
+  auto v = reinterpret_cast<std::array<float, 2>*>(ptr_);
+  delete v;
+}
+EXTERNC size_t std_array_float_2_length(std_array_float_2_t ptr_) {
+  auto v = reinterpret_cast<std::array<float, 2>*>(ptr_);
+  return v->size();
+}
+EXTERNC float std_array_float_2_get_at(std_array_float_2_t ptr_, size_t index_) {
+  auto v = reinterpret_cast<std::array<float, 2>*>(ptr_);
+  return (*v)[index_];
 }
 
 EXTERNC mbgl_style_property_value_std_array_float_2_t mbgl_style_property_value_std_array_float_2_create_constant(std_array_float_2_t value_) {
@@ -548,6 +650,36 @@ EXTERNC void mbgl_style_property_value_std_array_float_2_destroy(mbgl_style_prop
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_std_array_float_2_is_constant(mbgl_style_property_value_std_array_float_2_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 2>>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_2_is_data_driven(mbgl_style_property_value_std_array_float_2_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 2>>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_2_is_expression(mbgl_style_property_value_std_array_float_2_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 2>>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_2_is_undefined(mbgl_style_property_value_std_array_float_2_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 2>>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_2_is_zoom_constant(mbgl_style_property_value_std_array_float_2_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 2>>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC std_array_float_2_t mbgl_style_property_value_std_array_float_2_as_constant(mbgl_style_property_value_std_array_float_2_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 2>>*>(ptr_);
+  return reinterpret_cast<std_array_float_2_t>(const_cast<std::array<float, 2>*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_fill_translate_anchor_t mbgl_style_property_value_mbgl_style_fill_translate_anchor_create_constant(enum MBGL_STYLE_FILL_TRANSLATE_ANCHOR value_) {
   auto value = new style::PropertyValue<style::TranslateAnchorType>(fill_translate_anchor_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_fill_translate_anchor_t*>(value);
@@ -556,6 +688,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_fill_translate_anchor_t mbgl_style_
 EXTERNC void mbgl_style_property_value_mbgl_style_fill_translate_anchor_destroy(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_constant(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_expression(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_undefined(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_FILL_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_fill_translate_anchor_as_constant(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return fill_translate_anchor_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_expression_image_t mbgl_style_property_value_mbgl_style_expression_image_create_constant(mbgl_style_expression_image_t value_) {
@@ -568,6 +730,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_expression_image_destroy(mbgl_
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_image_is_constant(mbgl_style_property_value_mbgl_style_expression_image_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Image>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_image_is_data_driven(mbgl_style_property_value_mbgl_style_expression_image_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Image>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_image_is_expression(mbgl_style_property_value_mbgl_style_expression_image_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Image>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_image_is_undefined(mbgl_style_property_value_mbgl_style_expression_image_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Image>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_image_is_zoom_constant(mbgl_style_property_value_mbgl_style_expression_image_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Image>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC mbgl_style_expression_image_t mbgl_style_property_value_mbgl_style_expression_image_as_constant(mbgl_style_property_value_mbgl_style_expression_image_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Image>*>(ptr_);
+  return reinterpret_cast<mbgl_style_expression_image_t>(const_cast<style::expression::Image*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_line_cap_t mbgl_style_property_value_mbgl_style_line_cap_create_constant(enum MBGL_STYLE_LINE_CAP value_) {
   auto value = new style::PropertyValue<style::LineCapType>(line_cap_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_line_cap_t*>(value);
@@ -576,6 +768,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_line_cap_t mbgl_style_property_valu
 EXTERNC void mbgl_style_property_value_mbgl_style_line_cap_destroy(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_cap_is_constant(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_cap_is_data_driven(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_cap_is_expression(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_cap_is_undefined(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_cap_is_zoom_constant(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_LINE_CAP mbgl_style_property_value_mbgl_style_line_cap_as_constant(mbgl_style_property_value_mbgl_style_line_cap_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineCapType>*>(ptr_);
+  return line_cap_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_line_join_t mbgl_style_property_value_mbgl_style_line_join_create_constant(enum MBGL_STYLE_LINE_JOIN value_) {
@@ -588,6 +810,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_line_join_destroy(mbgl_style_p
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_join_is_constant(mbgl_style_property_value_mbgl_style_line_join_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineJoinType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_join_is_data_driven(mbgl_style_property_value_mbgl_style_line_join_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineJoinType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_join_is_expression(mbgl_style_property_value_mbgl_style_line_join_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineJoinType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_join_is_undefined(mbgl_style_property_value_mbgl_style_line_join_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineJoinType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_join_is_zoom_constant(mbgl_style_property_value_mbgl_style_line_join_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineJoinType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_LINE_JOIN mbgl_style_property_value_mbgl_style_line_join_as_constant(mbgl_style_property_value_mbgl_style_line_join_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::LineJoinType>*>(ptr_);
+  return line_join_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_line_translate_anchor_t mbgl_style_property_value_mbgl_style_line_translate_anchor_create_constant(enum MBGL_STYLE_LINE_TRANSLATE_ANCHOR value_) {
   auto value = new style::PropertyValue<style::TranslateAnchorType>(line_translate_anchor_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_line_translate_anchor_t*>(value);
@@ -598,13 +850,55 @@ EXTERNC void mbgl_style_property_value_mbgl_style_line_translate_anchor_destroy(
   delete value;
 }
 
-EXTERNC std_vector_float_t mbgl_style_std_vector_float_create(size_t length_, float* values_) {
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_constant(mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_expression(mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_undefined(mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_LINE_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_line_translate_anchor_as_constant(mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return line_translate_anchor_to_c(value->asConstant());
+}
+
+EXTERNC std_vector_float_t std_vector_float_create(size_t length_, float* values_) {
   auto arr = new std::vector<float>();
   arr->reserve(length_);
   for (size_t i = 0; i < length_; i++) {
     arr->push_back(values_[i]);
   }
   return static_cast<std_vector_float_t>(arr);
+}
+EXTERNC void std_vector_float_destroy(std_vector_float_t ptr_) {
+  auto v = reinterpret_cast<std::vector<float>*>(ptr_);
+  delete v;
+}
+EXTERNC size_t std_vector_float_length(std_vector_float_t ptr_) {
+  auto v = reinterpret_cast<std::vector<float>*>(ptr_);
+  return v->size();
+}
+EXTERNC float std_vector_float_get_at(std_vector_float_t ptr_, size_t index_) {
+  auto v = reinterpret_cast<std::vector<float>*>(ptr_);
+  return (*v)[index_];
 }
 
 EXTERNC mbgl_style_property_value_std_vector_float_t mbgl_style_property_value_std_vector_float_create_constant(std_vector_float_t value_) {
@@ -617,6 +911,36 @@ EXTERNC void mbgl_style_property_value_std_vector_float_destroy(mbgl_style_prope
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_std_vector_float_is_constant(mbgl_style_property_value_std_vector_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<float>>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_float_is_data_driven(mbgl_style_property_value_std_vector_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<float>>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_float_is_expression(mbgl_style_property_value_std_vector_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<float>>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_float_is_undefined(mbgl_style_property_value_std_vector_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<float>>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_float_is_zoom_constant(mbgl_style_property_value_std_vector_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<float>>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC std_vector_float_t mbgl_style_property_value_std_vector_float_as_constant(mbgl_style_property_value_std_vector_float_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<float>>*>(ptr_);
+  return reinterpret_cast<std_vector_float_t>(const_cast<std::vector<float>*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_symbol_placement_t mbgl_style_property_value_mbgl_style_symbol_placement_create_constant(enum MBGL_STYLE_SYMBOL_PLACEMENT value_) {
   auto value = new style::PropertyValue<style::SymbolPlacementType>(symbol_placement_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_symbol_placement_t*>(value);
@@ -625,6 +949,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_symbol_placement_t mbgl_style_prope
 EXTERNC void mbgl_style_property_value_mbgl_style_symbol_placement_destroy(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_placement_is_constant(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_placement_is_data_driven(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_placement_is_expression(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_placement_is_undefined(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_placement_is_zoom_constant(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_SYMBOL_PLACEMENT mbgl_style_property_value_mbgl_style_symbol_placement_as_constant(mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolPlacementType>*>(ptr_);
+  return symbol_placement_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_symbol_z_order_t mbgl_style_property_value_mbgl_style_symbol_z_order_create_constant(enum MBGL_STYLE_SYMBOL_Z_ORDER value_) {
@@ -637,6 +991,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_symbol_z_order_destroy(mbgl_st
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_constant(mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolZOrderType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_data_driven(mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolZOrderType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_expression(mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolZOrderType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_undefined(mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolZOrderType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_zoom_constant(mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolZOrderType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_SYMBOL_Z_ORDER mbgl_style_property_value_mbgl_style_symbol_z_order_as_constant(mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolZOrderType>*>(ptr_);
+  return symbol_z_order_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t mbgl_style_property_value_mbgl_style_icon_rotation_alignment_create_constant(enum MBGL_STYLE_ICON_ROTATION_ALIGNMENT value_) {
   auto value = new style::PropertyValue<style::AlignmentType>(icon_rotation_alignment_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t*>(value);
@@ -645,6 +1029,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t mbgl_styl
 EXTERNC void mbgl_style_property_value_mbgl_style_icon_rotation_alignment_destroy(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_constant(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_data_driven(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_expression(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_undefined(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_zoom_constant(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_ICON_ROTATION_ALIGNMENT mbgl_style_property_value_mbgl_style_icon_rotation_alignment_as_constant(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return icon_rotation_alignment_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_icon_text_fit_t mbgl_style_property_value_mbgl_style_icon_text_fit_create_constant(enum MBGL_STYLE_ICON_TEXT_FIT value_) {
@@ -657,13 +1071,55 @@ EXTERNC void mbgl_style_property_value_mbgl_style_icon_text_fit_destroy(mbgl_sty
   delete value;
 }
 
-EXTERNC std_array_float_4_t mbgl_style_std_array_float_4_create(float v0, float v1, float v2, float v3) {
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_constant(mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::IconTextFitType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_data_driven(mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::IconTextFitType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_expression(mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::IconTextFitType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_undefined(mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::IconTextFitType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_zoom_constant(mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::IconTextFitType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_ICON_TEXT_FIT mbgl_style_property_value_mbgl_style_icon_text_fit_as_constant(mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::IconTextFitType>*>(ptr_);
+  return icon_text_fit_to_c(value->asConstant());
+}
+
+EXTERNC std_array_float_4_t std_array_float_4_create(float v0, float v1, float v2, float v3) {
   auto arr = new std::array<float, 4>();
   (*arr)[0] = v0;
   (*arr)[1] = v1;
   (*arr)[2] = v2;
   (*arr)[3] = v3;
   return static_cast<std_array_float_4_t>(arr);
+}
+EXTERNC void std_array_float_4_destroy(std_array_float_4_t ptr_) {
+  auto v = reinterpret_cast<std::array<float, 4>*>(ptr_);
+  delete v;
+}
+EXTERNC size_t std_array_float_4_length(std_array_float_4_t ptr_) {
+  auto v = reinterpret_cast<std::array<float, 4>*>(ptr_);
+  return v->size();
+}
+EXTERNC float std_array_float_4_get_at(std_array_float_4_t ptr_, size_t index_) {
+  auto v = reinterpret_cast<std::array<float, 4>*>(ptr_);
+  return (*v)[index_];
 }
 
 EXTERNC mbgl_style_property_value_std_array_float_4_t mbgl_style_property_value_std_array_float_4_create_constant(std_array_float_4_t value_) {
@@ -676,6 +1132,36 @@ EXTERNC void mbgl_style_property_value_std_array_float_4_destroy(mbgl_style_prop
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_std_array_float_4_is_constant(mbgl_style_property_value_std_array_float_4_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 4>>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_4_is_data_driven(mbgl_style_property_value_std_array_float_4_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 4>>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_4_is_expression(mbgl_style_property_value_std_array_float_4_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 4>>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_4_is_undefined(mbgl_style_property_value_std_array_float_4_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 4>>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_std_array_float_4_is_zoom_constant(mbgl_style_property_value_std_array_float_4_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 4>>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC std_array_float_4_t mbgl_style_property_value_std_array_float_4_as_constant(mbgl_style_property_value_std_array_float_4_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::array<float, 4>>*>(ptr_);
+  return reinterpret_cast<std_array_float_4_t>(const_cast<std::array<float, 4>*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_padding_t mbgl_style_property_value_mbgl_padding_create_constant(mbgl_padding_t value_) {
   auto value = new style::PropertyValue<Padding>(*reinterpret_cast<Padding*>(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_padding_t*>(value);
@@ -684,6 +1170,36 @@ EXTERNC mbgl_style_property_value_mbgl_padding_t mbgl_style_property_value_mbgl_
 EXTERNC void mbgl_style_property_value_mbgl_padding_destroy(mbgl_style_property_value_mbgl_padding_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_padding_is_constant(mbgl_style_property_value_mbgl_padding_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_padding_is_data_driven(mbgl_style_property_value_mbgl_padding_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_padding_is_expression(mbgl_style_property_value_mbgl_padding_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_padding_is_undefined(mbgl_style_property_value_mbgl_padding_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_padding_is_zoom_constant(mbgl_style_property_value_mbgl_padding_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC mbgl_padding_t mbgl_style_property_value_mbgl_padding_as_constant(mbgl_style_property_value_mbgl_padding_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<Padding>*>(ptr_);
+  return reinterpret_cast<mbgl_padding_t>(const_cast<Padding*>(&value->asConstant()));
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_icon_anchor_t mbgl_style_property_value_mbgl_style_icon_anchor_create_constant(enum MBGL_STYLE_ICON_ANCHOR value_) {
@@ -696,6 +1212,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_icon_anchor_destroy(mbgl_style
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_anchor_is_constant(mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_anchor_is_expression(mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_anchor_is_undefined(mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_ICON_ANCHOR mbgl_style_property_value_mbgl_style_icon_anchor_as_constant(mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return icon_anchor_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t mbgl_style_property_value_mbgl_style_icon_pitch_alignment_create_constant(enum MBGL_STYLE_ICON_PITCH_ALIGNMENT value_) {
   auto value = new style::PropertyValue<style::AlignmentType>(icon_pitch_alignment_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t*>(value);
@@ -704,6 +1250,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t mbgl_style_p
 EXTERNC void mbgl_style_property_value_mbgl_style_icon_pitch_alignment_destroy(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_constant(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_data_driven(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_expression(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_undefined(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_zoom_constant(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_ICON_PITCH_ALIGNMENT mbgl_style_property_value_mbgl_style_icon_pitch_alignment_as_constant(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return icon_pitch_alignment_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_text_pitch_alignment_t mbgl_style_property_value_mbgl_style_text_pitch_alignment_create_constant(enum MBGL_STYLE_TEXT_PITCH_ALIGNMENT value_) {
@@ -716,6 +1292,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_text_pitch_alignment_destroy(m
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_constant(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_data_driven(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_expression(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_undefined(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_zoom_constant(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_TEXT_PITCH_ALIGNMENT mbgl_style_property_value_mbgl_style_text_pitch_alignment_as_constant(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return text_pitch_alignment_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_text_rotation_alignment_t mbgl_style_property_value_mbgl_style_text_rotation_alignment_create_constant(enum MBGL_STYLE_TEXT_ROTATION_ALIGNMENT value_) {
   auto value = new style::PropertyValue<style::AlignmentType>(text_rotation_alignment_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_text_rotation_alignment_t*>(value);
@@ -724,6 +1330,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_text_rotation_alignment_t mbgl_styl
 EXTERNC void mbgl_style_property_value_mbgl_style_text_rotation_alignment_destroy(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_constant(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_data_driven(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_expression(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_undefined(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_zoom_constant(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_TEXT_ROTATION_ALIGNMENT mbgl_style_property_value_mbgl_style_text_rotation_alignment_as_constant(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return text_rotation_alignment_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_expression_formatted_t mbgl_style_property_value_mbgl_style_expression_formatted_create_constant(mbgl_style_expression_formatted_t value_) {
@@ -736,13 +1372,55 @@ EXTERNC void mbgl_style_property_value_mbgl_style_expression_formatted_destroy(m
   delete value;
 }
 
-EXTERNC std_vector_const_char_t mbgl_style_std_vector_const_char_create(size_t length_, const char** values_) {
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_formatted_is_constant(mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Formatted>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_formatted_is_data_driven(mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Formatted>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_formatted_is_expression(mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Formatted>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_formatted_is_undefined(mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Formatted>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_expression_formatted_is_zoom_constant(mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Formatted>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC mbgl_style_expression_formatted_t mbgl_style_property_value_mbgl_style_expression_formatted_as_constant(mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::expression::Formatted>*>(ptr_);
+  return reinterpret_cast<mbgl_style_expression_formatted_t>(const_cast<style::expression::Formatted*>(&value->asConstant()));
+}
+
+EXTERNC std_vector_const_char_t std_vector_const_char_create(size_t length_, const char** values_) {
   auto arr = new std::vector<std::string>();
   arr->reserve(length_);
   for (size_t i = 0; i < length_; i++) {
     arr->push_back(std::string(values_[i]));
   }
   return static_cast<std_vector_const_char_t>(arr);
+}
+EXTERNC void std_vector_const_char_destroy(std_vector_const_char_t ptr_) {
+  auto v = reinterpret_cast<std::vector<std::string>*>(ptr_);
+  delete v;
+}
+EXTERNC size_t std_vector_const_char_length(std_vector_const_char_t ptr_) {
+  auto v = reinterpret_cast<std::vector<std::string>*>(ptr_);
+  return v->size();
+}
+EXTERNC const char* std_vector_const_char_get_at(std_vector_const_char_t ptr_, size_t index_) {
+  auto v = reinterpret_cast<std::vector<std::string>*>(ptr_);
+  return reinterpret_cast<const char*>(const_cast<std::string*>(&(*v)[index_]));
 }
 
 EXTERNC mbgl_style_property_value_std_vector_const_char_t mbgl_style_property_value_std_vector_const_char_create_constant(std_vector_const_char_t value_) {
@@ -755,6 +1433,36 @@ EXTERNC void mbgl_style_property_value_std_vector_const_char_destroy(mbgl_style_
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_std_vector_const_char_is_constant(mbgl_style_property_value_std_vector_const_char_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<std::string>>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_const_char_is_data_driven(mbgl_style_property_value_std_vector_const_char_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<std::string>>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_const_char_is_expression(mbgl_style_property_value_std_vector_const_char_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<std::string>>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_const_char_is_undefined(mbgl_style_property_value_std_vector_const_char_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<std::string>>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_const_char_is_zoom_constant(mbgl_style_property_value_std_vector_const_char_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<std::string>>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC std_vector_const_char_t mbgl_style_property_value_std_vector_const_char_as_constant(mbgl_style_property_value_std_vector_const_char_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<std::string>>*>(ptr_);
+  return reinterpret_cast<std_vector_const_char_t>(const_cast<std::vector<std::string>*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_text_justify_t mbgl_style_property_value_mbgl_style_text_justify_create_constant(enum MBGL_STYLE_TEXT_JUSTIFY value_) {
   auto value = new style::PropertyValue<style::TextJustifyType>(text_justify_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_text_justify_t*>(value);
@@ -765,13 +1473,55 @@ EXTERNC void mbgl_style_property_value_mbgl_style_text_justify_destroy(mbgl_styl
   delete value;
 }
 
-EXTERNC std_vector_mbgl_style_text_variable_anchor_t mbgl_style_std_vector_mbgl_style_text_variable_anchor_create(size_t length_, enum MBGL_STYLE_TEXT_VARIABLE_ANCHOR* values_) {
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_justify_is_constant(mbgl_style_property_value_mbgl_style_text_justify_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextJustifyType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_justify_is_data_driven(mbgl_style_property_value_mbgl_style_text_justify_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextJustifyType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_justify_is_expression(mbgl_style_property_value_mbgl_style_text_justify_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextJustifyType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_justify_is_undefined(mbgl_style_property_value_mbgl_style_text_justify_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextJustifyType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_justify_is_zoom_constant(mbgl_style_property_value_mbgl_style_text_justify_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextJustifyType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_TEXT_JUSTIFY mbgl_style_property_value_mbgl_style_text_justify_as_constant(mbgl_style_property_value_mbgl_style_text_justify_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextJustifyType>*>(ptr_);
+  return text_justify_to_c(value->asConstant());
+}
+
+EXTERNC std_vector_mbgl_style_text_variable_anchor_t std_vector_mbgl_style_text_variable_anchor_create(size_t length_, enum MBGL_STYLE_TEXT_VARIABLE_ANCHOR* values_) {
   auto arr = new std::vector<style::TextVariableAnchorType>();
   arr->reserve(length_);
   for (size_t i = 0; i < length_; i++) {
     arr->push_back(text_variable_anchor_to_mbgl(values_[i]));
   }
   return static_cast<std_vector_mbgl_style_text_variable_anchor_t>(arr);
+}
+EXTERNC void std_vector_mbgl_style_text_variable_anchor_destroy(std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto v = reinterpret_cast<std::vector<style::TextVariableAnchorType>*>(ptr_);
+  delete v;
+}
+EXTERNC size_t std_vector_mbgl_style_text_variable_anchor_length(std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto v = reinterpret_cast<std::vector<style::TextVariableAnchorType>*>(ptr_);
+  return v->size();
+}
+EXTERNC enum MBGL_STYLE_TEXT_VARIABLE_ANCHOR std_vector_mbgl_style_text_variable_anchor_get_at(std_vector_mbgl_style_text_variable_anchor_t ptr_, size_t index_) {
+  auto v = reinterpret_cast<std::vector<style::TextVariableAnchorType>*>(ptr_);
+  return text_variable_anchor_to_c((*v)[index_]);
 }
 
 EXTERNC mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_create_constant(std_vector_mbgl_style_text_variable_anchor_t value_) {
@@ -784,6 +1534,36 @@ EXTERNC void mbgl_style_property_value_std_vector_mbgl_style_text_variable_ancho
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_constant(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextVariableAnchorType>>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_data_driven(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextVariableAnchorType>>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_expression(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextVariableAnchorType>>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_undefined(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextVariableAnchorType>>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_zoom_constant(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextVariableAnchorType>>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC std_vector_mbgl_style_text_variable_anchor_t mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_as_constant(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextVariableAnchorType>>*>(ptr_);
+  return reinterpret_cast<std_vector_mbgl_style_text_variable_anchor_t>(const_cast<std::vector<style::TextVariableAnchorType>*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t mbgl_style_property_value_mbgl_variable_anchor_offset_collection_create_constant(mbgl_variable_anchor_offset_collection_t value_) {
   auto value = new style::PropertyValue<VariableAnchorOffsetCollection>(*reinterpret_cast<VariableAnchorOffsetCollection*>(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t*>(value);
@@ -792,6 +1572,36 @@ EXTERNC mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t mbgl_
 EXTERNC void mbgl_style_property_value_mbgl_variable_anchor_offset_collection_destroy(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_constant(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_data_driven(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_expression(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_undefined(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_zoom_constant(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC mbgl_variable_anchor_offset_collection_t mbgl_style_property_value_mbgl_variable_anchor_offset_collection_as_constant(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<VariableAnchorOffsetCollection>*>(ptr_);
+  return reinterpret_cast<mbgl_variable_anchor_offset_collection_t>(const_cast<VariableAnchorOffsetCollection*>(&value->asConstant()));
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_text_anchor_t mbgl_style_property_value_mbgl_style_text_anchor_create_constant(enum MBGL_STYLE_TEXT_ANCHOR value_) {
@@ -804,13 +1614,55 @@ EXTERNC void mbgl_style_property_value_mbgl_style_text_anchor_destroy(mbgl_style
   delete value;
 }
 
-EXTERNC std_vector_mbgl_style_text_writing_mode_t mbgl_style_std_vector_mbgl_style_text_writing_mode_create(size_t length_, enum MBGL_STYLE_TEXT_WRITING_MODE* values_) {
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_anchor_is_constant(mbgl_style_property_value_mbgl_style_text_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_text_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_anchor_is_expression(mbgl_style_property_value_mbgl_style_text_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_anchor_is_undefined(mbgl_style_property_value_mbgl_style_text_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_text_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_TEXT_ANCHOR mbgl_style_property_value_mbgl_style_text_anchor_as_constant(mbgl_style_property_value_mbgl_style_text_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::SymbolAnchorType>*>(ptr_);
+  return text_anchor_to_c(value->asConstant());
+}
+
+EXTERNC std_vector_mbgl_style_text_writing_mode_t std_vector_mbgl_style_text_writing_mode_create(size_t length_, enum MBGL_STYLE_TEXT_WRITING_MODE* values_) {
   auto arr = new std::vector<style::TextWritingModeType>();
   arr->reserve(length_);
   for (size_t i = 0; i < length_; i++) {
     arr->push_back(text_writing_mode_to_mbgl(values_[i]));
   }
   return static_cast<std_vector_mbgl_style_text_writing_mode_t>(arr);
+}
+EXTERNC void std_vector_mbgl_style_text_writing_mode_destroy(std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto v = reinterpret_cast<std::vector<style::TextWritingModeType>*>(ptr_);
+  delete v;
+}
+EXTERNC size_t std_vector_mbgl_style_text_writing_mode_length(std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto v = reinterpret_cast<std::vector<style::TextWritingModeType>*>(ptr_);
+  return v->size();
+}
+EXTERNC enum MBGL_STYLE_TEXT_WRITING_MODE std_vector_mbgl_style_text_writing_mode_get_at(std_vector_mbgl_style_text_writing_mode_t ptr_, size_t index_) {
+  auto v = reinterpret_cast<std::vector<style::TextWritingModeType>*>(ptr_);
+  return text_writing_mode_to_c((*v)[index_]);
 }
 
 EXTERNC mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_create_constant(std_vector_mbgl_style_text_writing_mode_t value_) {
@@ -823,6 +1675,36 @@ EXTERNC void mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_d
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_constant(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextWritingModeType>>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_data_driven(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextWritingModeType>>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_expression(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextWritingModeType>>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_undefined(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextWritingModeType>>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_zoom_constant(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextWritingModeType>>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC std_vector_mbgl_style_text_writing_mode_t mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_as_constant(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<std::vector<style::TextWritingModeType>>*>(ptr_);
+  return reinterpret_cast<std_vector_mbgl_style_text_writing_mode_t>(const_cast<std::vector<style::TextWritingModeType>*>(&value->asConstant()));
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_text_transform_t mbgl_style_property_value_mbgl_style_text_transform_create_constant(enum MBGL_STYLE_TEXT_TRANSFORM value_) {
   auto value = new style::PropertyValue<style::TextTransformType>(text_transform_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_text_transform_t*>(value);
@@ -831,6 +1713,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_text_transform_t mbgl_style_propert
 EXTERNC void mbgl_style_property_value_mbgl_style_text_transform_destroy(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_transform_is_constant(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_transform_is_data_driven(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_transform_is_expression(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_transform_is_undefined(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_transform_is_zoom_constant(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_TEXT_TRANSFORM mbgl_style_property_value_mbgl_style_text_transform_as_constant(mbgl_style_property_value_mbgl_style_text_transform_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TextTransformType>*>(ptr_);
+  return text_transform_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_icon_translate_anchor_t mbgl_style_property_value_mbgl_style_icon_translate_anchor_create_constant(enum MBGL_STYLE_ICON_TRANSLATE_ANCHOR value_) {
@@ -843,6 +1755,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_icon_translate_anchor_destroy(
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_constant(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_expression(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_undefined(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_ICON_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_icon_translate_anchor_as_constant(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return icon_translate_anchor_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_text_translate_anchor_t mbgl_style_property_value_mbgl_style_text_translate_anchor_create_constant(enum MBGL_STYLE_TEXT_TRANSLATE_ANCHOR value_) {
   auto value = new style::PropertyValue<style::TranslateAnchorType>(text_translate_anchor_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_text_translate_anchor_t*>(value);
@@ -851,6 +1793,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_text_translate_anchor_t mbgl_style_
 EXTERNC void mbgl_style_property_value_mbgl_style_text_translate_anchor_destroy(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_constant(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_expression(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_undefined(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_TEXT_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_text_translate_anchor_as_constant(mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return text_translate_anchor_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_circle_translate_anchor_t mbgl_style_property_value_mbgl_style_circle_translate_anchor_create_constant(enum MBGL_STYLE_CIRCLE_TRANSLATE_ANCHOR value_) {
@@ -863,6 +1835,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_circle_translate_anchor_destro
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_constant(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_expression(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_undefined(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_CIRCLE_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_circle_translate_anchor_as_constant(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return circle_translate_anchor_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_circle_pitch_scale_t mbgl_style_property_value_mbgl_style_circle_pitch_scale_create_constant(enum MBGL_STYLE_CIRCLE_PITCH_SCALE value_) {
   auto value = new style::PropertyValue<style::CirclePitchScaleType>(circle_pitch_scale_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_circle_pitch_scale_t*>(value);
@@ -871,6 +1873,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_circle_pitch_scale_t mbgl_style_pro
 EXTERNC void mbgl_style_property_value_mbgl_style_circle_pitch_scale_destroy(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_constant(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_data_driven(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_expression(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_undefined(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_zoom_constant(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_CIRCLE_PITCH_SCALE mbgl_style_property_value_mbgl_style_circle_pitch_scale_as_constant(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::CirclePitchScaleType>*>(ptr_);
+  return circle_pitch_scale_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t mbgl_style_property_value_mbgl_style_circle_pitch_alignment_create_constant(enum MBGL_STYLE_CIRCLE_PITCH_ALIGNMENT value_) {
@@ -883,6 +1915,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_circle_pitch_alignment_destroy
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_constant(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_data_driven(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_expression(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_undefined(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_zoom_constant(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_CIRCLE_PITCH_ALIGNMENT mbgl_style_property_value_mbgl_style_circle_pitch_alignment_as_constant(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::AlignmentType>*>(ptr_);
+  return circle_pitch_alignment_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_create_constant(enum MBGL_STYLE_FILL_EXTRUSION_TRANSLATE_ANCHOR value_) {
   auto value = new style::PropertyValue<style::TranslateAnchorType>(fill_extrusion_translate_anchor_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t*>(value);
@@ -891,6 +1953,36 @@ EXTERNC mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t m
 EXTERNC void mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_destroy(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_constant(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_expression(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_undefined(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_FILL_EXTRUSION_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_as_constant(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(ptr_);
+  return fill_extrusion_translate_anchor_to_c(value->asConstant());
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_raster_resampling_t mbgl_style_property_value_mbgl_style_raster_resampling_create_constant(enum MBGL_STYLE_RASTER_RESAMPLING value_) {
@@ -903,6 +1995,36 @@ EXTERNC void mbgl_style_property_value_mbgl_style_raster_resampling_destroy(mbgl
   delete value;
 }
 
+EXTERNC bool mbgl_style_property_value_mbgl_style_raster_resampling_is_constant(mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::RasterResamplingType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_raster_resampling_is_data_driven(mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::RasterResamplingType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_raster_resampling_is_expression(mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::RasterResamplingType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_raster_resampling_is_undefined(mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::RasterResamplingType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_raster_resampling_is_zoom_constant(mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::RasterResamplingType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_RASTER_RESAMPLING mbgl_style_property_value_mbgl_style_raster_resampling_as_constant(mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::RasterResamplingType>*>(ptr_);
+  return raster_resampling_to_c(value->asConstant());
+}
+
 EXTERNC mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_create_constant(enum MBGL_STYLE_HILLSHADE_ILLUMINATION_ANCHOR value_) {
   auto value = new style::PropertyValue<style::HillshadeIlluminationAnchorType>(hillshade_illumination_anchor_to_mbgl(value_));
   return reinterpret_cast<mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t*>(value);
@@ -911,6 +2033,46 @@ EXTERNC mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t mbg
 EXTERNC void mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_destroy(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
   auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
   delete value;
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_constant(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
+  return value->isConstant();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_data_driven(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
+  return value->isDataDriven();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_expression(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
+  return value->isExpression();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_undefined(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
+  return value->isUndefined();
+}
+
+EXTERNC bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_zoom_constant(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
+  return value->isZoomConstant();
+}
+
+EXTERNC enum MBGL_STYLE_HILLSHADE_ILLUMINATION_ANCHOR mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_as_constant(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_) {
+  auto value = reinterpret_cast<style::PropertyValue<style::HillshadeIlluminationAnchorType>*>(ptr_);
+  return hillshade_illumination_anchor_to_c(value->asConstant());
+}
+
+EXTERNC mbgl_style_fill_layer_t mbgl_style_fill_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::FillLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_fill_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_fill_layer_destroy(mbgl_style_fill_layer_t layer_) {
+  auto layer = reinterpret_cast<style::FillLayer*>(layer_);
+  delete layer;
 }
 
 EXTERNC mbgl_style_property_value_float_t mbgl_style_fill_layer_fill_sort_key_get(mbgl_style_fill_layer_t layer_) {
@@ -1001,6 +2163,16 @@ EXTERNC mbgl_style_property_value_mbgl_style_expression_image_t mbgl_style_fill_
 EXTERNC void mbgl_style_fill_layer_fill_pattern_set(mbgl_style_fill_layer_t layer_, mbgl_style_property_value_mbgl_style_expression_image_t value_) {
   auto layer = reinterpret_cast<style::FillLayer*>(layer_);
   layer->setFillPattern(*reinterpret_cast<style::PropertyValue<style::expression::Image>*>(value_));
+}
+
+EXTERNC mbgl_style_line_layer_t mbgl_style_line_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::LineLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_line_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_line_layer_destroy(mbgl_style_line_layer_t layer_) {
+  auto layer = reinterpret_cast<style::LineLayer*>(layer_);
+  delete layer;
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_line_cap_t mbgl_style_line_layer_line_cap_get(mbgl_style_line_layer_t layer_) {
@@ -1171,6 +2343,16 @@ EXTERNC mbgl_style_property_value_mbgl_color_ramp_t mbgl_style_line_layer_line_g
 EXTERNC void mbgl_style_line_layer_line_gradient_set(mbgl_style_line_layer_t layer_, mbgl_style_property_value_mbgl_color_ramp_t value_) {
   auto layer = reinterpret_cast<style::LineLayer*>(layer_);
   layer->setLineGradient(*reinterpret_cast<style::ColorRampPropertyValue*>(value_));
+}
+
+EXTERNC mbgl_style_symbol_layer_t mbgl_style_symbol_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::SymbolLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_symbol_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_symbol_layer_destroy(mbgl_style_symbol_layer_t layer_) {
+  auto layer = reinterpret_cast<style::SymbolLayer*>(layer_);
+  delete layer;
 }
 
 EXTERNC mbgl_style_property_value_mbgl_style_symbol_placement_t mbgl_style_symbol_layer_symbol_placement_get(mbgl_style_symbol_layer_t layer_) {
@@ -1743,6 +2925,16 @@ EXTERNC void mbgl_style_symbol_layer_text_translate_anchor_set(mbgl_style_symbol
   layer->setTextTranslateAnchor(*reinterpret_cast<style::PropertyValue<style::TranslateAnchorType>*>(value_));
 }
 
+EXTERNC mbgl_style_circle_layer_t mbgl_style_circle_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::CircleLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_circle_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_circle_layer_destroy(mbgl_style_circle_layer_t layer_) {
+  auto layer = reinterpret_cast<style::CircleLayer*>(layer_);
+  delete layer;
+}
+
 EXTERNC mbgl_style_property_value_float_t mbgl_style_circle_layer_circle_sort_key_get(mbgl_style_circle_layer_t layer_) {
   auto layer = reinterpret_cast<style::CircleLayer*>(layer_);
   return reinterpret_cast<mbgl_style_property_value_float_t>(const_cast<style::PropertyValue<float>*>(&layer->getCircleSortKey()));
@@ -1873,6 +3065,16 @@ EXTERNC void mbgl_style_circle_layer_circle_stroke_opacity_set(mbgl_style_circle
   layer->setCircleStrokeOpacity(*reinterpret_cast<style::PropertyValue<float>*>(value_));
 }
 
+EXTERNC mbgl_style_heatmap_layer_t mbgl_style_heatmap_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::HeatmapLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_heatmap_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_heatmap_layer_destroy(mbgl_style_heatmap_layer_t layer_) {
+  auto layer = reinterpret_cast<style::HeatmapLayer*>(layer_);
+  delete layer;
+}
+
 EXTERNC enum MBGL_STYLE_VISIBILITY mbgl_style_heatmap_layer_visibility_get(mbgl_style_heatmap_layer_t layer_) {
   auto layer = reinterpret_cast<style::HeatmapLayer*>(layer_);
   return visibility_to_c(layer->getVisibility());
@@ -1931,6 +3133,16 @@ EXTERNC mbgl_style_property_value_float_t mbgl_style_heatmap_layer_heatmap_opaci
 EXTERNC void mbgl_style_heatmap_layer_heatmap_opacity_set(mbgl_style_heatmap_layer_t layer_, mbgl_style_property_value_float_t value_) {
   auto layer = reinterpret_cast<style::HeatmapLayer*>(layer_);
   layer->setHeatmapOpacity(*reinterpret_cast<style::PropertyValue<float>*>(value_));
+}
+
+EXTERNC mbgl_style_fill_extrusion_layer_t mbgl_style_fill_extrusion_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::FillExtrusionLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_fill_extrusion_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_fill_extrusion_layer_destroy(mbgl_style_fill_extrusion_layer_t layer_) {
+  auto layer = reinterpret_cast<style::FillExtrusionLayer*>(layer_);
+  delete layer;
 }
 
 EXTERNC enum MBGL_STYLE_VISIBILITY mbgl_style_fill_extrusion_layer_visibility_get(mbgl_style_fill_extrusion_layer_t layer_) {
@@ -2023,6 +3235,16 @@ EXTERNC void mbgl_style_fill_extrusion_layer_fill_extrusion_vertical_gradient_se
   layer->setFillExtrusionVerticalGradient(*reinterpret_cast<style::PropertyValue<bool>*>(value_));
 }
 
+EXTERNC mbgl_style_raster_layer_t mbgl_style_raster_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::RasterLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_raster_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_raster_layer_destroy(mbgl_style_raster_layer_t layer_) {
+  auto layer = reinterpret_cast<style::RasterLayer*>(layer_);
+  delete layer;
+}
+
 EXTERNC enum MBGL_STYLE_VISIBILITY mbgl_style_raster_layer_visibility_get(mbgl_style_raster_layer_t layer_) {
   auto layer = reinterpret_cast<style::RasterLayer*>(layer_);
   return visibility_to_c(layer->getVisibility());
@@ -2113,6 +3335,16 @@ EXTERNC void mbgl_style_raster_layer_raster_fade_duration_set(mbgl_style_raster_
   layer->setRasterFadeDuration(*reinterpret_cast<style::PropertyValue<float>*>(value_));
 }
 
+EXTERNC mbgl_style_hillshade_layer_t mbgl_style_hillshade_layer_create(char* layerId_, char* sourceId_) {
+  auto layer = new style::HillshadeLayer(std::string(layerId_), std::string(sourceId_));
+  return reinterpret_cast<mbgl_style_hillshade_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_hillshade_layer_destroy(mbgl_style_hillshade_layer_t layer_) {
+  auto layer = reinterpret_cast<style::HillshadeLayer*>(layer_);
+  delete layer;
+}
+
 EXTERNC enum MBGL_STYLE_VISIBILITY mbgl_style_hillshade_layer_visibility_get(mbgl_style_hillshade_layer_t layer_) {
   auto layer = reinterpret_cast<style::HillshadeLayer*>(layer_);
   return visibility_to_c(layer->getVisibility());
@@ -2181,6 +3413,16 @@ EXTERNC mbgl_style_property_value_mbgl_color_t mbgl_style_hillshade_layer_hillsh
 EXTERNC void mbgl_style_hillshade_layer_hillshade_accent_color_set(mbgl_style_hillshade_layer_t layer_, mbgl_style_property_value_mbgl_color_t value_) {
   auto layer = reinterpret_cast<style::HillshadeLayer*>(layer_);
   layer->setHillshadeAccentColor(*reinterpret_cast<style::PropertyValue<Color>*>(value_));
+}
+
+EXTERNC mbgl_style_background_layer_t mbgl_style_background_layer_create(char* layerId_) {
+  auto layer = new style::BackgroundLayer(std::string(layerId_));
+  return reinterpret_cast<mbgl_style_background_layer_t>(layer);
+}
+
+EXTERNC void mbgl_style_background_layer_destroy(mbgl_style_background_layer_t layer_) {
+  auto layer = reinterpret_cast<style::BackgroundLayer*>(layer_);
+  delete layer;
 }
 
 EXTERNC enum MBGL_STYLE_VISIBILITY mbgl_style_background_layer_visibility_get(mbgl_style_background_layer_t layer_) {

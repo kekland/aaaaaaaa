@@ -11,7 +11,16 @@ extension ReadCharPtr on Pointer<Char> {
 }
 
 class NativeOwning<T extends Pointer> {
-  NativeOwning({required this.ptr});
+  NativeOwning({required this.ptr, required this.ownedByDart});
 
   final T ptr;
+  bool ownedByDart;
+
+  void setOwnershipToDart() {
+    ownedByDart = true;
+  }
+
+  void setOwnershipToNative() {
+    ownedByDart = false;
+  }
 }

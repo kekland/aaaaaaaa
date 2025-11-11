@@ -205,10 +205,17 @@ external mbgl_style_layer_t mbgl_style_get_layer(
   ffi.Pointer<ffi.Char> layerId,
 );
 
-@ffi.Native<ffi.Void Function(mbgl_style_layer_t, ffi.Pointer<ffi.Char>)>()
-external void mbgl_style_background_layer_set_background_color(
+@ffi.Native<ffi.Void Function(mbgl_style_t, mbgl_style_layer_t, ffi.Pointer<ffi.Char>)>()
+external void mbgl_style_add_layer(
+  mbgl_style_t _style,
   mbgl_style_layer_t _layer,
-  ffi.Pointer<ffi.Char> color,
+  ffi.Pointer<ffi.Char> beforeLayerId,
+);
+
+@ffi.Native<mbgl_style_layer_t Function(mbgl_style_t, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_layer_t mbgl_style_remove_layer(
+  mbgl_style_t _style,
+  ffi.Pointer<ffi.Char> layerId,
 );
 
 @ffi.Native<ffi.Void Function(mbgl_style_layer_t)>()
@@ -291,6 +298,26 @@ external void mbgl_color_destroy(
   mbgl_color_t _color,
 );
 
+@ffi.Native<ffi.Float Function(mbgl_color_t)>()
+external double mbgl_color_get_r(
+  mbgl_color_t _color,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_color_t)>()
+external double mbgl_color_get_g(
+  mbgl_color_t _color,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_color_t)>()
+external double mbgl_color_get_b(
+  mbgl_color_t _color,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_color_t)>()
+external double mbgl_color_get_a(
+  mbgl_color_t _color,
+);
+
 @ffi.Native<mbgl_padding_t Function(ffi.Float, ffi.Float, ffi.Float, ffi.Float)>()
 external mbgl_padding_t mbgl_padding_create(
   double top,
@@ -301,6 +328,26 @@ external mbgl_padding_t mbgl_padding_create(
 
 @ffi.Native<ffi.Void Function(mbgl_padding_t)>()
 external void mbgl_padding_destroy(
+  mbgl_padding_t _padding,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_padding_t)>()
+external double mbgl_padding_get_top(
+  mbgl_padding_t _padding,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_padding_t)>()
+external double mbgl_padding_get_right(
+  mbgl_padding_t _padding,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_padding_t)>()
+external double mbgl_padding_get_bottom(
+  mbgl_padding_t _padding,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_padding_t)>()
+external double mbgl_padding_get_left(
   mbgl_padding_t _padding,
 );
 
@@ -317,6 +364,36 @@ external void mbgl_style_property_value_float_destroy(
   mbgl_style_property_value_float_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_float_t)>()
+external bool mbgl_style_property_value_float_is_constant(
+  mbgl_style_property_value_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_float_t)>()
+external bool mbgl_style_property_value_float_is_data_driven(
+  mbgl_style_property_value_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_float_t)>()
+external bool mbgl_style_property_value_float_is_expression(
+  mbgl_style_property_value_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_float_t)>()
+external bool mbgl_style_property_value_float_is_undefined(
+  mbgl_style_property_value_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_float_t)>()
+external bool mbgl_style_property_value_float_is_zoom_constant(
+  mbgl_style_property_value_float_t ptr_,
+);
+
+@ffi.Native<ffi.Float Function(mbgl_style_property_value_float_t)>()
+external double mbgl_style_property_value_float_as_constant(
+  mbgl_style_property_value_float_t ptr_,
+);
+
 @ffi.Native<mbgl_style_property_value_bool_t Function(ffi.Bool)>()
 external mbgl_style_property_value_bool_t mbgl_style_property_value_bool_create_constant(
   bool value_,
@@ -324,6 +401,36 @@ external mbgl_style_property_value_bool_t mbgl_style_property_value_bool_create_
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_bool_t)>()
 external void mbgl_style_property_value_bool_destroy(
+  mbgl_style_property_value_bool_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_bool_t)>()
+external bool mbgl_style_property_value_bool_is_constant(
+  mbgl_style_property_value_bool_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_bool_t)>()
+external bool mbgl_style_property_value_bool_is_data_driven(
+  mbgl_style_property_value_bool_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_bool_t)>()
+external bool mbgl_style_property_value_bool_is_expression(
+  mbgl_style_property_value_bool_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_bool_t)>()
+external bool mbgl_style_property_value_bool_is_undefined(
+  mbgl_style_property_value_bool_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_bool_t)>()
+external bool mbgl_style_property_value_bool_is_zoom_constant(
+  mbgl_style_property_value_bool_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_bool_t)>()
+external bool mbgl_style_property_value_bool_as_constant(
   mbgl_style_property_value_bool_t ptr_,
 );
 
@@ -337,15 +444,56 @@ external void mbgl_style_property_value_mbgl_color_destroy(
   mbgl_style_property_value_mbgl_color_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_color_t)>()
+external bool mbgl_style_property_value_mbgl_color_is_constant(
+  mbgl_style_property_value_mbgl_color_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_color_t)>()
+external bool mbgl_style_property_value_mbgl_color_is_data_driven(
+  mbgl_style_property_value_mbgl_color_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_color_t)>()
+external bool mbgl_style_property_value_mbgl_color_is_expression(
+  mbgl_style_property_value_mbgl_color_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_color_t)>()
+external bool mbgl_style_property_value_mbgl_color_is_undefined(
+  mbgl_style_property_value_mbgl_color_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_color_t)>()
+external bool mbgl_style_property_value_mbgl_color_is_zoom_constant(
+  mbgl_style_property_value_mbgl_color_t ptr_,
+);
+
+@ffi.Native<mbgl_color_t Function(mbgl_style_property_value_mbgl_color_t)>()
+external mbgl_color_t mbgl_style_property_value_mbgl_color_as_constant(
+  mbgl_style_property_value_mbgl_color_t ptr_,
+);
+
 @ffi.Native<std_array_float_2_t Function(ffi.Float, ffi.Float)>()
-external std_array_float_2_t mbgl_style_std_array_float_2_create(
+external std_array_float_2_t std_array_float_2_create(
   double v0,
   double v1,
 );
 
 @ffi.Native<ffi.Void Function(std_array_float_2_t)>()
-external void mbgl_style_std_array_float_2_destroy(
+external void std_array_float_2_destroy(
   std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Size Function(std_array_float_2_t)>()
+external int std_array_float_2_length(
+  std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Float Function(std_array_float_2_t, ffi.Size)>()
+external double std_array_float_2_get_at(
+  std_array_float_2_t ptr_,
+  int index_,
 );
 
 @ffi.Native<mbgl_style_property_value_std_array_float_2_t Function(std_array_float_2_t)>()
@@ -355,6 +503,36 @@ external mbgl_style_property_value_std_array_float_2_t mbgl_style_property_value
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_std_array_float_2_t)>()
 external void mbgl_style_property_value_std_array_float_2_destroy(
+  mbgl_style_property_value_std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_2_t)>()
+external bool mbgl_style_property_value_std_array_float_2_is_constant(
+  mbgl_style_property_value_std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_2_t)>()
+external bool mbgl_style_property_value_std_array_float_2_is_data_driven(
+  mbgl_style_property_value_std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_2_t)>()
+external bool mbgl_style_property_value_std_array_float_2_is_expression(
+  mbgl_style_property_value_std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_2_t)>()
+external bool mbgl_style_property_value_std_array_float_2_is_undefined(
+  mbgl_style_property_value_std_array_float_2_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_2_t)>()
+external bool mbgl_style_property_value_std_array_float_2_is_zoom_constant(
+  mbgl_style_property_value_std_array_float_2_t ptr_,
+);
+
+@ffi.Native<std_array_float_2_t Function(mbgl_style_property_value_std_array_float_2_t)>()
+external std_array_float_2_t mbgl_style_property_value_std_array_float_2_as_constant(
   mbgl_style_property_value_std_array_float_2_t ptr_,
 );
 
@@ -378,6 +556,46 @@ external void mbgl_style_property_value_mbgl_style_fill_translate_anchor_destroy
   mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_translate_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_fill_translate_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_fill_translate_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_fill_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+);
+
+MBGL_STYLE_FILL_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_fill_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_fill_translate_anchor_t ptr_,
+) => MBGL_STYLE_FILL_TRANSLATE_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_fill_translate_anchor_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_expression_image_t Function(mbgl_style_expression_image_t)>()
 external mbgl_style_property_value_mbgl_style_expression_image_t
 mbgl_style_property_value_mbgl_style_expression_image_create_constant(
@@ -386,6 +604,36 @@ mbgl_style_property_value_mbgl_style_expression_image_create_constant(
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
 external void mbgl_style_property_value_mbgl_style_expression_image_destroy(
+  mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_image_is_constant(
+  mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_image_is_data_driven(
+  mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_image_is_expression(
+  mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_image_is_undefined(
+  mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_image_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
+);
+
+@ffi.Native<mbgl_style_expression_image_t Function(mbgl_style_property_value_mbgl_style_expression_image_t)>()
+external mbgl_style_expression_image_t mbgl_style_property_value_mbgl_style_expression_image_as_constant(
   mbgl_style_property_value_mbgl_style_expression_image_t ptr_,
 );
 
@@ -407,6 +655,46 @@ external void mbgl_style_property_value_mbgl_style_line_cap_destroy(
   mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_cap_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_cap_is_constant(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_cap_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_cap_is_data_driven(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_cap_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_cap_is_expression(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_cap_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_cap_is_undefined(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_cap_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_cap_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_line_cap_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_line_cap_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_line_cap_as_constant(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+);
+
+MBGL_STYLE_LINE_CAP mbgl_style_property_value_mbgl_style_line_cap_as_constant(
+  mbgl_style_property_value_mbgl_style_line_cap_t ptr_,
+) => MBGL_STYLE_LINE_CAP.fromValue(
+  _mbgl_style_property_value_mbgl_style_line_cap_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_line_join_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_line_join_create_constant',
 )
@@ -424,6 +712,46 @@ mbgl_style_property_value_mbgl_style_line_join_t mbgl_style_property_value_mbgl_
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_line_join_t)>()
 external void mbgl_style_property_value_mbgl_style_line_join_destroy(
   mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_join_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_join_is_constant(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_join_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_join_is_data_driven(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_join_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_join_is_expression(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_join_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_join_is_undefined(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_join_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_join_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_line_join_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_line_join_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_line_join_as_constant(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+);
+
+MBGL_STYLE_LINE_JOIN mbgl_style_property_value_mbgl_style_line_join_as_constant(
+  mbgl_style_property_value_mbgl_style_line_join_t ptr_,
+) => MBGL_STYLE_LINE_JOIN.fromValue(
+  _mbgl_style_property_value_mbgl_style_line_join_as_constant(
+    ptr_,
+  ),
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_line_translate_anchor_t Function(ffi.UnsignedInt)>(
@@ -446,15 +774,66 @@ external void mbgl_style_property_value_mbgl_style_line_translate_anchor_destroy
   mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_line_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_line_translate_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_line_translate_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_line_translate_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_line_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+);
+
+MBGL_STYLE_LINE_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_line_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_line_translate_anchor_t ptr_,
+) => MBGL_STYLE_LINE_TRANSLATE_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_line_translate_anchor_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<std_vector_float_t Function(ffi.Size, ffi.Pointer<ffi.Float>)>()
-external std_vector_float_t mbgl_style_std_vector_float_create(
+external std_vector_float_t std_vector_float_create(
   int length_,
   ffi.Pointer<ffi.Float> values_,
 );
 
 @ffi.Native<ffi.Void Function(std_vector_float_t)>()
-external void mbgl_style_std_vector_float(
+external void std_vector_float_destroy(
   std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Size Function(std_vector_float_t)>()
+external int std_vector_float_length(
+  std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Float Function(std_vector_float_t, ffi.Size)>()
+external double std_vector_float_get_at(
+  std_vector_float_t ptr_,
+  int index_,
 );
 
 @ffi.Native<mbgl_style_property_value_std_vector_float_t Function(std_vector_float_t)>()
@@ -464,6 +843,36 @@ external mbgl_style_property_value_std_vector_float_t mbgl_style_property_value_
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_std_vector_float_t)>()
 external void mbgl_style_property_value_std_vector_float_destroy(
+  mbgl_style_property_value_std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_float_t)>()
+external bool mbgl_style_property_value_std_vector_float_is_constant(
+  mbgl_style_property_value_std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_float_t)>()
+external bool mbgl_style_property_value_std_vector_float_is_data_driven(
+  mbgl_style_property_value_std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_float_t)>()
+external bool mbgl_style_property_value_std_vector_float_is_expression(
+  mbgl_style_property_value_std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_float_t)>()
+external bool mbgl_style_property_value_std_vector_float_is_undefined(
+  mbgl_style_property_value_std_vector_float_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_float_t)>()
+external bool mbgl_style_property_value_std_vector_float_is_zoom_constant(
+  mbgl_style_property_value_std_vector_float_t ptr_,
+);
+
+@ffi.Native<std_vector_float_t Function(mbgl_style_property_value_std_vector_float_t)>()
+external std_vector_float_t mbgl_style_property_value_std_vector_float_as_constant(
   mbgl_style_property_value_std_vector_float_t ptr_,
 );
 
@@ -487,6 +896,46 @@ external void mbgl_style_property_value_mbgl_style_symbol_placement_destroy(
   mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_placement_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_placement_is_constant(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_placement_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_placement_is_data_driven(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_placement_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_placement_is_expression(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_placement_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_placement_is_undefined(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_placement_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_placement_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_symbol_placement_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_symbol_placement_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_symbol_placement_as_constant(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+);
+
+MBGL_STYLE_SYMBOL_PLACEMENT mbgl_style_property_value_mbgl_style_symbol_placement_as_constant(
+  mbgl_style_property_value_mbgl_style_symbol_placement_t ptr_,
+) => MBGL_STYLE_SYMBOL_PLACEMENT.fromValue(
+  _mbgl_style_property_value_mbgl_style_symbol_placement_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_symbol_z_order_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_symbol_z_order_create_constant',
 )
@@ -505,6 +954,46 @@ mbgl_style_property_value_mbgl_style_symbol_z_order_create_constant(
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>()
 external void mbgl_style_property_value_mbgl_style_symbol_z_order_destroy(
   mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_constant(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_data_driven(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_expression(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_undefined(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>()
+external bool mbgl_style_property_value_mbgl_style_symbol_z_order_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_symbol_z_order_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_symbol_z_order_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_symbol_z_order_as_constant(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+);
+
+MBGL_STYLE_SYMBOL_Z_ORDER mbgl_style_property_value_mbgl_style_symbol_z_order_as_constant(
+  mbgl_style_property_value_mbgl_style_symbol_z_order_t ptr_,
+) => MBGL_STYLE_SYMBOL_Z_ORDER.fromValue(
+  _mbgl_style_property_value_mbgl_style_symbol_z_order_as_constant(
+    ptr_,
+  ),
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t Function(ffi.UnsignedInt)>(
@@ -527,6 +1016,46 @@ external void mbgl_style_property_value_mbgl_style_icon_rotation_alignment_destr
   mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_constant(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_data_driven(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_expression(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_undefined(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_rotation_alignment_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_icon_rotation_alignment_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_icon_rotation_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+);
+
+MBGL_STYLE_ICON_ROTATION_ALIGNMENT mbgl_style_property_value_mbgl_style_icon_rotation_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_rotation_alignment_t ptr_,
+) => MBGL_STYLE_ICON_ROTATION_ALIGNMENT.fromValue(
+  _mbgl_style_property_value_mbgl_style_icon_rotation_alignment_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_icon_text_fit_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_icon_text_fit_create_constant',
 )
@@ -546,8 +1075,48 @@ external void mbgl_style_property_value_mbgl_style_icon_text_fit_destroy(
   mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_text_fit_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_constant(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_text_fit_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_data_driven(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_text_fit_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_expression(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_text_fit_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_undefined(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_text_fit_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_text_fit_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_icon_text_fit_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_icon_text_fit_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_icon_text_fit_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+);
+
+MBGL_STYLE_ICON_TEXT_FIT mbgl_style_property_value_mbgl_style_icon_text_fit_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_text_fit_t ptr_,
+) => MBGL_STYLE_ICON_TEXT_FIT.fromValue(
+  _mbgl_style_property_value_mbgl_style_icon_text_fit_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<std_array_float_4_t Function(ffi.Float, ffi.Float, ffi.Float, ffi.Float)>()
-external std_array_float_4_t mbgl_style_std_array_float_4_create(
+external std_array_float_4_t std_array_float_4_create(
   double v0,
   double v1,
   double v2,
@@ -555,8 +1124,19 @@ external std_array_float_4_t mbgl_style_std_array_float_4_create(
 );
 
 @ffi.Native<ffi.Void Function(std_array_float_4_t)>()
-external void mbgl_style_std_array_float_4_destroy(
+external void std_array_float_4_destroy(
   std_array_float_4_t ptr_,
+);
+
+@ffi.Native<ffi.Size Function(std_array_float_4_t)>()
+external int std_array_float_4_length(
+  std_array_float_4_t ptr_,
+);
+
+@ffi.Native<ffi.Float Function(std_array_float_4_t, ffi.Size)>()
+external double std_array_float_4_get_at(
+  std_array_float_4_t ptr_,
+  int index_,
 );
 
 @ffi.Native<mbgl_style_property_value_std_array_float_4_t Function(std_array_float_4_t)>()
@@ -569,6 +1149,36 @@ external void mbgl_style_property_value_std_array_float_4_destroy(
   mbgl_style_property_value_std_array_float_4_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_4_t)>()
+external bool mbgl_style_property_value_std_array_float_4_is_constant(
+  mbgl_style_property_value_std_array_float_4_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_4_t)>()
+external bool mbgl_style_property_value_std_array_float_4_is_data_driven(
+  mbgl_style_property_value_std_array_float_4_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_4_t)>()
+external bool mbgl_style_property_value_std_array_float_4_is_expression(
+  mbgl_style_property_value_std_array_float_4_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_4_t)>()
+external bool mbgl_style_property_value_std_array_float_4_is_undefined(
+  mbgl_style_property_value_std_array_float_4_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_array_float_4_t)>()
+external bool mbgl_style_property_value_std_array_float_4_is_zoom_constant(
+  mbgl_style_property_value_std_array_float_4_t ptr_,
+);
+
+@ffi.Native<std_array_float_4_t Function(mbgl_style_property_value_std_array_float_4_t)>()
+external std_array_float_4_t mbgl_style_property_value_std_array_float_4_as_constant(
+  mbgl_style_property_value_std_array_float_4_t ptr_,
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_padding_t Function(mbgl_padding_t)>()
 external mbgl_style_property_value_mbgl_padding_t mbgl_style_property_value_mbgl_padding_create_constant(
   mbgl_padding_t value_,
@@ -576,6 +1186,36 @@ external mbgl_style_property_value_mbgl_padding_t mbgl_style_property_value_mbgl
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_padding_t)>()
 external void mbgl_style_property_value_mbgl_padding_destroy(
+  mbgl_style_property_value_mbgl_padding_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_padding_t)>()
+external bool mbgl_style_property_value_mbgl_padding_is_constant(
+  mbgl_style_property_value_mbgl_padding_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_padding_t)>()
+external bool mbgl_style_property_value_mbgl_padding_is_data_driven(
+  mbgl_style_property_value_mbgl_padding_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_padding_t)>()
+external bool mbgl_style_property_value_mbgl_padding_is_expression(
+  mbgl_style_property_value_mbgl_padding_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_padding_t)>()
+external bool mbgl_style_property_value_mbgl_padding_is_undefined(
+  mbgl_style_property_value_mbgl_padding_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_padding_t)>()
+external bool mbgl_style_property_value_mbgl_padding_is_zoom_constant(
+  mbgl_style_property_value_mbgl_padding_t ptr_,
+);
+
+@ffi.Native<mbgl_padding_t Function(mbgl_style_property_value_mbgl_padding_t)>()
+external mbgl_padding_t mbgl_style_property_value_mbgl_padding_as_constant(
   mbgl_style_property_value_mbgl_padding_t ptr_,
 );
 
@@ -598,6 +1238,46 @@ external void mbgl_style_property_value_mbgl_style_icon_anchor_destroy(
   mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_icon_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_icon_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_icon_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+);
+
+MBGL_STYLE_ICON_ANCHOR mbgl_style_property_value_mbgl_style_icon_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_anchor_t ptr_,
+) => MBGL_STYLE_ICON_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_icon_anchor_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_icon_pitch_alignment_create_constant',
 )
@@ -616,6 +1296,46 @@ mbgl_style_property_value_mbgl_style_icon_pitch_alignment_create_constant(
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>()
 external void mbgl_style_property_value_mbgl_style_icon_pitch_alignment_destroy(
   mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_constant(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_data_driven(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_expression(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_undefined(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_pitch_alignment_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_icon_pitch_alignment_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_icon_pitch_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+);
+
+MBGL_STYLE_ICON_PITCH_ALIGNMENT mbgl_style_property_value_mbgl_style_icon_pitch_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_pitch_alignment_t ptr_,
+) => MBGL_STYLE_ICON_PITCH_ALIGNMENT.fromValue(
+  _mbgl_style_property_value_mbgl_style_icon_pitch_alignment_as_constant(
+    ptr_,
+  ),
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_text_pitch_alignment_t Function(ffi.UnsignedInt)>(
@@ -638,6 +1358,46 @@ external void mbgl_style_property_value_mbgl_style_text_pitch_alignment_destroy(
   mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_constant(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_data_driven(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_expression(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_undefined(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_pitch_alignment_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_text_pitch_alignment_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_text_pitch_alignment_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_text_pitch_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+);
+
+MBGL_STYLE_TEXT_PITCH_ALIGNMENT mbgl_style_property_value_mbgl_style_text_pitch_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_text_pitch_alignment_t ptr_,
+) => MBGL_STYLE_TEXT_PITCH_ALIGNMENT.fromValue(
+  _mbgl_style_property_value_mbgl_style_text_pitch_alignment_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_text_rotation_alignment_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_text_rotation_alignment_create_constant',
 )
@@ -658,6 +1418,46 @@ external void mbgl_style_property_value_mbgl_style_text_rotation_alignment_destr
   mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_constant(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_data_driven(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_expression(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_undefined(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_rotation_alignment_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_text_rotation_alignment_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_text_rotation_alignment_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_text_rotation_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+);
+
+MBGL_STYLE_TEXT_ROTATION_ALIGNMENT mbgl_style_property_value_mbgl_style_text_rotation_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_text_rotation_alignment_t ptr_,
+) => MBGL_STYLE_TEXT_ROTATION_ALIGNMENT.fromValue(
+  _mbgl_style_property_value_mbgl_style_text_rotation_alignment_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_expression_formatted_t Function(mbgl_style_expression_formatted_t)>()
 external mbgl_style_property_value_mbgl_style_expression_formatted_t
 mbgl_style_property_value_mbgl_style_expression_formatted_create_constant(
@@ -669,15 +1469,56 @@ external void mbgl_style_property_value_mbgl_style_expression_formatted_destroy(
   mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_formatted_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_formatted_is_constant(
+  mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_formatted_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_formatted_is_data_driven(
+  mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_formatted_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_formatted_is_expression(
+  mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_formatted_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_formatted_is_undefined(
+  mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_expression_formatted_t)>()
+external bool mbgl_style_property_value_mbgl_style_expression_formatted_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
+);
+
+@ffi.Native<mbgl_style_expression_formatted_t Function(mbgl_style_property_value_mbgl_style_expression_formatted_t)>()
+external mbgl_style_expression_formatted_t mbgl_style_property_value_mbgl_style_expression_formatted_as_constant(
+  mbgl_style_property_value_mbgl_style_expression_formatted_t ptr_,
+);
+
 @ffi.Native<std_vector_const_char_t Function(ffi.Size, ffi.Pointer<ffi.Pointer<ffi.Char>>)>()
-external std_vector_const_char_t mbgl_style_std_vector_const_char_create(
+external std_vector_const_char_t std_vector_const_char_create(
   int length_,
   ffi.Pointer<ffi.Pointer<ffi.Char>> values_,
 );
 
 @ffi.Native<ffi.Void Function(std_vector_const_char_t)>()
-external void mbgl_style_std_vector_const_char(
+external void std_vector_const_char_destroy(
   std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Size Function(std_vector_const_char_t)>()
+external int std_vector_const_char_length(
+  std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Pointer<ffi.Char> Function(std_vector_const_char_t, ffi.Size)>()
+external ffi.Pointer<ffi.Char> std_vector_const_char_get_at(
+  std_vector_const_char_t ptr_,
+  int index_,
 );
 
 @ffi.Native<mbgl_style_property_value_std_vector_const_char_t Function(std_vector_const_char_t)>()
@@ -688,6 +1529,36 @@ mbgl_style_property_value_std_vector_const_char_create_constant(
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_std_vector_const_char_t)>()
 external void mbgl_style_property_value_std_vector_const_char_destroy(
+  mbgl_style_property_value_std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_const_char_t)>()
+external bool mbgl_style_property_value_std_vector_const_char_is_constant(
+  mbgl_style_property_value_std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_const_char_t)>()
+external bool mbgl_style_property_value_std_vector_const_char_is_data_driven(
+  mbgl_style_property_value_std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_const_char_t)>()
+external bool mbgl_style_property_value_std_vector_const_char_is_expression(
+  mbgl_style_property_value_std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_const_char_t)>()
+external bool mbgl_style_property_value_std_vector_const_char_is_undefined(
+  mbgl_style_property_value_std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_const_char_t)>()
+external bool mbgl_style_property_value_std_vector_const_char_is_zoom_constant(
+  mbgl_style_property_value_std_vector_const_char_t ptr_,
+);
+
+@ffi.Native<std_vector_const_char_t Function(mbgl_style_property_value_std_vector_const_char_t)>()
+external std_vector_const_char_t mbgl_style_property_value_std_vector_const_char_as_constant(
   mbgl_style_property_value_std_vector_const_char_t ptr_,
 );
 
@@ -710,15 +1581,78 @@ external void mbgl_style_property_value_mbgl_style_text_justify_destroy(
   mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_justify_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_justify_is_constant(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_justify_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_justify_is_data_driven(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_justify_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_justify_is_expression(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_justify_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_justify_is_undefined(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_justify_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_justify_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_text_justify_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_text_justify_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_text_justify_as_constant(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+);
+
+MBGL_STYLE_TEXT_JUSTIFY mbgl_style_property_value_mbgl_style_text_justify_as_constant(
+  mbgl_style_property_value_mbgl_style_text_justify_t ptr_,
+) => MBGL_STYLE_TEXT_JUSTIFY.fromValue(
+  _mbgl_style_property_value_mbgl_style_text_justify_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<std_vector_mbgl_style_text_variable_anchor_t Function(ffi.Size, ffi.Pointer<ffi.UnsignedInt>)>()
-external std_vector_mbgl_style_text_variable_anchor_t mbgl_style_std_vector_mbgl_style_text_variable_anchor_create(
+external std_vector_mbgl_style_text_variable_anchor_t std_vector_mbgl_style_text_variable_anchor_create(
   int length_,
   ffi.Pointer<ffi.UnsignedInt> values_,
 );
 
 @ffi.Native<ffi.Void Function(std_vector_mbgl_style_text_variable_anchor_t)>()
-external void mbgl_style_std_vector_mbgl_style_text_variable_anchor(
+external void std_vector_mbgl_style_text_variable_anchor_destroy(
   std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Size Function(std_vector_mbgl_style_text_variable_anchor_t)>()
+external int std_vector_mbgl_style_text_variable_anchor_length(
+  std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(std_vector_mbgl_style_text_variable_anchor_t, ffi.Size)>(
+  symbol: 'std_vector_mbgl_style_text_variable_anchor_get_at',
+)
+external int _std_vector_mbgl_style_text_variable_anchor_get_at(
+  std_vector_mbgl_style_text_variable_anchor_t ptr_,
+  int index_,
+);
+
+MBGL_STYLE_TEXT_VARIABLE_ANCHOR std_vector_mbgl_style_text_variable_anchor_get_at(
+  std_vector_mbgl_style_text_variable_anchor_t ptr_,
+  int index_,
+) => MBGL_STYLE_TEXT_VARIABLE_ANCHOR.fromValue(
+  _std_vector_mbgl_style_text_variable_anchor_get_at(
+    ptr_,
+    index_,
+  ),
 );
 
 @ffi.Native<
@@ -736,6 +1670,41 @@ external void mbgl_style_property_value_std_vector_mbgl_style_text_variable_anch
   mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_constant(
+  mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_data_driven(
+  mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_expression(
+  mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_undefined(
+  mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_is_zoom_constant(
+  mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
+@ffi.Native<
+  std_vector_mbgl_style_text_variable_anchor_t Function(
+    mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t,
+  )
+>()
+external std_vector_mbgl_style_text_variable_anchor_t
+mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_as_constant(
+  mbgl_style_property_value_std_vector_mbgl_style_text_variable_anchor_t ptr_,
+);
+
 @ffi.Native<
   mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t Function(mbgl_variable_anchor_offset_collection_t)
 >()
@@ -746,6 +1715,39 @@ mbgl_style_property_value_mbgl_variable_anchor_offset_collection_create_constant
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)>()
 external void mbgl_style_property_value_mbgl_variable_anchor_offset_collection_destroy(
+  mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)>()
+external bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_constant(
+  mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)>()
+external bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_data_driven(
+  mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)>()
+external bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_expression(
+  mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)>()
+external bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_undefined(
+  mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)>()
+external bool mbgl_style_property_value_mbgl_variable_anchor_offset_collection_is_zoom_constant(
+  mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
+);
+
+@ffi.Native<
+  mbgl_variable_anchor_offset_collection_t Function(mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t)
+>()
+external mbgl_variable_anchor_offset_collection_t
+mbgl_style_property_value_mbgl_variable_anchor_offset_collection_as_constant(
   mbgl_style_property_value_mbgl_variable_anchor_offset_collection_t ptr_,
 );
 
@@ -768,15 +1770,78 @@ external void mbgl_style_property_value_mbgl_style_text_anchor_destroy(
   mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_text_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_text_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_text_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+);
+
+MBGL_STYLE_TEXT_ANCHOR mbgl_style_property_value_mbgl_style_text_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_text_anchor_t ptr_,
+) => MBGL_STYLE_TEXT_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_text_anchor_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<std_vector_mbgl_style_text_writing_mode_t Function(ffi.Size, ffi.Pointer<ffi.UnsignedInt>)>()
-external std_vector_mbgl_style_text_writing_mode_t mbgl_style_std_vector_mbgl_style_text_writing_mode_create(
+external std_vector_mbgl_style_text_writing_mode_t std_vector_mbgl_style_text_writing_mode_create(
   int length_,
   ffi.Pointer<ffi.UnsignedInt> values_,
 );
 
 @ffi.Native<ffi.Void Function(std_vector_mbgl_style_text_writing_mode_t)>()
-external void mbgl_style_std_vector_mbgl_style_text_writing_mode(
+external void std_vector_mbgl_style_text_writing_mode_destroy(
   std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.Size Function(std_vector_mbgl_style_text_writing_mode_t)>()
+external int std_vector_mbgl_style_text_writing_mode_length(
+  std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(std_vector_mbgl_style_text_writing_mode_t, ffi.Size)>(
+  symbol: 'std_vector_mbgl_style_text_writing_mode_get_at',
+)
+external int _std_vector_mbgl_style_text_writing_mode_get_at(
+  std_vector_mbgl_style_text_writing_mode_t ptr_,
+  int index_,
+);
+
+MBGL_STYLE_TEXT_WRITING_MODE std_vector_mbgl_style_text_writing_mode_get_at(
+  std_vector_mbgl_style_text_writing_mode_t ptr_,
+  int index_,
+) => MBGL_STYLE_TEXT_WRITING_MODE.fromValue(
+  _std_vector_mbgl_style_text_writing_mode_get_at(
+    ptr_,
+    index_,
+  ),
 );
 
 @ffi.Native<
@@ -791,6 +1856,41 @@ mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_create_constan
 
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t)>()
 external void mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_destroy(
+  mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_constant(
+  mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_data_driven(
+  mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_expression(
+  mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_undefined(
+  mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t)>()
+external bool mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_is_zoom_constant(
+  mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
+);
+
+@ffi.Native<
+  std_vector_mbgl_style_text_writing_mode_t Function(
+    mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t,
+  )
+>()
+external std_vector_mbgl_style_text_writing_mode_t
+mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_as_constant(
   mbgl_style_property_value_std_vector_mbgl_style_text_writing_mode_t ptr_,
 );
 
@@ -814,6 +1914,46 @@ external void mbgl_style_property_value_mbgl_style_text_transform_destroy(
   mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_transform_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_transform_is_constant(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_transform_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_transform_is_data_driven(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_transform_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_transform_is_expression(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_transform_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_transform_is_undefined(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_transform_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_transform_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_text_transform_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_text_transform_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_text_transform_as_constant(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+);
+
+MBGL_STYLE_TEXT_TRANSFORM mbgl_style_property_value_mbgl_style_text_transform_as_constant(
+  mbgl_style_property_value_mbgl_style_text_transform_t ptr_,
+) => MBGL_STYLE_TEXT_TRANSFORM.fromValue(
+  _mbgl_style_property_value_mbgl_style_text_transform_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_icon_translate_anchor_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_icon_translate_anchor_create_constant',
 )
@@ -832,6 +1972,46 @@ mbgl_style_property_value_mbgl_style_icon_translate_anchor_create_constant(
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>()
 external void mbgl_style_property_value_mbgl_style_icon_translate_anchor_destroy(
   mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_icon_translate_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_icon_translate_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_icon_translate_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_icon_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+);
+
+MBGL_STYLE_ICON_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_icon_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_icon_translate_anchor_t ptr_,
+) => MBGL_STYLE_ICON_TRANSLATE_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_icon_translate_anchor_as_constant(
+    ptr_,
+  ),
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_text_translate_anchor_t Function(ffi.UnsignedInt)>(
@@ -854,6 +2034,46 @@ external void mbgl_style_property_value_mbgl_style_text_translate_anchor_destroy
   mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_text_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_text_translate_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_text_translate_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_text_translate_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_text_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+);
+
+MBGL_STYLE_TEXT_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_text_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_text_translate_anchor_t ptr_,
+) => MBGL_STYLE_TEXT_TRANSLATE_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_text_translate_anchor_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_circle_translate_anchor_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_circle_translate_anchor_create_constant',
 )
@@ -872,6 +2092,46 @@ mbgl_style_property_value_mbgl_style_circle_translate_anchor_create_constant(
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>()
 external void mbgl_style_property_value_mbgl_style_circle_translate_anchor_destroy(
   mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_translate_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_circle_translate_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_circle_translate_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_circle_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+);
+
+MBGL_STYLE_CIRCLE_TRANSLATE_ANCHOR mbgl_style_property_value_mbgl_style_circle_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_circle_translate_anchor_t ptr_,
+) => MBGL_STYLE_CIRCLE_TRANSLATE_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_circle_translate_anchor_as_constant(
+    ptr_,
+  ),
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_circle_pitch_scale_t Function(ffi.UnsignedInt)>(
@@ -894,6 +2154,46 @@ external void mbgl_style_property_value_mbgl_style_circle_pitch_scale_destroy(
   mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_data_driven(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_expression(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_undefined(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_scale_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_circle_pitch_scale_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_circle_pitch_scale_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_circle_pitch_scale_as_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+);
+
+MBGL_STYLE_CIRCLE_PITCH_SCALE mbgl_style_property_value_mbgl_style_circle_pitch_scale_as_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_scale_t ptr_,
+) => MBGL_STYLE_CIRCLE_PITCH_SCALE.fromValue(
+  _mbgl_style_property_value_mbgl_style_circle_pitch_scale_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_circle_pitch_alignment_create_constant',
 )
@@ -912,6 +2212,46 @@ mbgl_style_property_value_mbgl_style_circle_pitch_alignment_create_constant(
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>()
 external void mbgl_style_property_value_mbgl_style_circle_pitch_alignment_destroy(
   mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_data_driven(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_expression(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_undefined(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>()
+external bool mbgl_style_property_value_mbgl_style_circle_pitch_alignment_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_circle_pitch_alignment_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_circle_pitch_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+);
+
+MBGL_STYLE_CIRCLE_PITCH_ALIGNMENT mbgl_style_property_value_mbgl_style_circle_pitch_alignment_as_constant(
+  mbgl_style_property_value_mbgl_style_circle_pitch_alignment_t ptr_,
+) => MBGL_STYLE_CIRCLE_PITCH_ALIGNMENT.fromValue(
+  _mbgl_style_property_value_mbgl_style_circle_pitch_alignment_as_constant(
+    ptr_,
+  ),
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t Function(ffi.UnsignedInt)>(
@@ -934,6 +2274,47 @@ external void mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anch
   mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+);
+
+MBGL_STYLE_FILL_EXTRUSION_TRANSLATE_ANCHOR
+mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_t ptr_,
+) => MBGL_STYLE_FILL_EXTRUSION_TRANSLATE_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_fill_extrusion_translate_anchor_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_raster_resampling_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_raster_resampling_create_constant',
 )
@@ -954,6 +2335,46 @@ external void mbgl_style_property_value_mbgl_style_raster_resampling_destroy(
   mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
 );
 
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_raster_resampling_t)>()
+external bool mbgl_style_property_value_mbgl_style_raster_resampling_is_constant(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_raster_resampling_t)>()
+external bool mbgl_style_property_value_mbgl_style_raster_resampling_is_data_driven(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_raster_resampling_t)>()
+external bool mbgl_style_property_value_mbgl_style_raster_resampling_is_expression(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_raster_resampling_t)>()
+external bool mbgl_style_property_value_mbgl_style_raster_resampling_is_undefined(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_raster_resampling_t)>()
+external bool mbgl_style_property_value_mbgl_style_raster_resampling_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_raster_resampling_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_raster_resampling_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_raster_resampling_as_constant(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+);
+
+MBGL_STYLE_RASTER_RESAMPLING mbgl_style_property_value_mbgl_style_raster_resampling_as_constant(
+  mbgl_style_property_value_mbgl_style_raster_resampling_t ptr_,
+) => MBGL_STYLE_RASTER_RESAMPLING.fromValue(
+  _mbgl_style_property_value_mbgl_style_raster_resampling_as_constant(
+    ptr_,
+  ),
+);
+
 @ffi.Native<mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t Function(ffi.UnsignedInt)>(
   symbol: 'mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_create_constant',
 )
@@ -972,6 +2393,57 @@ mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_create_consta
 @ffi.Native<ffi.Void Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>()
 external void mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_destroy(
   mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_constant(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_data_driven(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_expression(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_undefined(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.Bool Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>()
+external bool mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_is_zoom_constant(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+@ffi.Native<ffi.UnsignedInt Function(mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t)>(
+  symbol: 'mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_as_constant',
+)
+external int _mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+);
+
+MBGL_STYLE_HILLSHADE_ILLUMINATION_ANCHOR mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_as_constant(
+  mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_t ptr_,
+) => MBGL_STYLE_HILLSHADE_ILLUMINATION_ANCHOR.fromValue(
+  _mbgl_style_property_value_mbgl_style_hillshade_illumination_anchor_as_constant(
+    ptr_,
+  ),
+);
+
+@ffi.Native<mbgl_style_fill_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_fill_layer_t mbgl_style_fill_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_fill_layer_t)>()
+external void mbgl_style_fill_layer_destroy(
+  mbgl_style_fill_layer_t layer_,
 );
 
 @ffi.Native<mbgl_style_property_value_float_t Function(mbgl_style_fill_layer_t)>()
@@ -1087,6 +2559,17 @@ external mbgl_style_property_value_mbgl_style_expression_image_t mbgl_style_fill
 external void mbgl_style_fill_layer_fill_pattern_set(
   mbgl_style_fill_layer_t layer_,
   mbgl_style_property_value_mbgl_style_expression_image_t value_,
+);
+
+@ffi.Native<mbgl_style_line_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_line_layer_t mbgl_style_line_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_line_layer_t)>()
+external void mbgl_style_line_layer_destroy(
+  mbgl_style_line_layer_t layer_,
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_line_cap_t Function(mbgl_style_line_layer_t)>()
@@ -1290,6 +2773,17 @@ external mbgl_style_property_value_mbgl_color_ramp_t mbgl_style_line_layer_line_
 external void mbgl_style_line_layer_line_gradient_set(
   mbgl_style_line_layer_t layer_,
   mbgl_style_property_value_mbgl_color_ramp_t value_,
+);
+
+@ffi.Native<mbgl_style_symbol_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_symbol_layer_t mbgl_style_symbol_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_symbol_layer_t)>()
+external void mbgl_style_symbol_layer_destroy(
+  mbgl_style_symbol_layer_t layer_,
 );
 
 @ffi.Native<mbgl_style_property_value_mbgl_style_symbol_placement_t Function(mbgl_style_symbol_layer_t)>()
@@ -1958,6 +3452,17 @@ external void mbgl_style_symbol_layer_text_translate_anchor_set(
   mbgl_style_property_value_mbgl_style_text_translate_anchor_t value_,
 );
 
+@ffi.Native<mbgl_style_circle_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_circle_layer_t mbgl_style_circle_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_circle_layer_t)>()
+external void mbgl_style_circle_layer_destroy(
+  mbgl_style_circle_layer_t layer_,
+);
+
 @ffi.Native<mbgl_style_property_value_float_t Function(mbgl_style_circle_layer_t)>()
 external mbgl_style_property_value_float_t mbgl_style_circle_layer_circle_sort_key_get(
   mbgl_style_circle_layer_t layer_,
@@ -2125,6 +3630,17 @@ external void mbgl_style_circle_layer_circle_stroke_opacity_set(
   mbgl_style_property_value_float_t value_,
 );
 
+@ffi.Native<mbgl_style_heatmap_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_heatmap_layer_t mbgl_style_heatmap_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_heatmap_layer_t)>()
+external void mbgl_style_heatmap_layer_destroy(
+  mbgl_style_heatmap_layer_t layer_,
+);
+
 @ffi.Native<ffi.UnsignedInt Function(mbgl_style_heatmap_layer_t)>(symbol: 'mbgl_style_heatmap_layer_visibility_get')
 external int _mbgl_style_heatmap_layer_visibility_get(
   mbgl_style_heatmap_layer_t layer_,
@@ -2207,6 +3723,17 @@ external mbgl_style_property_value_float_t mbgl_style_heatmap_layer_heatmap_opac
 external void mbgl_style_heatmap_layer_heatmap_opacity_set(
   mbgl_style_heatmap_layer_t layer_,
   mbgl_style_property_value_float_t value_,
+);
+
+@ffi.Native<mbgl_style_fill_extrusion_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_fill_extrusion_layer_t mbgl_style_fill_extrusion_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_fill_extrusion_layer_t)>()
+external void mbgl_style_fill_extrusion_layer_destroy(
+  mbgl_style_fill_extrusion_layer_t layer_,
 );
 
 @ffi.Native<ffi.UnsignedInt Function(mbgl_style_fill_extrusion_layer_t)>(
@@ -2339,6 +3866,17 @@ external void mbgl_style_fill_extrusion_layer_fill_extrusion_vertical_gradient_s
   mbgl_style_property_value_bool_t value_,
 );
 
+@ffi.Native<mbgl_style_raster_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_raster_layer_t mbgl_style_raster_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_raster_layer_t)>()
+external void mbgl_style_raster_layer_destroy(
+  mbgl_style_raster_layer_t layer_,
+);
+
 @ffi.Native<ffi.UnsignedInt Function(mbgl_style_raster_layer_t)>(symbol: 'mbgl_style_raster_layer_visibility_get')
 external int _mbgl_style_raster_layer_visibility_get(
   mbgl_style_raster_layer_t layer_,
@@ -2456,6 +3994,17 @@ external void mbgl_style_raster_layer_raster_fade_duration_set(
   mbgl_style_property_value_float_t value_,
 );
 
+@ffi.Native<mbgl_style_hillshade_layer_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>()
+external mbgl_style_hillshade_layer_t mbgl_style_hillshade_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+  ffi.Pointer<ffi.Char> sourceId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_hillshade_layer_t)>()
+external void mbgl_style_hillshade_layer_destroy(
+  mbgl_style_hillshade_layer_t layer_,
+);
+
 @ffi.Native<ffi.UnsignedInt Function(mbgl_style_hillshade_layer_t)>(symbol: 'mbgl_style_hillshade_layer_visibility_get')
 external int _mbgl_style_hillshade_layer_visibility_get(
   mbgl_style_hillshade_layer_t layer_,
@@ -2554,6 +4103,16 @@ external mbgl_style_property_value_mbgl_color_t mbgl_style_hillshade_layer_hills
 external void mbgl_style_hillshade_layer_hillshade_accent_color_set(
   mbgl_style_hillshade_layer_t layer_,
   mbgl_style_property_value_mbgl_color_t value_,
+);
+
+@ffi.Native<mbgl_style_background_layer_t Function(ffi.Pointer<ffi.Char>)>()
+external mbgl_style_background_layer_t mbgl_style_background_layer_create(
+  ffi.Pointer<ffi.Char> layerId_,
+);
+
+@ffi.Native<ffi.Void Function(mbgl_style_background_layer_t)>()
+external void mbgl_style_background_layer_destroy(
+  mbgl_style_background_layer_t layer_,
 );
 
 @ffi.Native<ffi.UnsignedInt Function(mbgl_style_background_layer_t)>(

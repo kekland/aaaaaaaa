@@ -1,18 +1,18 @@
 #include "flmln.h"
 
-#include <array>
 #include <stdint.h>
 
+#include <array>
 #include <mbgl/map/map.hpp>
+#include <mbgl/style/expression/coalesce.hpp>
+#include <mbgl/style/expression/comparison.hpp>
+#include <mbgl/style/expression/dsl.hpp>
+#include <mbgl/style/expression/expression.hpp>
 #include <mbgl/style/layer.hpp>
 #include <mbgl/style/layers/background_layer.hpp>
 #include <mbgl/style/layers/line_layer.hpp>
 #include <mbgl/style/layers/symbol_layer.hpp>
 #include <mbgl/style/style.hpp>
-#include <mbgl/style/expression/expression.hpp>
-#include <mbgl/style/expression/coalesce.hpp>
-#include <mbgl/style/expression/dsl.hpp>
-#include <mbgl/style/expression/comparison.hpp>
 #include <mbgl/util/run_loop.hpp>
 
 #include "flmln/map_observer.hpp"
@@ -226,12 +226,20 @@ mbgl_style_layer_t mbgl_style_get_layer(mbgl_style_t _style, const char* layerId
   return reinterpret_cast<mbgl_style_layer_t>(layer);
 }
 
-void mbgl_style_background_layer_set_background_color(mbgl_style_layer_t _layer, const char* color) {
-  auto* layer = reinterpret_cast<mbgl::style::BackgroundLayer*>(_layer);
-  layer->setBackgroundColor(mbgl::style::PropertyValue<mbgl::Color>(mbgl::Color::parse(color).value()));
+void mbgl_style_add_layer(mbgl_style_t _style, mbgl_style_layer_t _layer, const char* beforeLayerId) {
+  auto* style = reinterpret_cast<mbgl::style::Style*>(_style);
+  auto* layer = reinterpret_cast<mbgl::style::Layer*>(_layer);
+  if (beforeLayerId) {
+    style->addLayer(std::unique_ptr<mbgl::style::Layer>(layer), std::string(beforeLayerId));
+  } else {
+    style->addLayer(std::unique_ptr<mbgl::style::Layer>(layer));
+  }
+}
 
-  auto newLayer = new mbgl::style::BackgroundLayer("temp");
-  auto xd = new mbgl::style::SymbolLayer("temp2", "source");
+mbgl_style_layer_t mbgl_style_remove_layer(mbgl_style_t _style, const char* layerId) {
+  auto* style = reinterpret_cast<mbgl::style::Style*>(_style);
+  auto layer = style->removeLayer(std::string(layerId));
+  return reinterpret_cast<mbgl_style_layer_t>(layer.release());
 }
 
 // ---------------------------------
@@ -322,8 +330,26 @@ mbgl_color_t mbgl_color_create_from_rgba(float r, float g, float b, float a) {
   return reinterpret_cast<mbgl_color_t>(color);
 }
 
-void mbgl_color_destroy(mbgl_color_t _color) {
-  delete reinterpret_cast<mbgl::Color*>(_color);
+void mbgl_color_destroy(mbgl_color_t _color) { delete reinterpret_cast<mbgl::Color*>(_color); }
+
+float mbgl_color_get_r(mbgl_color_t _color) {
+  auto* color = reinterpret_cast<mbgl::Color*>(_color);
+  return color->r;
+}
+
+float mbgl_color_get_g(mbgl_color_t _color) {
+  auto* color = reinterpret_cast<mbgl::Color*>(_color);
+  return color->g;
+}
+
+float mbgl_color_get_b(mbgl_color_t _color) {
+  auto* color = reinterpret_cast<mbgl::Color*>(_color);
+  return color->b;
+}
+
+float mbgl_color_get_a(mbgl_color_t _color) {
+  auto* color = reinterpret_cast<mbgl::Color*>(_color);
+  return color->a;
 }
 
 // ---------------------------------
@@ -335,8 +361,26 @@ mbgl_padding_t mbgl_padding_create(float top, float right, float bottom, float l
   return reinterpret_cast<mbgl_padding_t>(padding);
 }
 
-void mbgl_padding_destroy(mbgl_padding_t _padding) {
-  delete reinterpret_cast<mbgl::Padding*>(_padding);
+void mbgl_padding_destroy(mbgl_padding_t _padding) { delete reinterpret_cast<mbgl::Padding*>(_padding); }
+
+float mbgl_padding_get_top(mbgl_padding_t _padding) {
+  auto* padding = reinterpret_cast<mbgl::Padding*>(_padding);
+  return padding->top;
+}
+
+float mbgl_padding_get_right(mbgl_padding_t _padding) {
+  auto* padding = reinterpret_cast<mbgl::Padding*>(_padding);
+  return padding->right;
+}
+
+float mbgl_padding_get_bottom(mbgl_padding_t _padding) {
+  auto* padding = reinterpret_cast<mbgl::Padding*>(_padding);
+  return padding->bottom;
+}
+
+float mbgl_padding_get_left(mbgl_padding_t _padding) {
+  auto* padding = reinterpret_cast<mbgl::Padding*>(_padding);
+  return padding->left;
 }
 
 // ---------------------------------

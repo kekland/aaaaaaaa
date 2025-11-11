@@ -57,7 +57,18 @@ enum LayerType {
 }
 
 abstract class Layer extends NativeOwning<mbgl_style_layer_t> {
-  Layer.fromNative({required super.ptr});
+  Layer.fromNative({required super.ptr, super.ownedByDart = false});
+
+  Layer({
+    required super.ptr,
+    String? sourceLayer,
+    double? minZoom,
+    double? maxZoom,
+  }) : super(ownedByDart: true) {
+    if (sourceLayer != null) this.sourceLayer = sourceLayer;
+    if (minZoom != null) this.minZoom = minZoom;
+    if (maxZoom != null) this.maxZoom = maxZoom;
+  }
 
   /// Unique layer name.
   String get id => mbgl_style_layer_get_id(ptr).toDartString(free: true);
@@ -66,8 +77,8 @@ abstract class Layer extends NativeOwning<mbgl_style_layer_t> {
   LayerType get type => LayerType._fromNative(mbgl_style_layer_get_type(ptr));
 
   /// Name of a source description to be used for this layer. Required for all layer types except `background`.
-  String get source => mbgl_style_layer_get_source(ptr).toDartString(free: true);
-  set source(String value) => withZoneArena(
+  String get sourceId => mbgl_style_layer_get_source(ptr).toDartString(free: true);
+  set sourceId(String value) => withZoneArena(
     () => mbgl_style_layer_set_source(ptr, value.toNativeUtf8(allocator: zoneArena).cast()),
   );
 

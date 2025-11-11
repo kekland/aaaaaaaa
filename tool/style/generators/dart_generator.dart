@@ -23,11 +23,40 @@ class DartGenerator {
 
     c.addAll([
       'class $className extends Layer {',
-      '  $className.fromNative({required super.ptr}) : super.fromNative();',
+      '  $className.fromNative({required super.ptr, super.ownedByDart}): super.fromNative();',
       '',
     ]);
 
     final fields = layer.fields.values.toList();
+
+    // Constructor
+    c.add('  $className({');
+    c.add('    required String id,');
+    if (layer.type != 'background') c.add('    required String sourceId,');
+
+    for (var i = 0; i < fields.length; i++) {
+      final field = fields[i];
+      c.add('    ${field.dartPropertyValueType}? ${field.dartName},');
+    }
+
+    c.add('    super.minZoom,');
+    c.add('    super.maxZoom,');
+
+    if (layer.type != 'background') {
+      c.add('    super.sourceLayer,');
+      c.add('  }): super(ptr: ${layer.cCreateFnName}(id.toNativeUtf8().cast(), sourceId.toNativeUtf8().cast())) {');
+    } else {
+      c.add('  }): super(ptr: ${layer.cCreateFnName}(id.toNativeUtf8().cast())) {');
+    }
+
+    for (var i = 0; i < fields.length; i++) {
+      final field = fields[i];
+      c.add('    if (${field.dartName} != null) this.${field.dartName} = ${field.dartName};');
+    }
+
+    c.add('  }');
+    c.add('');
+
     for (var i = 0; i < fields.length; i++) {
       final field = fields[i];
       final isLast = i == fields.length - 1;
@@ -113,19 +142,74 @@ class DartGenerator {
       return 0;
     });
 
-    c.add('mbgl_property_value_t propertyValueCreate<T>(T value) => switch (value) {');
-    for (final pv in propertyValues) {
-      if (pv is SpecFieldArray && pv.length != null) {
-        c.add(
-          '  (${pv.dartTypeNameBase} v) when value.length == ${pv.length} => ${pv.cPropertyValueCreateConstantName}(${pv.castDartToNative('v')}),',
-        );
-      } else {
-        c.add('  (${pv.dartTypeNameBase} v) => ${pv.cPropertyValueCreateConstantName}(${pv.castDartToNative('v')}),');
+    List<String> _createPvSwitch(String Function(SpecField) resultGenerator, {bool isOnGeneric = false}) {
+      final c = <String>[];
+
+      for (final pv in propertyValues) {
+        if (isOnGeneric) {
+          c.add('const (${pv.dartTypeNameBase}) => ${resultGenerator(pv)},');
+        } else {
+          c.add('(${pv.dartTypeNameBase} v) => ${resultGenerator(pv)},');
+        }
       }
+
+      c.add('_ => throw UnimplementedError("Unsupported property value type: \$T"),');
+
+      return c;
     }
-    c.add('  _ => throw UnimplementedError("Unsupported property value type: \$T"),');
-    c.add('};');
+
+    c.add('class PropertyValueFfi {');
+
+    // Create
+    c.add('  static mbgl_property_value_t create<T>(T value) => switch (value) {');
+    c.addAll(
+      _createPvSwitch((pv) => '${pv.cPropertyValueCreateConstantFnName}(${pv.castDartToNative('v')})').indented(4),
+    );
+    c.add('  };');
     c.add('');
+
+    // Destroy
+    c.add('  static void destroy<T>(mbgl_property_value_t ptr) => switch(T) {');
+    c.addAll(
+      _createPvSwitch((pv) => '${pv.cPropertyValueDestroyFnName}(ptr)', isOnGeneric: true).indented(4),
+    );
+    c.add('  };');
+    c.add('');
+
+    // boolean methods
+    final fnNames = ['isConstant', 'isDataDriven', 'isExpression', 'isUndefined', 'isZoomConstant'];
+    final cFnNames = [
+      (SpecField field) => field.cPropertyValueIsConstantFnName,
+      (SpecField field) => field.cPropertyValueIsDataDrivenFnName,
+      (SpecField field) => field.cPropertyValueIsExpressionFnName,
+      (SpecField field) => field.cPropertyValueIsUndefinedFnName,
+      (SpecField field) => field.cPropertyValueIsZoomConstantFnName,
+    ];
+
+    for (var i = 0; i < fnNames.length; i++) {
+      final fnName = fnNames[i];
+      final cFnNameGenerator = cFnNames[i];
+
+      c.add('  static bool $fnName<T>(mbgl_property_value_t ptr) => switch(T) {');
+      c.addAll(
+        _createPvSwitch((pv) => '${cFnNameGenerator(pv)}(ptr)', isOnGeneric: true).indented(4),
+      );
+      c.add('  };');
+      c.add('');
+    }
+
+    // as constant
+    c.add('  static T asConstant<T>(mbgl_property_value_t ptr) => switch(T) {');
+    c.addAll(
+      _createPvSwitch(
+        (pv) => '${pv.castNativeToDart('${pv.cPropertyValueAsConstantFnName}(ptr)')} as T',
+        isOnGeneric: true,
+      ).indented(4),
+    );
+    c.add('  };');
+    c.add('');
+
+    c.add('}');
 
     return c;
   }

@@ -40,3 +40,34 @@ extension ToNativeListFloat on List<double> {
     return ptr;
   }
 }
+
+extension ToDartUtils on Pointer<Void> {
+  List<T> toDartList<T, N>(
+    int Function(Pointer<Void>) lengthFn,
+    N Function(Pointer<Void>, int) getAtFn,
+    T Function(N) mapper,
+  ) {
+    final length = lengthFn(this);
+    final result = <T>[];
+    for (var i = 0; i < length; i++) result.add(mapper(getAtFn(this, i)));
+    return result;
+  }
+
+  ui.Color toDartColor() {
+    final r = mbgl_color_get_r(this);
+    final g = mbgl_color_get_g(this);
+    final b = mbgl_color_get_b(this);
+    final a = mbgl_color_get_a(this);
+
+    return ui.Color.from(alpha: a, red: r, green: g, blue: b);
+  }
+
+  ui.EdgeInsets toDartPadding() {
+    final top = mbgl_padding_get_top(this);
+    final right = mbgl_padding_get_right(this);
+    final bottom = mbgl_padding_get_bottom(this);
+    final left = mbgl_padding_get_left(this);
+
+    return ui.EdgeInsets.fromLTRB(left, top, right, bottom);
+  }
+}

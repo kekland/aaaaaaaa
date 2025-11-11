@@ -120,8 +120,9 @@ EXTERNC FLMLN_EXPORT mbgl_style_t mbgl_map_get_style(mbgl_map_t _map);
 // ---------------------------------
 
 EXTERNC FLMLN_EXPORT mbgl_style_layer_t mbgl_style_get_layer(mbgl_style_t _style, const char* layerId);
-EXTERNC FLMLN_EXPORT void mbgl_style_background_layer_set_background_color(mbgl_style_layer_t _layer,
-                                                                           const char* color);
+EXTERNC FLMLN_EXPORT void mbgl_style_add_layer(mbgl_style_t _style, mbgl_style_layer_t _layer,
+                                               const char* beforeLayerId);
+EXTERNC FLMLN_EXPORT mbgl_style_layer_t mbgl_style_remove_layer(mbgl_style_t _style, const char* layerId);
 
 // ---------------------------------
 // mbgl_style_expression_t
@@ -167,6 +168,10 @@ EXTERNC FLMLN_EXPORT void mbgl_style_layer_set_max_zoom(mbgl_style_layer_t _laye
 
 EXTERNC FLMLN_EXPORT mbgl_color_t mbgl_color_create_from_rgba(float r, float g, float b, float a);
 EXTERNC FLMLN_EXPORT void mbgl_color_destroy(mbgl_color_t _color);
+EXTERNC FLMLN_EXPORT float mbgl_color_get_r(mbgl_color_t _color);
+EXTERNC FLMLN_EXPORT float mbgl_color_get_g(mbgl_color_t _color);
+EXTERNC FLMLN_EXPORT float mbgl_color_get_b(mbgl_color_t _color);
+EXTERNC FLMLN_EXPORT float mbgl_color_get_a(mbgl_color_t _color);
 
 // --------------------------------
 // mbgl_padding_t
@@ -174,6 +179,10 @@ EXTERNC FLMLN_EXPORT void mbgl_color_destroy(mbgl_color_t _color);
 
 EXTERNC FLMLN_EXPORT mbgl_padding_t mbgl_padding_create(float top, float left, float bottom, float right);
 EXTERNC FLMLN_EXPORT void mbgl_padding_destroy(mbgl_padding_t _padding);
+EXTERNC FLMLN_EXPORT float mbgl_padding_get_top(mbgl_padding_t _padding);
+EXTERNC FLMLN_EXPORT float mbgl_padding_get_right(mbgl_padding_t _padding);
+EXTERNC FLMLN_EXPORT float mbgl_padding_get_bottom(mbgl_padding_t _padding);
+EXTERNC FLMLN_EXPORT float mbgl_padding_get_left(mbgl_padding_t _padding);
 
 // ---------------------------------
 // utils

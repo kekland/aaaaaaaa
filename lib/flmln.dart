@@ -1,12 +1,9 @@
 import 'dart:ffi' hide Size;
-import 'dart:io';
 
 import 'package:ffi/ffi.dart';
 import 'package:flmln/keys.dart';
-import 'package:flmln/src/style/layer.dart';
-import 'package:flmln/src/style/property.dart';
 import 'package:flmln/src/style/style.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Visibility;
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -140,24 +137,51 @@ class FlMlnWindgetState extends State<FlMlnWindget> with WidgetsBindingObserver 
           ],
         ),
         Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: ElevatedButton(
-            onPressed: () {
-              if (!enabled) enabled = true;
-              setState(() {});
-            },
-            child: Text('Tick'),
-          ),
-        ),
-        Padding(
           padding: const EdgeInsets.all(64.0),
-          child: ElevatedButton(
-            onPressed: () {
-              final style = Style.fromNative(mbgl_map_get_style(map));
-              final backgroundLayer = style.getLayer<BackgroundLayer>('Background');
-              backgroundLayer.backgroundColor = PropertyValue.constant(Color(0xFFFF0000));
-            },
-            child: Text('Set background to red'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8.0,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  if (!enabled) enabled = true;
+                  setState(() {});
+                },
+                child: Text('Tick'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final style = Style.fromNative(mbgl_map_get_style(map));
+                  final backgroundLayer = style.getLayer<BackgroundLayer>('Background');
+                  print(backgroundLayer.backgroundColor.asConstant);
+                  if (backgroundLayer.backgroundColor.asConstant == Colors.blue) {
+                    backgroundLayer.backgroundColor = PropertyValue.constant(Colors.green);
+                  } else {
+                    backgroundLayer.backgroundColor = PropertyValue.constant(Colors.blue);
+                  }
+                },
+                child: Text('Toggle Background'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final layer = FillLayer(
+                    id: 'my-fill-layer',
+                    sourceId: 'maptiler_planet',
+                    fillColor: PropertyValue.constant(Colors.purple),
+                    fillOpacity: PropertyValue.constant(0.5),
+                    sourceLayer: 'landuse',
+                  );
+
+                  // change parameters
+                  layer.fillColor = PropertyValue.constant(Colors.orange);
+
+                  // insert layer
+                  final style = Style.fromNative(mbgl_map_get_style(map));
+                  style.addLayer(layer);
+                },
+                child: Text('Insert layer'),
+              ),
+            ],
           ),
         ),
       ],

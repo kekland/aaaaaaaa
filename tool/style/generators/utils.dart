@@ -9,6 +9,9 @@ extension SpecLayerCUtils on SpecLayer {
 
   String get mbglClassName => 'style::${type.toUpperCamelCase()}Layer';
   String castCToMbgl(String varName) => 'reinterpret_cast<$mbglClassName*>($varName)';
+
+  String get cCreateFnName => '${cPrefix}_create';
+  String get cDestroyFnName => '${cPrefix}_destroy';
 }
 
 extension SpecFieldEnumValueCUtils on SpecFieldEnumValue {
@@ -50,14 +53,22 @@ extension SpecFieldEnumCUtils on SpecFieldEnum {
 }
 
 extension SpecFieldArrayCUtils on SpecFieldArray {
-  String get cCreateName {
-    if (length != null) return 'mbgl_style_std_array_${innerType.cTypeNameBase.toLowerCase()}_${length}_create';
-    return 'mbgl_style_std_vector_${innerType.cTypeNameBase.toLowerCase()}_create';
+  String get cArrayFnBaseName {
+    if (length != null) return 'std_array_${innerType.cTypeNameBase.toLowerCase()}_$length';
+    return 'std_vector_${innerType.cTypeNameBase.toLowerCase()}';
   }
 
-  String get cDestroyName {
-    if (length != null) return 'mbgl_style_std_array_${innerType.cTypeNameBase.toLowerCase()}_${length}_destroy';
-    return 'mbgl_style_std_vector_${innerType.cTypeNameBase.toLowerCase()}';
+  String get cArrayCreateName => '${cArrayFnBaseName}_create';
+  String get cArrayDestroyName => '${cArrayFnBaseName}_destroy';
+  String get cArrayLengthName => '${cArrayFnBaseName}_length';
+  String get cArrayGetAtName => '${cArrayFnBaseName}_get_at';
+
+  String castCToMbgl(String varName) {
+    return '*reinterpret_cast<$mbglTypeName*>($varName)';
+  }
+
+  String castMbglToC(String varName) {
+    return 'reinterpret_cast<$cTypeName>(const_cast<$mbglTypeName*>(&$varName))';
   }
 }
 
@@ -158,17 +169,19 @@ extension SpecFieldCUtils on SpecField {
   }
 
   String castMbglToC(String varName) {
-    if (this is SpecFieldEnum) {
-      final _this = this as SpecFieldEnum;
-      return _this.castMbglToC(varName);
-    }
+    if (this is SpecFieldEnum) return (this as SpecFieldEnum).castMbglToC(varName);
+    if (this is SpecFieldArray) return (this as SpecFieldArray).castMbglToC(varName);
 
-    return varName;
+    return switch (type) {
+      SpecFieldType.boolean => varName,
+      SpecFieldType.number => varName,
+      _ => 'reinterpret_cast<$cTypeName>(const_cast<$mbglTypeName*>(&$varName))',
+    };
   }
 
   String castCToMbgl(String varName) {
     if (this is SpecFieldEnum) return (this as SpecFieldEnum).castCToMbgl(varName);
-    if (this is SpecFieldArray) return '*reinterpret_cast<$mbglTypeName*>($varName)';
+    if (this is SpecFieldArray) return (this as SpecFieldArray).castCToMbgl(varName);
 
     return switch (type) {
       SpecFieldType.string => 'std::string($varName)',
@@ -188,9 +201,17 @@ extension SpecFieldCUtils on SpecField {
     return '*reinterpret_cast<$mbglPropertyValueType*>($varName)';
   }
 
-  String get cPropertyValueCreateConstantName =>
-      '${cPropertyValuePrefix}_${cPropertyValueTypeNameBase.toLowerCase()}_create_constant';
-  String get cPropertyValueDestroyName => '${cPropertyValuePrefix}_${cPropertyValueTypeNameBase.toLowerCase()}_destroy';
+  String get cPropertyValueFnNamePrefix => '${cPropertyValuePrefix}_${cPropertyValueTypeNameBase.toLowerCase()}';
+
+  String get cPropertyValueCreateConstantFnName => '${cPropertyValueFnNamePrefix}_create_constant';
+  String get cPropertyValueDestroyFnName => '${cPropertyValueFnNamePrefix}_destroy';
+  String get cPropertyValueIsConstantFnName => '${cPropertyValueFnNamePrefix}_is_constant';
+  String get cPropertyValueIsDataDrivenFnName => '${cPropertyValueFnNamePrefix}_is_data_driven';
+  String get cPropertyValueIsExpressionFnName => '${cPropertyValueFnNamePrefix}_is_expression';
+  String get cPropertyValueIsUndefinedFnName => '${cPropertyValueFnNamePrefix}_is_undefined';
+  String get cPropertyValueIsZoomConstantFnName => '${cPropertyValueFnNamePrefix}_is_zoom_constant';
+  String get cPropertyValueAsConstantFnName => '${cPropertyValueFnNamePrefix}_as_constant';
+  String get cPropertyValueAsExpressionFnName => '${cPropertyValueFnNamePrefix}_as_expression';
 }
 
 extension SpecLayerDartUtils on SpecLayer {
@@ -211,13 +232,49 @@ extension SpecFieldEnumDartUtils on SpecFieldEnum {
   String castNativeToDart(String varName) => '$dartFromNativeName($varName)';
 }
 
+extension SpecFieldArrayDartUtils on SpecFieldArray {
+  String castDartToNative(String varName) {
+    if (length == null) {
+      late final String cast;
+
+      if (innerType is SpecFieldEnum) {
+        cast = 'v.toNativeList((e) => e._toNative())';
+      } else {
+        cast = 'v.toNativeList()';
+      }
+
+      return '$cArrayCreateName(v.length, $cast)';
+    } else {
+      var args = <String>[];
+      for (var i = 0; i < length!; i++) {
+        args.add(innerType.castDartToNative('$varName.\$${i + 1}'));
+      }
+      return '$cArrayCreateName(${args.join(', ')})';
+    }
+  }
+
+  String castNativeToDart(String varName) {
+    if (length == null) {
+      return '$varName.toDartList($cArrayLengthName, $cArrayGetAtName, (n) => ${innerType.castNativeToDart('n')})';
+    }
+    else {
+      var args = <String>[];
+      for (var i = 0; i < length!; i++) {
+        args.add(innerType.castNativeToDart('$cArrayGetAtName($varName, $i)'));
+      }
+      return '(${args.join(', ')})';
+    }
+  }
+}
+
 extension SpecFieldDartUtils on SpecField {
   String get dartName => name.toCamelCase();
 
   String get dartTypeNameBase {
     if (this is SpecFieldArray) {
       final _this = this as SpecFieldArray;
-      return 'List<${_this.innerType.dartTypeNameBase}>';
+      if (_this.length == null) return 'List<${_this.innerType.dartTypeNameBase}>';
+      return '(${List.filled(_this.length!, _this.innerType.dartTypeNameBase).join(', ')})';
     }
 
     return switch (type) {
@@ -240,31 +297,8 @@ extension SpecFieldDartUtils on SpecField {
   }
 
   String castDartToNative(String varName) {
-    if (this is SpecFieldEnum) {
-      final _this = this as SpecFieldEnum;
-      return _this.castDartToNative(varName);
-    }
-
-    if (this is SpecFieldArray) {
-      final _this = this as SpecFieldArray;
-      if (_this.length == null) {
-        late final String cast;
-
-        if (_this.innerType is SpecFieldEnum) {
-          cast = 'v.toNativeList((e) => e._toNative())';
-        } else {
-          cast = 'v.toNativeList()';
-        }
-
-        return '${_this.cCreateName}(v.length, $cast)';
-      } else {
-        var args = <String>[];
-        for (var i = 0; i < _this.length!; i++) {
-          args.add(_this.innerType.castDartToNative('$varName[$i]'));
-        }
-        return '${_this.cCreateName}(${args.join(', ')})';
-      }
-    }
+    if (this is SpecFieldEnum) return (this as SpecFieldEnum).castDartToNative(varName);
+    if (this is SpecFieldArray) return (this as SpecFieldArray).castDartToNative(varName);
 
     return switch (type) {
       SpecFieldType.string => '$varName.toNativeUtf8().cast()',
@@ -278,12 +312,14 @@ extension SpecFieldDartUtils on SpecField {
   }
 
   String castNativeToDart(String varName) {
-    if (this is SpecFieldEnum) {
-      final _this = this as SpecFieldEnum;
-      return _this.castNativeToDart(varName);
-    }
+    if (this is SpecFieldEnum) return (this as SpecFieldEnum).castNativeToDart(varName);
+    if (this is SpecFieldArray) return (this as SpecFieldArray).castNativeToDart(varName);
 
-    return varName;
+    return switch(type) {
+      SpecFieldType.color => '$varName.toDartColor()',
+      SpecFieldType.padding => '$varName.toDartPadding()',
+      _ => varName,
+    };
   }
 
   String dartPropertyValueFromNative(String varName) {
